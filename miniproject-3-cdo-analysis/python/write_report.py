@@ -281,8 +281,6 @@ def footer(canvas, document) -> None:
 
 def front_matter(results: dict) -> list:
     site = PROJECT["site_url"]
-    c, deal = results["checks"], results["deal"]
-    safe_b = (c["floor_at_maturity"] - results["promised"]["class_a"][-1]) / (1 + deal["b_coupon"] / deal["freq"])
     story = [
         Paragraph(PROJECT["title"], TITLE),
         Paragraph("Mini-Project 3, Part 1  |  FRE 6103 Valuation for Financial Engineering, NYU Tandon", SUBTITLE),
@@ -297,7 +295,6 @@ def front_matter(results: dict) -> list:
                   "resulting cash flows statistically, including their sensitivity to the main inputs. Valuation of "
                   "the classes is Part 2.", BODY),
     ]
-    story += client_points(results, safe_b)
     story += [Paragraph("1. Key Assumptions", H2_SPLIT), assumption_table(results)]
     story.append(Paragraph("2. Implementation Steps", H2))
     story += [Paragraph(f"{n}. <b>{heading}:</b> {text}", ITEM) for n, (heading, text) in enumerate(steps(results), 1)]
@@ -461,7 +458,7 @@ def class_risk_page(results: dict) -> list:
         Paragraph(f"Table 5. Class B notional varied with all other inputs at base (LGD {pct(deal['lgd'], 0)}). Equity "
                   "figures are total 5-year cash in $ MM.", CAPTION),
     ]
-    return story
+    return story + client_points(results, safe_b)
 
 
 def client_points(results: dict, safe_b: float) -> list:
@@ -485,7 +482,7 @@ def client_points(results: dict, safe_b: float) -> list:
         f"{pct(results['market_ytm'], 0)} market yield on the collateral and the {pct(results['risk_free'], 0)} "
         "risk-free rate, is the subject of Part 2.",
     ]
-    return [Paragraph("Summary for the client", H2)] + [Paragraph("<bullet>&bull;</bullet>" + text, BULLET) for text in points]
+    return [Paragraph("6. Points for the client", H2)] + [Paragraph("<bullet>&bull;</bullet>" + text, BULLET) for text in points]
 
 
 def appendix(results: dict, figures: Path) -> list:
