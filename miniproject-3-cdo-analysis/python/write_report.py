@@ -17,7 +17,7 @@ from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import inch
 from reportlab.lib.utils import ImageReader
-from reportlab.platypus import Image, PageBreak, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
+from reportlab.platypus import HRFlowable, Image, PageBreak, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
@@ -27,13 +27,25 @@ REPORT_NAME = "Miniproject3_CDO_Analysis_Report.pdf"
 NAVY = colors.HexColor("#1F3864")
 RULE = colors.HexColor("#999999")
 
-BODY = ParagraphStyle("body", fontName="Helvetica", fontSize=9.5, leading=12.2, alignment=TA_JUSTIFY, spaceAfter=3)
+SIDE_MARGIN, TOP_MARGIN, BOTTOM_MARGIN = 0.95 * inch, 0.9 * inch, 0.95 * inch
+AVAILABLE = letter[0] - 2 * SIDE_MARGIN - 12         # width of the text block (the frame pads 6 pt each side)
+INK = colors.HexColor("#1A1A1A")
+MUTED = colors.HexColor("#5A5A5A")
+STRIPE = colors.HexColor("#F3F5F8")
+
+BODY = ParagraphStyle("body", fontName="Helvetica", fontSize=10, leading=14.5, alignment=TA_JUSTIFY, spaceAfter=7,
+                      textColor=INK)
 LEFT = ParagraphStyle("left", parent=BODY, alignment=0)
-TITLE = ParagraphStyle("title", fontName="Helvetica-Bold", fontSize=15, leading=19, spaceAfter=6)
-H2 = ParagraphStyle("h2", fontName="Helvetica-Bold", fontSize=11.5, leading=14, spaceBefore=7, spaceAfter=3)
-CAPTION = ParagraphStyle("caption", fontName="Helvetica-Oblique", fontSize=8.8, leading=11, alignment=TA_CENTER,
-                         spaceBefore=3, spaceAfter=9)
-ITEM = ParagraphStyle("item", parent=LEFT, leftIndent=18, firstLineIndent=-12)
+TITLE = ParagraphStyle("title", fontName="Helvetica-Bold", fontSize=21, leading=25, spaceAfter=5, textColor=NAVY)
+SUBTITLE = ParagraphStyle("subtitle", fontName="Helvetica", fontSize=10.5, leading=15, spaceAfter=1, textColor=MUTED)
+H2 = ParagraphStyle("h2", fontName="Helvetica-Bold", fontSize=13, leading=16, spaceBefore=16, spaceAfter=7,
+                    textColor=NAVY, keepWithNext=1)
+CAPTION = ParagraphStyle("caption", fontName="Helvetica-Oblique", fontSize=8.8, leading=11.5, alignment=TA_CENTER,
+                         spaceBefore=6, spaceAfter=14, textColor=MUTED)
+ITEM = ParagraphStyle("item", parent=LEFT, leftIndent=18, firstLineIndent=-18, spaceAfter=5)
+H2_SPLIT = ParagraphStyle("h2split", parent=H2, keepWithNext=0)      # before a table that may break over a page
+BULLET = ParagraphStyle("bullet", parent=LEFT, leftIndent=16, bulletIndent=4, spaceAfter=5)
+CELL = ParagraphStyle("cell", parent=LEFT, fontSize=9.5, leading=13, spaceAfter=0)
 
 
 def pct(x: float, digits: int = 1) -> str:
@@ -49,7 +61,7 @@ def keyed(rows: list, key: str) -> dict:
     return {row[key]: row for row in rows}
 
 
-def table(rows: list, widths: list, font: float = 8.5, first_left: bool = True, pad: float = 2.5) -> Table:
+def table(rows: list, widths: list, font: float = 8.5, first_left: bool = True, pad: float = 3.5) -> Table:
     style = [
         ("BACKGROUND", (0, 0), (-1, 0), NAVY),
         ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
@@ -64,14 +76,22 @@ def table(rows: list, widths: list, font: float = 8.5, first_left: bool = True, 
     ]
     if first_left:
         style.append(("ALIGN", (0, 1), (0, -1), "LEFT"))
+    total = sum(widths)
+    if total > AVAILABLE:                                # shrink to the text block
+        widths = [w * AVAILABLE / total for w in widths]
+    style.append(("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, STRIPE]))
     flowable = Table(rows, colWidths=widths, repeatRows=1)
     flowable.setStyle(TableStyle(style))
+    flowable.keepWithNext = 1                            # a table stays with its caption
     return flowable
 
 
 def figure(path: Path, width: float) -> Image:
+    width = min(width, AVAILABLE)
     pixel_width, pixel_height = ImageReader(str(path)).getSize()
-    return Image(str(path), width=width, height=width * pixel_height / pixel_width)
+    image = Image(str(path), width=width, height=width * pixel_height / pixel_width)
+    image.keepWithNext = 1                               # a figure stays with its caption
+    return image
 
 
 def assumptions(results: dict) -> list:
@@ -234,11 +254,40 @@ def build_sections(results: dict) -> list:
     return [{"heading": heading, "html": text} for heading, text in blocks]
 
 
+def assumption_table(results: dict) -> Table:
+    """The key assumptions as a two-column table: what it is about, then the assumption."""
+    rows = [[Paragraph(f"<b>{heading}</b>", CELL), Paragraph(text, CELL)] for heading, text in assumptions(results)]
+    flowable = Table(rows, colWidths=[1.25 * inch, AVAILABLE - 1.25 * inch])
+    flowable.setStyle(TableStyle([
+        ("VALIGN", (0, 0), (-1, -1), "TOP"),
+        ("LINEBELOW", (0, 0), (-1, -1), 0.4, colors.HexColor("#D5D9E0")),
+        ("LINEABOVE", (0, 0), (-1, 0), 0.4, colors.HexColor("#D5D9E0")),
+        ("LEFTPADDING", (0, 0), (0, -1), 2),
+        ("TOPPADDING", (0, 0), (-1, -1), 5),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
+    ]))
+    return flowable
+
+
+def footer(canvas, document) -> None:
+    """Short title on the left and the page number on the right of every page."""
+    canvas.saveState()
+    canvas.setFont("Helvetica", 8)
+    canvas.setFillColor(MUTED)
+    canvas.drawString(document.leftMargin, 0.55 * inch, f"FRE 6103 Mini-Project 3: {PROJECT['title']}")
+    canvas.drawRightString(letter[0] - document.rightMargin, 0.55 * inch, f"Page {canvas.getPageNumber()}")
+    canvas.restoreState()
+
+
 def front_matter(results: dict) -> list:
     site = PROJECT["site_url"]
+    c, deal = results["checks"], results["deal"]
+    safe_b = (c["floor_at_maturity"] - results["promised"]["class_a"][-1]) / (1 + deal["b_coupon"] / deal["freq"])
     story = [
-        Paragraph(f"Mini Project - 3: {PROJECT['title']} (Part 1)", TITLE),
-        Paragraph(f"<b>Group members:</b> {PROJECT['members_line']}", LEFT),
+        Paragraph(PROJECT["title"], TITLE),
+        Paragraph("Mini-Project 3, Part 1  |  FRE 6103 Valuation for Financial Engineering, NYU Tandon", SUBTITLE),
+        Paragraph(f"Group members: {PROJECT['members_line']}", SUBTITLE),
+        HRFlowable(width="100%", thickness=0.9, color=NAVY, spaceBefore=9, spaceAfter=11),
         Paragraph(f"<b>Interactive dashboard:</b> <link href=\"{site}\"><font face=\"Courier\" size=\"8.5\">{site}</font>"
                   "</link> (the same model in the browser: pick any of the 1000 cases or change the inputs, and the "
                   "cash flows, distributions and sensitivities update)", LEFT),
@@ -247,9 +296,9 @@ def front_matter(results: dict) -> list:
                   "cash flows to Class A, Class B and the bank's equity through the waterfall, and to describe the "
                   "resulting cash flows statistically, including their sensitivity to the main inputs. Valuation of "
                   "the classes is Part 2.", BODY),
-        Paragraph("1. Key Assumptions", H2),
     ]
-    story += [Paragraph(f"<b>{heading}:</b> {text}", LEFT) for heading, text in assumptions(results)]
+    story += client_points(results, safe_b)
+    story += [Paragraph("1. Key Assumptions", H2_SPLIT), assumption_table(results)]
     story.append(Paragraph("2. Implementation Steps", H2))
     story += [Paragraph(f"{n}. <b>{heading}:</b> {text}", ITEM) for n, (heading, text) in enumerate(steps(results), 1)]
     story += [Paragraph("3. Results Summary", H2), Paragraph(results_summary(results), BODY), Spacer(1, 6)]
@@ -274,13 +323,12 @@ def results_pages(results: dict, figures: Path) -> list:
                   f"cases together, so the formula overstates the error of the pool and equity means: across {check['n_tables']:,} fresh sets of "
                   f"random numbers the mean pool cash had a standard deviation of ${check['sd_of_mean_matched']:.2f} MM "
                   f"with moment matching and ${check['sd_of_mean_as_drawn']:.2f} MM without.", CAPTION),
-        figure(figures / "total_cash_distributions.png", 6.4 * inch),
+        figure(figures / "total_cash_distributions.png", 5.6 * inch),
         Paragraph("Figure 1. Distribution of total 5-year cash from the collateral pool (left) and to the bank's "
                   "equity (right). The equity distribution is the pool distribution shifted down by the "
                   f"${results['promised']['totals']['class_a'] + results['promised']['totals']['class_b']:.0f} MM paid "
                   "to Classes A and B.", CAPTION),
     ]
-    story.append(PageBreak())
     rows = [["Defaults in 5 years", "Cases", "Simulated", "Exact (model)", "If independent", "Avg pool cash",
              "Avg equity cash"]]
     for r in results["default_distribution"]:
@@ -297,12 +345,12 @@ def results_pages(results: dict, figures: Path) -> list:
                   "probability under the model (common factor, no random numbers) and the binomial if defaults were "
                   "independent, with the average cash ($ MM) in cases with that many defaults. Each default costs the "
                   f"pool about ${per_default:.0f} MM.", CAPTION),
-        figure(figures / "default_count.png", 5.0 * inch),
+        figure(figures / "default_count.png", 4.1 * inch),
         Paragraph(f"Figure 2. Distribution of the number of defaults. With correlation {results['deal']['rho']:.2f} "
                   "both ends are more likely than under independence: more cases with no defaults and more cases with "
                   "5 or more. The dots are the exact probabilities under the model, which the 1000 cases track closely.",
                   CAPTION),
-        figure(figures / "quarterly_cash_flows.png", 5.0 * inch),
+        figure(figures / "quarterly_cash_flows.png", 4.5 * inch),
     ]
     q = results["quarterly"]
     story.append(Paragraph(
@@ -319,7 +367,6 @@ def results_pages(results: dict, figures: Path) -> list:
 
 def sensitivity_page(results: dict, figures: Path) -> list:
     story = [
-        PageBreak(),
         Paragraph("4. Sensitivities", H2),
         Paragraph("We changed each input on its own, keeping the others at their base values and using the same "
                   "fixed random numbers. Because the classes are fully covered in the base case, the sensitivities "
@@ -361,7 +408,6 @@ def class_risk_page(results: dict) -> list:
     survivors_a = math.ceil(promised["class_a"][-1] / promised["bond"][-1] - 1e-12)
     survivors_b = math.ceil((promised["class_a"][-1] + promised["class_b"][-1]) / promised["bond"][-1] - 1e-12)
     story = [
-        PageBreak(),
         Paragraph("5. When do the classes become risky?", H2),
         Paragraph(
             "With the base LGD no combination of default probability and correlation can touch Class A or Class B, "
@@ -415,7 +461,7 @@ def class_risk_page(results: dict) -> list:
         Paragraph(f"Table 5. Class B notional varied with all other inputs at base (LGD {pct(deal['lgd'], 0)}). Equity "
                   "figures are total 5-year cash in $ MM.", CAPTION),
     ]
-    return story + client_points(results, safe_b)
+    return story
 
 
 def client_points(results: dict, safe_b: float) -> list:
@@ -439,7 +485,7 @@ def client_points(results: dict, safe_b: float) -> list:
         f"{pct(results['market_ytm'], 0)} market yield on the collateral and the {pct(results['risk_free'], 0)} "
         "risk-free rate, is the subject of Part 2.",
     ]
-    return [Paragraph("6. Points for the client", H2)] + [Paragraph("- " + text, ITEM) for text in points]
+    return [Paragraph("Summary for the client", H2)] + [Paragraph("<bullet>&bull;</bullet>" + text, BULLET) for text in points]
 
 
 def appendix(results: dict, figures: Path) -> list:
@@ -495,10 +541,10 @@ def write_pdf(results: dict, figures: Path, target: Path) -> None:
     check_report_assumptions(results)
     story = front_matter(results) + results_pages(results, figures) + sensitivity_page(results, figures)
     story += class_risk_page(results) + appendix(results, figures)
-    document = SimpleDocTemplate(str(target), pagesize=letter, leftMargin=0.75 * inch, rightMargin=0.75 * inch,
-                                 topMargin=0.6 * inch, bottomMargin=0.6 * inch,
+    document = SimpleDocTemplate(str(target), pagesize=letter, leftMargin=SIDE_MARGIN, rightMargin=SIDE_MARGIN,
+                                 topMargin=TOP_MARGIN, bottomMargin=BOTTOM_MARGIN,
                                  title=f"Mini Project 3: {PROJECT['title']}", author=PROJECT["authors"])
-    document.build(story)
+    document.build(story, onFirstPage=footer, onLaterPages=footer)
 
 
 def main(argv=None) -> int:
