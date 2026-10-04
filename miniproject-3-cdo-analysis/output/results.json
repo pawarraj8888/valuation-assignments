@@ -9244,5 +9244,15 @@
    "class_b": 12.0,
    "equity": 89.82
   }
- ]
+ ],
+ "sampling_check": {
+  "n_tables": 2000,
+  "seed": 6104,
+  "exact_mean": 117.12128796375868,
+  "mean_as_drawn": 117.11878936000001,
+  "mean_matched": 117.112929265,
+  "sd_of_mean_as_drawn": 0.3857348681181562,
+  "sd_of_mean_matched": 0.14914322189234078,
+  "average_formula_std_error": 0.380173086082425
+ }
 }

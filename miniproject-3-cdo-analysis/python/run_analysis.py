@@ -19,7 +19,16 @@ import pandas as pd  # noqa: E402
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from cdo import BASE_DEAL, N_CASES, SEED, build_results, load_fixed_normals, moment_match, simulate  # noqa: E402
+from cdo import (  # noqa: E402
+    BASE_DEAL,
+    N_CASES,
+    SEED,
+    build_results,
+    load_fixed_normals,
+    moment_match,
+    sampling_error_check,
+    simulate,
+)
 from cdo.report import (  # noqa: E402
     apply_chart_style,
     plot_case,
@@ -103,6 +112,7 @@ def main(argv=None) -> int:
     raw = table.values
     Z = moment_match(raw)      # de-meaned and moment matched: the numbers the model uses
     results = build_results(Z, BASE_DEAL, SEED, example_case=args.case, raw=raw)
+    results["sampling_check"] = sampling_error_check(BASE_DEAL, N_CASES)
     r = simulate(Z, BASE_DEAL)
 
     write_json(out / "results.json", results)

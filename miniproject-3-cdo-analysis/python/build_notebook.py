@@ -38,6 +38,7 @@ from cdo.analysis import (  # noqa: E402
     exact_default_count_distribution,
     expected_pool_cash_flows,
     quarterly_table,
+    sampling_error_check,
     sensitivity,
     summary_row,
 )
@@ -380,8 +381,10 @@ plt.show()
 Totals are the sum of the 20 quarterly cash flows, not discounted (discounting is Part 2).
 
 The "no-default amount" is what the pool or the class would receive if no bond defaulted. The
-standard error is the standard deviation divided by the square root of the number of cases. It
-treats the 1000 cases as independent, which is only approximately true after moment matching.
+standard error is the standard deviation divided by the square root of the number of cases. That
+is the formula for independent cases. Moment matching ties the cases together, so the true sampling
+error of a mean is smaller and this figure should be read as an upper bound. The check after the
+table measures it by running the model on fresh sets of random numbers.
 """),
         code(source_of(describe), """
 pool_total = pool_cf.sum(axis=1)
@@ -397,6 +400,13 @@ stats = pd.DataFrame({
     "Equity (bank)": describe(eq_total, eq_promised),
 }).T
 stats.round(3)
+"""),
+        code(source_of(sampling_error_check), """
+sampling = sampling_error_check(base, N_CASES, n_tables=300)
+print(f"Mean total pool cash over {sampling['n_tables']} fresh sets of random numbers (exact value {sampling['exact_mean']:.2f})")
+print(f"  as drawn:        {sampling['mean_as_drawn']:.2f} on average, varies by {sampling['sd_of_mean_as_drawn']:.3f} from set to set")
+print(f"  moment matched:  {sampling['mean_matched']:.2f} on average, varies by {sampling['sd_of_mean_matched']:.3f} from set to set")
+print(f"  std dev / sqrt(n) on a moment-matched set: {sampling['average_formula_std_error']:.3f}")
 """),
         md("""
 The number of defaults per case is compared with two benchmarks. The first is the exact

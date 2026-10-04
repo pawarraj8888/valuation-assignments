@@ -10,6 +10,7 @@ from scipy.stats import binom, norm
 from .bonds import bis_expected_value, promised_cash_flows
 from .defaults import correlate
 from .model import MARKET_YTM, RISK_FREE, simulate
+from .random_numbers import moment_match
 
 # Values each input takes in the sensitivity runs (the base value is always included).
 PD_GRID = (0.01, 0.02, 0.04, 0.06, 0.08, 0.12)
@@ -19,6 +20,8 @@ B_NOTIONAL_GRID = (10.0, 20.0, 30.0, 40.0, 50.0, 60.0)
 STRESS_LGD = 1.00
 STRESS_PD_GRID = (0.04, 0.08, 0.12, 0.20)
 STRESS_RHO_GRID = (0.0, 0.20, 0.40, 0.60, 0.80)
+
+SAMPLING_CHECK_SEED = 6104      # for the fresh sets of random numbers in sampling_error_check
 
 # The example on the BIS slide in Lecture 5, used as a check on the bond function.
 SLIDE_EXAMPLE = {"face": 1000.0, "coupon": 0.055, "years": 5, "pd": 0.03, "lgd": 0.60, "rate": 0.04, "value": 984.73}
@@ -30,7 +33,7 @@ def describe(x: np.ndarray, no_default: float) -> dict:
         "no-default amount": no_default,
         "mean": x.mean(),
         "std dev": x.std(ddof=1),
-        "std error": x.std(ddof=1) / np.sqrt(len(x)),      # of the mean, treating the cases as independent
+        "std error": x.std(ddof=1) / np.sqrt(len(x)),      # of the mean if the cases were independent (an upper bound here)
         "min": x.min(),
         "5th pct": np.percentile(x, 5),
         "median": np.median(x),
@@ -189,6 +192,34 @@ def example_case_record(r: dict, case: int) -> dict:
 def _records(table: pd.DataFrame) -> list:
     """DataFrame (with its index) -> list of plain dicts that json can write; NaN becomes null."""
     return json.loads(table.reset_index().to_json(orient="records"))
+
+
+def sampling_error_check(base: dict, n_cases: int, n_tables: int = 2000, seed: int = SAMPLING_CHECK_SEED) -> dict:
+    """How far the mean total pool cash moves from one set of random numbers to the next.
+
+    Draws n_tables fresh sets, runs the model on each as drawn and after moment matching, and reports
+    the standard deviation of the mean across sets. That is the real sampling error of the mean. The
+    usual std dev / sqrt(n) formula only gives it when the cases are independent.
+    """
+    rng = np.random.default_rng(seed)
+    as_drawn, matched, formula = [], [], []
+    for _ in range(n_tables):
+        Z = rng.standard_normal((n_cases, base["n_bonds"]))
+        plain_total = simulate(Z, base)["pool_cf"].sum(axis=1)
+        matched_total = simulate(moment_match(Z), base)["pool_cf"].sum(axis=1)
+        as_drawn.append(plain_total.mean())
+        matched.append(matched_total.mean())
+        formula.append(matched_total.std(ddof=1) / np.sqrt(n_cases))
+    return {
+        "n_tables": n_tables,
+        "seed": seed,
+        "exact_mean": float(expected_pool_cash_flows(base).sum()),
+        "mean_as_drawn": float(np.mean(as_drawn)),
+        "mean_matched": float(np.mean(matched)),
+        "sd_of_mean_as_drawn": float(np.std(as_drawn, ddof=1)),
+        "sd_of_mean_matched": float(np.std(matched, ddof=1)),
+        "average_formula_std_error": float(np.mean(formula)),
+    }
 
 
 def moment_matching_summary(raw: np.ndarray, matched: np.ndarray) -> dict:

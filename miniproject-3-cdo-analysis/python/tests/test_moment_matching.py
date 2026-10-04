@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from cdo import BASE_DEAL, moment_match, simulate
+from cdo import BASE_DEAL, moment_match, sampling_error_check, simulate
 from cdo.defaults import correlate
 
 
@@ -41,6 +41,14 @@ def test_moment_matching_moves_the_default_rate_towards_theory(raw_normals, norm
     as_drawn = simulate(raw_normals, BASE_DEAL)["defaulted"].sum(axis=1).mean()
     matched = simulate(normals, BASE_DEAL)["defaulted"].sum(axis=1).mean()
     assert abs(matched - theory) < abs(as_drawn - theory)
+
+
+def test_moment_matching_lowers_the_sampling_error_of_the_mean():
+    check = sampling_error_check(BASE_DEAL, 1000, n_tables=40, seed=1)
+    assert check["sd_of_mean_matched"] < 0.6 * check["sd_of_mean_as_drawn"]
+    # the std dev / sqrt(n) formula does not see the gain: it is an upper bound after matching
+    assert check["average_formula_std_error"] > 1.5 * check["sd_of_mean_matched"]
+    assert abs(check["mean_matched"] - check["exact_mean"]) < 0.15
 
 
 @pytest.mark.parametrize("shape", [(10, 10), (5, 10)])

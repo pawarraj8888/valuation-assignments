@@ -12,6 +12,7 @@ from .analysis import (
     exact_default_count_distribution,
     expected_pool_cash_flows,
     quarterly_table,
+    sampling_error_check,
     sensitivity,
     summary_row,
 )
@@ -56,6 +57,7 @@ __all__ = [
     "exact_default_count_distribution",
     "default_count_table",
     "quarterly_table",
+    "sampling_error_check",
     "build_results",
     "load_fixed_normals",
     "moment_match",

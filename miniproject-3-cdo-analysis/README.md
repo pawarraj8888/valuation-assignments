@@ -42,7 +42,7 @@ python/     cdo/                                package: bonds.py, defaults.py, 
             build_excel.py                      builds the Excel implementation (live formulas, case selector)
             recalc_excel_mac.sh, verify_excel.py    recalculate in Excel (macOS) and prove Excel == Python
             write_report.py, build_site.py      the PDF report and the data for the project page
-            tests/                              pytest suite (97 tests)
+            tests/                              pytest suite (98 tests)
 notebooks/  Miniproject3_CDO_Analysis.ipynb     executed, self-contained walk-through notebook
 excel/      Miniproject3_CDO_Analysis.xlsx      Excel implementation
 output/     results.json, case_totals.csv, pool_cash_flows.csv, default_quarters.csv, sensitivities.csv,
@@ -75,6 +75,9 @@ docs/       GitHub Pages site (index.html, model.js, data.js, files/)
 - The simulated mean pool cash flow is within 0.20% of the exact expected value in every quarter.
 - The moment matching was built by hand in Excel and separately in Python. The two give the same default
   quarter for all 10,000 bond-cases.
+- The standard error column is std dev / sqrt(n), which assumes independent cases. Across 2,000 fresh sets of
+  random numbers the mean pool cash varied by $0.15 MM with moment matching and $0.39 MM without, so that
+  column is an upper bound on the error of the means.
 - The simulated number of defaults is compared with the exact distribution under the model, computed without
   random numbers (one common factor, integrated with Simpson's rule).
 - A second implementation with plain loops, written inside the test suite, matches the vectorized model in

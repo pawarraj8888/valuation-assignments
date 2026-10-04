@@ -418,8 +418,9 @@ def build_statistics(wb: Workbook) -> None:
     header(ws, SUMMARY_FIRST_ROW - 1, ["", "No-default amount", "Mean", "Std dev", "Std error of the mean", "Min", "5th pct",
                                        "Median", "95th pct", "Max", "Mean / no-default amount",
                                        "Share of cases below the no-default amount"], height=58)
-    ws[f"A{SUMMARY_FIRST_ROW + 4}"] = ("Std error of the mean = std dev / square root of the number of cases. It treats the cases as "
-                                        "independent; moment matching makes them slightly dependent, so it is approximate.")
+    ws[f"A{SUMMARY_FIRST_ROW + 4}"] = ("Std error of the mean = std dev / square root of the number of cases, the usual formula for "
+                                        "independent cases. Moment matching ties the cases together, so the true sampling error of "
+                                        "these means is smaller: read this column as an upper bound.")
     schedule = lambda letter: f"SUM(Inputs!${letter}${SCHEDULE_FIRST_ROW}:${letter}${SCHEDULE_FIRST_ROW + N_PERIODS - 1})"  # noqa: E731
     promised = [f"={schedule('C')}", f"={schedule('D')}", f"={schedule('E')}",
                 f"=B{SUMMARY_FIRST_ROW}-B{SUMMARY_FIRST_ROW + 1}-B{SUMMARY_FIRST_ROW + 2}"]

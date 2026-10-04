@@ -133,12 +133,14 @@ def steps(results: dict) -> list:
          f"Read the {results['n_cases']} x {d['n_bonds']} table of independent normals from the csv file (it is "
          "created from the seed if it is missing)."),
         ("Moment Matching",
-         "Subtract each column's mean, compute the covariance matrix of the draws and its Cholesky factor, and "
-         "multiply the de-meaned draws by the inverse of that factor. As drawn, the column means were up to "
+         "Subtract each column's mean, compute the covariance matrix of the draws (dividing by the number of "
+         "cases, bonds in the order 1 to 10) and its Cholesky factor, and multiply the de-meaned draws by the "
+         "inverse of that factor. As drawn, the column means were up to "
          f"{drawn['max_abs_mean']:.3f} away from 0, the variances ran from {drawn['min_variance']:.2f} to "
          f"{drawn['max_variance']:.2f} and two bonds' numbers were correlated by up to "
          f"{drawn['max_abs_correlation']:.2f}. After matching the means are 0, the variances are 1 and the "
-         "correlations are 0."),
+         "correlations are 0. Only these moments of the normal draws are fixed, so default rates and cash flows "
+         "are still estimates."),
         ("Correlated Defaults",
          "Multiply the matched numbers by the Cholesky factor of the correlation matrix, convert to uniforms, then "
          "to default times and default quarters. Because of the moment matching the correlated normals have a "
@@ -177,7 +179,7 @@ def results_summary(results: dict) -> str:
         f"{results['n_bonds']} bonds default within 5 years (theory {c['avg_defaults_theory']:.2f}), and "
         f"{pct(zero_default_share)} of cases have no default at all. The pool collects ${mm(pool['mean'], 1)} MM on "
         f"average out of the ${pool['no-default amount']:.0f} MM promised ({pct(pool['mean / no-default amount'])}; "
-        f"the standard error of that mean is ${mm(pool['std error'], 1)} MM), with a standard "
+        f"the exact expected value is ${mm(c['pool_total_expected'], 1)} MM), with a standard "
         f"deviation of ${mm(pool['std dev'], 1)} MM, a 5th percentile of ${mm(pool['5th pct'], 1)} MM and a worst case "
         f"of ${mm(pool['min'], 1)} MM (case {c['worst_case']}, {c['worst_case_defaults']} defaults). "
         "Class A and Class B are paid in full in every case. This is not luck in the sample: with a "
@@ -256,6 +258,7 @@ def front_matter(results: dict) -> list:
 
 def results_pages(results: dict, figures: Path) -> list:
     names = {"pool": "Collateral pool", "class_a": "Class A", "class_b": "Class B", "equity": "Equity (bank)"}
+    check = results["sampling_check"]
     rows = [["", "No-default\namount", "Mean", "Std error\nof the mean", "Std dev", "5th pct", "Median", "Worst case",
              "Mean / no-\ndefault amount"]]
     for r in results["summary"]:
@@ -267,8 +270,10 @@ def results_pages(results: dict, figures: Path) -> list:
         Paragraph("Table 1. Total cash received over the 5 years by the collateral pool and by each class, $ MM, "
                   f"undiscounted, across the {results['n_cases']} cases. The no-default amount is what each would "
                   "receive if no bond defaulted. The standard error is the standard deviation divided by the square "
-                  "root of the number of cases; it treats the cases as independent, which is only approximately true "
-                  "after moment matching.", CAPTION),
+                  "root of the number of cases, the usual formula for independent cases. Moment matching ties the "
+                  f"cases together, so it overstates the error of these means: across {check['n_tables']:,} fresh sets of "
+                  f"random numbers the mean pool cash varied by ${check['sd_of_mean_matched']:.2f} MM from set to set "
+                  f"with moment matching and by ${check['sd_of_mean_as_drawn']:.2f} MM without.", CAPTION),
         figure(figures / "total_cash_distributions.png", 6.4 * inch),
         Paragraph("Figure 1. Distribution of total 5-year cash from the collateral pool (left) and to the bank's "
                   "equity (right). The equity distribution is the pool distribution shifted down by the "
