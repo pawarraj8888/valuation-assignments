@@ -8,7 +8,7 @@ form. The output is the discount rate `r(t)` and discount factor `d(t) = exp(-r(
 the 245 distinct Treasury payment dates (coupons and principal) between September 2026 and August 2056,
 implemented twice, in Python and in Excel, with both implementations reproducing the same numbers.
 
-**Project page (interactive chart, tables, downloads):** https://pawarraj8888.github.io/zcb-term-structure/
+**Project page (interactive chart, tables, downloads):** https://pawarraj8888.github.io/valuation-assignments/zcb-term-structure/
 
 ![Zero curve](output/figures/zero_curve.png)
 
