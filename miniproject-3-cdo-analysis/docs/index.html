@@ -55,7 +55,7 @@ h2{font-family:var(--serif);font-weight:600;font-size:30px;margin:0 0 6px;color:
 h3{font-family:var(--serif);font-weight:600;font-size:22px;margin:22px 0 8px;color:var(--fg)}
 .sub{color:var(--fg-2);margin:0 0 18px;max-width:860px}
 .card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px}
-.split-32{display:grid;grid-template-columns:minmax(0,11fr) minmax(0,9fr);gap:18px}
+.split-32{display:grid;grid-template-columns:minmax(0,1fr);gap:18px}
 .split-23{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:18px}
 @media (max-width:900px){.split-32,.split-23{grid-template-columns:minmax(0,1fr)}}
 .legend{display:flex;gap:8px 24px;flex-wrap:wrap;font-size:13.5px;color:var(--fg-2);margin:0 0 12px}
@@ -210,7 +210,7 @@ footer{border-top:1px solid var(--border);padding:26px 0 40px;color:var(--fg-2);
     <div class="card" style="margin-top:18px"><div class="scroll-x" tabindex="0" role="region" aria-label="Total cash received over the 5 years"><table id="summary-table"><caption>Total cash received over the 5 years ($ MM)</caption><thead><tr>
       <th scope="col">Series</th><th scope="col">No-default amount</th><th scope="col">Mean</th><th scope="col">Std error</th><th scope="col">Std dev</th><th scope="col">5th pct</th>
       <th scope="col">Median</th><th scope="col">Worst case</th><th scope="col">Mean / no-default</th><th scope="col">Cases below no-default</th></tr></thead><tbody></tbody></table></div>
-      <p class="caption">The no-default amount is what each would receive if no bond defaulted. The standard error is the standard deviation divided by the square root of the number of cases, the usual formula for independent cases. Moment matching ties the cases together, so it overstates the true sampling error of these means.</p></div>
+      <p class="caption">The no-default amount is what each would receive if no bond defaulted. The standard error is the standard deviation divided by the square root of the number of cases, the usual formula for independent cases. Moment matching ties the cases together, so the formula overstates the true sampling error of the pool and equity means.</p></div>
     <div class="split-23" style="margin-top:18px">
       <div class="card"><div class="chart-wrap short"><canvas id="chart-defaults" role="img" aria-label="Distribution of the number of defaults: simulated, exact under the model, and if independent"></canvas></div><p class="caption" id="defaults-caption"></p></div>
       <div class="card"><div class="scroll-x" tabindex="0" role="region" aria-label="Number of bonds defaulting within 5 years"><table id="defaults-table"><caption>Number of bonds defaulting within 5 years</caption><thead><tr>
@@ -309,8 +309,13 @@ footer{border-top:1px solid var(--border);padding:26px 0 40px;color:var(--fg-2);
     run.poolTotal = M.totals(run.pool); run.aTotal = M.totals(run.a);
     run.bTotal = M.totals(run.b); run.eqTotal = M.totals(run.equity);
     run.aShort = M.shortfalls(run.a, run.aDue); run.bShort = M.shortfalls(run.b, run.bDue);
-    const pool = M.sum(run.poolPromised), a = M.sum(run.aDue), b = M.sum(run.bDue);
-    run.promised = {pool:pool, a:a, b:b, equity:pool - a - b};
+    // what each would receive with no defaults: the waterfall applied to the promised pool cash
+    const clean = {pool:0, a:0, b:0, equity:0};
+    run.poolPromised.forEach((cash, k) => {
+      const a = Math.min(cash, run.aDue[k]), b = Math.min(cash - a, run.bDue[k]);
+      clean.pool += cash; clean.a += a; clean.b += b; clean.equity += cash - a - b;
+    });
+    run.promised = clean;
     run.pDefault = 1 - Math.pow(1 - deal.pd, deal.years);
   }
 

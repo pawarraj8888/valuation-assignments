@@ -20,9 +20,14 @@ def moment_match(Z: np.ndarray) -> np.ndarray:
     Z = np.asarray(Z, dtype=float)
     if Z.ndim != 2 or Z.shape[0] <= Z.shape[1]:
         raise ValueError(f"moment matching needs a cases x bonds table with more cases than bonds, got shape {Z.shape}")
+    if not np.isfinite(Z).all():
+        raise ValueError("moment matching needs finite numbers")
     demeaned = Z - Z.mean(axis=0)
     covariance = demeaned.T @ demeaned / len(Z)
-    chol = np.linalg.cholesky(covariance)
+    try:
+        chol = np.linalg.cholesky(covariance)
+    except np.linalg.LinAlgError as error:
+        raise ValueError("moment matching needs columns that are not copies or combinations of each other") from error
     return np.linalg.solve(chol, demeaned.T).T      # same as demeaned @ inverse(chol).T
 
 

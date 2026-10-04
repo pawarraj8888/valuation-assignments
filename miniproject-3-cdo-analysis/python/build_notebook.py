@@ -201,7 +201,7 @@ correlated just by chance. As shown in class, we take this out before the number
 
 1. subtract each column's mean (de-mean),
 2. compute the covariance matrix of the draws and its Cholesky factor L,
-3. multiply the de-meaned draws by the inverse of L.
+3. multiply each case's de-meaned draws by the inverse of L.
 
 The result `Z` has column means of exactly 0, variances of exactly 1 and no correlation between
 columns, and it is what the model uses from here on. The numbers are still fixed: the same file
@@ -402,7 +402,7 @@ stats = pd.DataFrame({
 stats.round(3)
 """),
         code(source_of(sampling_error_check), """
-sampling = sampling_error_check(base, N_CASES, n_tables=300)
+sampling = sampling_error_check(base, N_CASES)
 print(f"Mean total pool cash over {sampling['n_tables']} fresh sets of random numbers (exact value {sampling['exact_mean']:.2f})")
 print(f"  as drawn:        {sampling['mean_as_drawn']:.2f} on average, varies by {sampling['sd_of_mean_as_drawn']:.3f} from set to set")
 print(f"  moment matched:  {sampling['mean_matched']:.2f} on average, varies by {sampling['sd_of_mean_matched']:.3f} from set to set")

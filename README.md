@@ -11,8 +11,9 @@ one folder per assignment.
 | 2. Creating a ZCB Term Structure | [`miniproject-2-zcb-term-structure`](miniproject-2-zcb-term-structure) | https://pawarraj8888.github.io/valuation-assignments/zcb-term-structure/ | Monalisa Maity and Raj Pawar |
 | 1. The Two-Loan Comparison | [`miniproject-1-two-loan-comparison`](miniproject-1-two-loan-comparison) | Excel workbook only | Raj Pawar |
 
-Each folder is self-contained: its own README, data, Python package and tests, notebook, Excel workbook,
-outputs and write-up. The commands in a folder's README are run from inside that folder.
+Miniprojects 2 and 3 are self-contained: each has its own README, data, Python package and tests, notebook,
+Excel workbook, outputs and write-up, and the commands in its README are run from inside that folder.
+Miniproject 1 is an Excel workbook.
 
 ## Layout
 
@@ -28,8 +29,8 @@ site/                                landing page of the site
 
 On every push to `main` a GitHub Actions workflow copies `site/` and each mini-project's `docs/` folder into
 one site: the landing page at the root, Miniproject 2 under `/zcb-term-structure/` and Miniproject 3 under
-`/cdo-analysis/`. Nothing is built on the server. The dashboards are plain HTML and JavaScript that are
-generated locally by each project's `build_site.py`.
+`/cdo-analysis/`. Nothing is built on the server. The dashboards are plain HTML and JavaScript. Each
+project's `build_site.py` writes the page's data file and the copies of the downloads.
 
 Miniprojects 2 and 3 used to live in their own repositories (`zcb-term-structure` and `cdo-analysis`). Their
 history was brought over with them, and their old dashboard links forward to the pages above.

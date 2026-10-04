@@ -134,7 +134,7 @@ def steps(results: dict) -> list:
          "created from the seed if it is missing)."),
         ("Moment Matching",
          "Subtract each column's mean, compute the covariance matrix of the draws (dividing by the number of "
-         "cases, bonds in the order 1 to 10) and its Cholesky factor, and multiply the de-meaned draws by the "
+         "cases, bonds in the order 1 to 10) and its Cholesky factor, and multiply each case's de-meaned draws by the "
          "inverse of that factor. As drawn, the column means were up to "
          f"{drawn['max_abs_mean']:.3f} away from 0, the variances ran from {drawn['min_variance']:.2f} to "
          f"{drawn['max_variance']:.2f} and two bonds' numbers were correlated by up to "
@@ -271,9 +271,9 @@ def results_pages(results: dict, figures: Path) -> list:
                   f"undiscounted, across the {results['n_cases']} cases. The no-default amount is what each would "
                   "receive if no bond defaulted. The standard error is the standard deviation divided by the square "
                   "root of the number of cases, the usual formula for independent cases. Moment matching ties the "
-                  f"cases together, so it overstates the error of these means: across {check['n_tables']:,} fresh sets of "
-                  f"random numbers the mean pool cash varied by ${check['sd_of_mean_matched']:.2f} MM from set to set "
-                  f"with moment matching and by ${check['sd_of_mean_as_drawn']:.2f} MM without.", CAPTION),
+                  f"cases together, so the formula overstates the error of the pool and equity means: across {check['n_tables']:,} fresh sets of "
+                  f"random numbers the mean pool cash had a standard deviation of ${check['sd_of_mean_matched']:.2f} MM "
+                  f"with moment matching and ${check['sd_of_mean_as_drawn']:.2f} MM without.", CAPTION),
         figure(figures / "total_cash_distributions.png", 6.4 * inch),
         Paragraph("Figure 1. Distribution of total 5-year cash from the collateral pool (left) and to the bank's "
                   "equity (right). The equity distribution is the pool distribution shifted down by the "
@@ -323,7 +323,10 @@ def sensitivity_page(results: dict, figures: Path) -> list:
         Paragraph("4. Sensitivities", H2),
         Paragraph("We changed each input on its own, keeping the others at their base values and using the same "
                   "fixed random numbers. Because the classes are fully covered in the base case, the sensitivities "
-                  "show up in the equity.", BODY),
+                  "show up in the equity. Pool cash is equity cash plus what the two classes are paid, so while both classes "
+                  "are paid in full the pool figures are the equity figures plus "
+                  f"${results['promised']['totals']['class_a'] + results['promised']['totals']['class_b']:.0f} MM, "
+                  "with the same standard deviation.", BODY),
     ]
     story += [Paragraph(f"<b>{heading}:</b> {text}", LEFT) for heading, text in sensitivity_notes(results)]
     story.append(Spacer(1, 5))
@@ -344,7 +347,7 @@ def sensitivity_page(results: dict, figures: Path) -> list:
         Paragraph(f"Table 3. One-at-a-time sensitivities on the same {results['n_cases']} cases. Equity figures are "
                   "total 5-year cash in $ MM. P(B short) is the share of cases in which Class B is paid less than it "
                   "is due in any quarter.", CAPTION),
-        figure(figures / "sensitivities.png", 6.0 * inch),
+        figure(figures / "sensitivities.png", 5.0 * inch),
         Paragraph("Figure 4. Mean, 5th percentile and worst case of total equity cash as each input is varied.", CAPTION),
     ]
     return story

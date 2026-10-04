@@ -73,3 +73,12 @@ def test_statistics_table_has_the_standard_error_column(workbook):
     assert header[0] == "No-default amount" and header[3] == "Std error of the mean"
     assert ws.cell(row=layout.SUMMARY_FIRST_ROW, column=5).value == f"=D{layout.SUMMARY_FIRST_ROW}/SQRT(Number_of_Cases)"
     assert not any("romised" in str(label) for label in header)
+
+
+def test_moment_matching_formulas_are_the_ones_from_class(workbook):
+    ws = workbook["Random"]
+    assert ws["M18"].value == "=B18-B$15"
+    assert ws["B4"].value == "=COVAR($B$18:$B$1017,$B$18:$B$1017)"
+    assert ws["X4"].value.ref == "X4:AG13" and ws["X4"].value.text == "=MINVERSE(M4:V13)"
+    assert ws["X18"].value == "=SUMPRODUCT($M18:$V18,$X$4:$AG$4)"
+    assert ws["Y18"].value == "=SUMPRODUCT($M18:$V18,$X$5:$AG$5)"

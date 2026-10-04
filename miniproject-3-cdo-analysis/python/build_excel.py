@@ -118,7 +118,8 @@ def build_inputs(wb: Workbook, deal: dict, results: dict) -> None:
     ws["A1"] = "Miniproject 3 (Part 1) - Simplified CDO analysis"
     ws["A1"].font = TITLE
     ws["A2"] = f"{PROJECT['course']} | {PROJECT['authors']}"
-    ws["A3"] = ("Yellow cells are inputs; everything else in the workbook is a formula. All amounts are in $ millions. "
+    ws["A3"] = ("Yellow cells are inputs. Everything else is a formula, except the stored random numbers and the Sensitivity tables. "
+                "All amounts are in $ millions. "
                 "The case to display is chosen on the Case sheet.")
     header(ws, 5, ["Parameter", "Value", "Note"])
     fixed = [
@@ -212,7 +213,7 @@ def build_random(wb: Workbook, table) -> None:
 
     ws.cell(row=RAND_MEAN_ROW, column=1, value="Mean").font = BOLD
     titles = [(raw, "Initial random normals"), (demeaned, "De-meaned (initial number minus its column mean)"),
-              (matched, "Moment matched = de-meaned x inverse of L (the numbers the model uses)")]
+              (matched, "Moment matched: each case = inverse of L x its de-meaned numbers (what the model uses)")]
     for start, label in titles:
         ws.cell(row=FIRST_ROW - 2, column=start, value=label).font = BOLD
         header(ws, FIRST_ROW - 1, list(table.columns), start_col=start)
@@ -374,7 +375,7 @@ def build_case(wb: Workbook, example_case: int) -> None:
     ws[f"A{last + 1}"].font = ws[f"{quarter}{last + 1}"].font = BOLD
 
     labels = ["Quarter"] + [f"Bond {i}" for i in range(1, N_BONDS + 1)] + ["Pool", "Class A", "Class B", "Equity",
-                                                                           "Pool promised"]
+                                                                           "Pool no-default amount"]
     header(ws, cf_first - 1, labels)
     for q in range(N_PERIODS):
         r, schedule = cf_first + q, SCHEDULE_FIRST_ROW + q
@@ -406,7 +407,7 @@ def build_case(wb: Workbook, example_case: int) -> None:
         series.graphicalProperties.solidFill = SERIES_COLORS[label]
     chart.height, chart.width = 8.5, 20
     ws.add_chart(chart, f"R{first - 1}")
-    widths(ws, {"A": 16, "B": 15, "C": 16, "D": 16, "E": 12, "F": 13, "G": 14, "H": 22, "I": 15})
+    widths(ws, {"A": 27, "B": 15, "C": 16, "D": 16, "E": 12, "F": 13, "G": 14, "H": 22, "I": 15})
 
 
 def build_statistics(wb: Workbook) -> None:
@@ -420,7 +421,10 @@ def build_statistics(wb: Workbook) -> None:
                                        "Share of cases below the no-default amount"], height=58)
     ws[f"A{SUMMARY_FIRST_ROW + 4}"] = ("Std error of the mean = std dev / square root of the number of cases, the usual formula for "
                                         "independent cases. Moment matching ties the cases together, so the true sampling error of "
-                                        "these means is smaller: read this column as an upper bound.")
+                                        "the pool and equity means is smaller: read this column as an upper bound.")
+    ws.merge_cells(start_row=SUMMARY_FIRST_ROW + 4, start_column=1, end_row=SUMMARY_FIRST_ROW + 4, end_column=12)
+    ws[f"A{SUMMARY_FIRST_ROW + 4}"].alignment = WRAP
+    ws.row_dimensions[SUMMARY_FIRST_ROW + 4].height = 32
     schedule = lambda letter: f"SUM(Inputs!${letter}${SCHEDULE_FIRST_ROW}:${letter}${SCHEDULE_FIRST_ROW + N_PERIODS - 1})"  # noqa: E731
     promised = [f"={schedule('C')}", f"={schedule('D')}", f"={schedule('E')}",
                 f"=B{SUMMARY_FIRST_ROW}-B{SUMMARY_FIRST_ROW + 1}-B{SUMMARY_FIRST_ROW + 2}"]
@@ -455,7 +459,7 @@ def build_statistics(wb: Workbook) -> None:
 
     ws[f"A{QUARTERLY_FIRST_ROW - 2}"] = "Quarterly cash flows"
     ws[f"A{QUARTERLY_FIRST_ROW - 2}"].font = BOLD
-    header(ws, QUARTERLY_FIRST_ROW - 1, ["Quarter", "Pool promised", "Pool expected (exact)", "Pool mean", "Pool 5th pct",
+    header(ws, QUARTERLY_FIRST_ROW - 1, ["Quarter", "Pool no-default amount", "Pool expected (exact)", "Pool mean", "Pool 5th pct",
                                          "Pool 95th pct", "Class A mean", "Class B mean", "Equity mean",
                                          "Equity 5th pct", "Equity 95th pct"], height=32)
     for q in range(N_PERIODS):
@@ -565,7 +569,7 @@ def build_notes(wb: Workbook, results: dict) -> None:
         for heading, text in entries:
             ws.cell(row=row, column=1, value=heading).font = BOLD
             ws.cell(row=row, column=2, value=text).alignment = WRAP
-            ws.row_dimensions[row].height = 48
+            ws.row_dimensions[row].height = 16 * max(3, -(-len(text) // 120))
             row += 1
         row += 1
     widths(ws, {"A": 26, "B": 130})
