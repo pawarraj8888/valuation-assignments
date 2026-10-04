@@ -17,6 +17,7 @@ from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import inch
 from reportlab.lib.utils import ImageReader
+from reportlab.pdfbase.pdfmetrics import stringWidth
 from reportlab.platypus import HRFlowable, Image, PageBreak, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -29,6 +30,7 @@ RULE = colors.HexColor("#999999")
 
 SIDE_MARGIN, TOP_MARGIN, BOTTOM_MARGIN = 0.95 * inch, 0.9 * inch, 0.95 * inch
 AVAILABLE = letter[0] - 2 * SIDE_MARGIN - 12         # width of the text block (the frame pads 6 pt each side)
+CELL_PADDING = 12                                    # a table cell is padded 6 pt on the left and on the right
 INK = colors.HexColor("#1A1A1A")
 MUTED = colors.HexColor("#5A5A5A")
 STRIPE = colors.HexColor("#F3F5F8")
@@ -44,7 +46,6 @@ CAPTION = ParagraphStyle("caption", fontName="Helvetica-Oblique", fontSize=8.8, 
                          spaceBefore=6, spaceAfter=14, textColor=MUTED)
 ITEM = ParagraphStyle("item", parent=LEFT, leftIndent=18, firstLineIndent=-18, spaceAfter=5)
 H2_SPLIT = ParagraphStyle("h2split", parent=H2, keepWithNext=0)      # before a table that may break over a page
-BULLET = ParagraphStyle("bullet", parent=LEFT, leftIndent=16, bulletIndent=4, spaceAfter=5)
 CELL = ParagraphStyle("cell", parent=LEFT, fontSize=9.5, leading=13, spaceAfter=0)
 
 
@@ -61,7 +62,17 @@ def keyed(rows: list, key: str) -> dict:
     return {row[key]: row for row in rows}
 
 
-def table(rows: list, widths: list, font: float = 8.5, first_left: bool = True, pad: float = 3.5) -> Table:
+def column_widths(rows: list, font: float) -> list:
+    """Widths that fill the text block: what the longest line in each column needs, plus an equal share of the rest."""
+    needed = [max(stringWidth(line, "Helvetica-Bold", font) for cell in column for line in str(cell).split("\n"))
+              + CELL_PADDING for column in zip(*rows)]
+    spare = AVAILABLE - sum(needed)
+    if spare < 0:
+        raise ValueError(f"the table headed {rows[0]} is {-spare:.0f} pt wider than the text block")
+    return [width + spare / len(needed) for width in needed]
+
+
+def table(rows: list, font: float = 8.5, first_left: bool = True, pad: float = 3.5) -> Table:
     style = [
         ("BACKGROUND", (0, 0), (-1, 0), NAVY),
         ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
@@ -76,11 +87,8 @@ def table(rows: list, widths: list, font: float = 8.5, first_left: bool = True, 
     ]
     if first_left:
         style.append(("ALIGN", (0, 1), (0, -1), "LEFT"))
-    total = sum(widths)
-    if total > AVAILABLE:                                # shrink to the text block
-        widths = [w * AVAILABLE / total for w in widths]
     style.append(("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, STRIPE]))
-    flowable = Table(rows, colWidths=widths, repeatRows=1)
+    flowable = Table(rows, colWidths=column_widths(rows, font), repeatRows=1)
     flowable.setStyle(TableStyle(style))
     flowable.keepWithNext = 1                            # a table stays with its caption
     return flowable
@@ -305,14 +313,13 @@ def front_matter(results: dict) -> list:
 def results_pages(results: dict, figures: Path) -> list:
     names = {"pool": "Collateral pool", "class_a": "Class A", "class_b": "Class B", "equity": "Equity (bank)"}
     check = results["sampling_check"]
-    rows = [["", "No-default\namount", "Mean", "Std error\nof the mean", "Std dev", "5th pct", "Median", "Worst case",
+    rows = [["", "No-default\namount", "Mean", "Std error\nof the mean", "Std dev", "5th pct", "Median", "Worst\ncase",
              "Mean / no-\ndefault amount"]]
     for r in results["summary"]:
         rows.append([names[r["series"]], mm(r["no-default amount"]), mm(r["mean"]), mm(r["std error"]), mm(r["std dev"]),
                      mm(r["5th pct"]), mm(r["median"]), mm(r["min"]), pct(r["mean / no-default amount"])])
     story = [
-        table(rows, [1.2 * inch, 0.8 * inch, 0.65 * inch, 0.8 * inch, 0.65 * inch, 0.65 * inch, 0.65 * inch,
-                     0.72 * inch, 0.88 * inch]),
+        table(rows),
         Paragraph("Table 1. Total cash received over the 5 years by the collateral pool and by each class, $ MM, "
                   f"undiscounted, across the {results['n_cases']} cases. The no-default amount is what each would "
                   "receive if no bond defaulted. The standard error is the standard deviation divided by the square "
@@ -336,8 +343,7 @@ def results_pages(results: dict, figures: Path) -> list:
                      mm(r["avg equity cash ($MM)"]) if has_cases else "-"])
     per_default = results["default_distribution"][0]["avg pool cash ($MM)"] - results["default_distribution"][1]["avg pool cash ($MM)"]
     story += [
-        table(rows, [1.25 * inch, 0.65 * inch, 0.9 * inch, 1.0 * inch, 1.05 * inch, 1.05 * inch, 1.1 * inch],
-              first_left=False, font=8.2, pad=1.2),
+        table(rows, first_left=False, font=8.2, pad=1.2),
         Paragraph("Table 2. Number of bonds defaulting within 5 years: share of the simulated cases, the exact "
                   "probability under the model (common factor, no random numbers) and the binomial if defaults were "
                   "independent, with the average cash ($ MM) in cases with that many defaults. Each default costs the "
@@ -378,8 +384,8 @@ def sensitivity_page(results: dict, figures: Path) -> list:
     deal = results["deal"]
     blocks = [("Default prob.", "pd", lambda v: pct(v, 0)), ("LGD", "lgd", lambda v: pct(v, 0)),
               ("Correlation", "rho", lambda v: f"{v:.1f}")]
-    rows = [["Input", "Value", "Avg defaults", "P(no default)", "Equity mean", "Equity std", "Equity 5th pct",
-             "Equity min", "P(B short)"]]
+    rows = [["Input", "Value", "Avg\ndefaults", "P(no\ndefault)", "Equity\nmean", "Equity\nstd", "Equity\n5th pct",
+             "Equity\nmin", "P(B short)"]]
     for label, key, fmt in blocks:
         for r in results["sensitivities"][key]:
             is_base = abs(r[key] - deal[key]) < 1e-12
@@ -387,7 +393,7 @@ def sensitivity_page(results: dict, figures: Path) -> list:
                          pct(r["P(no default)"]), mm(r["equity mean"]), mm(r["equity std"]), mm(r["equity 5th pct"]),
                          mm(r["equity min"]), pct(r["P(B shortfall)"])])
     story += [
-        table(rows, [0.95 * inch, 0.9 * inch] + [0.78 * inch] * 7, font=8, pad=1.3),
+        table(rows, font=8, pad=1.3),
         Paragraph(f"Table 3. One-at-a-time sensitivities on the same {results['n_cases']} cases. Equity figures are "
                   "total 5-year cash in $ MM. P(B short) is the share of cases in which Class B is paid less than it "
                   "is due in any quarter.", CAPTION),
@@ -423,14 +429,14 @@ def class_risk_page(results: dict) -> list:
             f"under the model are {pct(c['stress_exact_p_b_shortfall'], 2)} and "
             f"{pct(c['stress_exact_p_a_shortfall'], 2)}.", BODY),
     ]
-    rows = [["Input", "Value", "Avg defaults", "Equity mean", "Equity 5th pct", "P(A shortfall)", "P(B shortfall)",
+    rows = [["Input", "Value", "Avg\ndefaults", "Equity\nmean", "Equity\n5th pct", "P(A shortfall)", "P(B shortfall)",
              "B paid / due"]]
     for label, key, fmt in (("Default prob.", "pd", lambda v: pct(v, 0)), ("Correlation", "rho", lambda v: f"{v:.1f}")):
         for r in stress[key]:
             rows.append([label, fmt(r[key]), f"{r['avg defaults']:.2f}", mm(r["equity mean"]), mm(r["equity 5th pct"]),
                          pct(r["P(A shortfall)"]), pct(r["P(B shortfall)"]), pct(r["B paid / due"])])
     story += [
-        table(rows, [1.0 * inch, 0.7 * inch] + [0.95 * inch] * 6),
+        table(rows),
         Paragraph(f"Table 4. Stress runs with LGD = {pct(stress['lgd'], 0)}. The default probability rows use "
                   f"correlation {deal['rho']:.2f} and the correlation rows use a {pct(deal['pd'], 0)} default "
                   "probability.", CAPTION),
@@ -446,7 +452,7 @@ def class_risk_page(results: dict) -> list:
         f"${mm(60, 0)} MM in {pct(by_size[60.0]['P(B shortfall)'])}. Each extra $1 MM of Class B takes about "
         f"${(by_size[10.0]['equity mean'] - by_size[20.0]['equity mean']) / 10:.2f} MM out of the equity cash (its "
         "principal plus five years of coupons).", BODY))
-    rows = [["Class B notional", "Equity mean", "Equity 5th pct", "Equity min", "P(A shortfall)", "P(B shortfall)",
+    rows = [["Class B notional", "Equity\nmean", "Equity\n5th pct", "Equity\nmin", "P(A shortfall)", "P(B shortfall)",
              "B paid / due"]]
     for r in results["sensitivities"]["b_notional"]:
         is_base = abs(r["b_notional"] - deal["b_notional"]) < 1e-12
@@ -454,48 +460,23 @@ def class_risk_page(results: dict) -> list:
                      mm(r["equity 5th pct"]), mm(r["equity min"]), pct(r["P(A shortfall)"]), pct(r["P(B shortfall)"]),
                      pct(r["B paid / due"], 2)])
     story += [
-        table(rows, [1.35 * inch] + [0.95 * inch] * 6),
+        table(rows),
         Paragraph(f"Table 5. Class B notional varied with all other inputs at base (LGD {pct(deal['lgd'], 0)}). Equity "
                   "figures are total 5-year cash in $ MM.", CAPTION),
     ]
-    return story + client_points(results, safe_b)
-
-
-def client_points(results: dict, safe_b: float) -> list:
-    c = results["checks"]
-    equity = next(row for row in results["summary"] if row["series"] == "equity")
-    by_rho = keyed(results["sensitivities"]["rho"], "rho")
-    points = [
-        "Class A and Class B are covered by the recovery value of the collateral alone. As long as recoveries are at "
-        f"least {pct(1 - c['safe_lgd']['class_b'], 0)} of promised payments (LGD of {pct(c['safe_lgd']['class_b'], 0)} "
-        "or less), they are paid in full whatever the default experience.",
-        "The bank's retained equity carries all of the default risk. Its expected cash is about "
-        f"{pct(equity['mean / no-default amount'], 0)} of the no-default amount, and in 1 case out of 20 it receives "
-        f"${mm(equity['5th pct'], 0)} MM or less out of ${equity['no-default amount']:.0f} MM.",
-        "Over the ranges we tested, the default probability moves the equity result the most. Correlation leaves the "
-        f"average alone but lowers the 5th percentile from ${mm(by_rho[0.0]['equity 5th pct'], 0)} MM to "
-        f"${mm(by_rho[0.8]['equity 5th pct'], 0)} MM between 0 and 0.8. The LGD assumption is the one to watch for "
-        "the classes.",
-        f"The structure is conservative: Class B could be about ${safe_b:.0f} MM instead of "
-        f"${results['deal']['b_notional']:.0f} MM and still be fully covered if every bond defaulted.",
-        "These are cash flow results only. What the classes and the equity are worth, given the "
-        f"{pct(results['market_ytm'], 0)} market yield on the collateral and the {pct(results['risk_free'], 0)} "
-        "risk-free rate, is the subject of Part 2.",
-    ]
-    return [Paragraph("6. Points for the client", H2)] + [Paragraph("<bullet>&bull;</bullet>" + text, BULLET) for text in points]
+    return story
 
 
 def appendix(results: dict, figures: Path) -> list:
     story = [PageBreak(), Paragraph(f"Appendix A. Quarterly cash flows across the {results['n_cases']} cases ($ MM)", H2)]
-    rows = [["Quarter", "Pool promised", "Pool exp. (exact)", "Pool mean", "Pool 5th pct", "Pool 95th pct", "Class A",
-             "Class B", "Equity mean", "Equity 5th pct"]]
+    rows = [["Quarter", "Pool\npromised", "Pool exp.\n(exact)", "Pool\nmean", "Pool\n5th pct", "Pool\n95th pct",
+             "Class A", "Class B", "Equity\nmean", "Equity\n5th pct"]]
     for r in results["quarterly"]:
         rows.append([str(r["quarter"]), mm(r["pool promised"]), mm(r["pool expected (exact)"], 3), mm(r["pool mean"], 3),
                      mm(r["pool 5th pct"]), mm(r["pool 95th pct"]), mm(r["Class A mean"]), mm(r["Class B mean"]),
                      mm(r["equity mean"], 3), mm(r["equity 5th pct"])])
-    widths = [0.55 * inch, 0.85 * inch, 0.95 * inch] + [0.76 * inch] * 2 + [0.8 * inch] + [0.6 * inch] * 2 + [0.78 * inch, 0.82 * inch]
     story += [
-        table(rows, widths, font=7.6, first_left=False, pad=1.6),
+        table(rows, font=7.6, first_left=False, pad=1.6),
         Paragraph("Class A and Class B receive the same amount in every case, so only one column is shown for each. "
                   "The pipeline also writes this table to output/quarterly_cash_flow_summary.csv.", CAPTION),
     ]
@@ -520,7 +501,7 @@ def appendix(results: dict, figures: Path) -> list:
                      mm(example["class_b"][k]), mm(example["equity"][k])])
     rows.append(["Total", "", mm(sum(example["pool"])), mm(sum(example["class_a"])), mm(sum(example["class_b"])),
                  mm(sum(example["equity"]))])
-    case_table = table(rows, [0.8 * inch, 1.3 * inch] + [0.95 * inch] * 4, font=7.6, first_left=False, pad=1.6)
+    case_table = table(rows, font=7.6, first_left=False, pad=1.6)
     case_table.setStyle(TableStyle([("FONTNAME", (0, -1), (-1, -1), "Helvetica-Bold")]))
     story.append(case_table)
     return story
