@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Miniproject 3 - Simplified CDO Analysis</title>
+<meta name="description" content="Simulated cash flows of a CDO backed by 10 speculative grade bonds: correlated defaults from fixed random numbers, the BIS debt model and a Class A / Class B / equity waterfall. FRE 6103, NYU Tandon.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231e3a5f'/%3E%3Crect x='7' y='20' width='18' height='5' fill='%23eb6834'/%3E%3Crect x='7' y='14' width='18' height='5' fill='%231baf7a'/%3E%3Crect x='7' y='7' width='18' height='6' fill='%232a78d6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Crimson+Pro:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --bg:#f8fafc; --card:#ffffff; --fg:#0f172a; --fg-2:#475569; --muted:#e9eef5; --border:#cbd5e1;
+  --primary:#1e3a5f; --accent:#b45309; --ring:#1e3a5f;
+  --chart-surface:#fcfcfb; --grid:#e1e0d9; --axis:#c3c2b7;
+  --s-equity:#2a78d6; --s-a:#eb6834; --s-b:#1baf7a; --s-pool:#52514e; --s-bench:#898781;
+  --serif:"Crimson Pro",Georgia,"Times New Roman",serif;
+  --sans:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --bg:#0d0d0d; --card:#1a1a19; --fg:#ffffff; --fg-2:#c3c2b7; --muted:#242423; --border:#383835;
+    --primary:#9ec5f4; --accent:#f0b26b; --ring:#9ec5f4;
+    --chart-surface:#1a1a19; --grid:#2c2c2a; --axis:#383835;
+    --s-equity:#3987e5; --s-a:#d95926; --s-b:#199e70; --s-pool:#c3c2b7; --s-bench:#898781;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *{transition:none!important} }
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:var(--primary);text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:var(--accent)}
+:focus-visible{outline:3px solid var(--ring);outline-offset:2px;border-radius:4px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--card);padding:8px 12px;border:1px solid var(--border);z-index:10}
+.skip:focus{left:16px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+header.site{border-bottom:1px solid var(--border);background:var(--card)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:14px;padding-bottom:14px;flex-wrap:wrap}
+.brand{font-family:var(--serif);font-weight:600;font-size:18px;color:var(--primary)}
+nav.main{display:flex;gap:4px 18px;flex-wrap:wrap;font-size:14.5px}
+nav.main a{text-decoration:none;color:var(--fg-2);padding:6px 0}
+nav.main a:hover{color:var(--accent)}
+.hero{padding:clamp(28px,5vw,56px) 0 12px}
+.eyebrow{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-2);font-weight:700}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(34px,5vw,54px);line-height:1.08;margin:10px 0 14px;color:var(--primary);letter-spacing:-.01em}
+.lede{font-size:19px;max-width:860px;color:var(--fg);margin:0 0 18px}
+.meta{display:flex;gap:10px 24px;flex-wrap:wrap;color:var(--fg-2);font-size:14.5px}
+.meta b{color:var(--fg);font-weight:700}
+section{padding:26px 0}
+h2{font-family:var(--serif);font-weight:600;font-size:30px;margin:0 0 6px;color:var(--primary)}
+h3{font-family:var(--serif);font-weight:600;font-size:22px;margin:22px 0 8px;color:var(--fg)}
+.sub{color:var(--fg-2);margin:0 0 18px;max-width:860px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px}
+.split-32{display:grid;grid-template-columns:minmax(0,11fr) minmax(0,9fr);gap:18px}
+.split-23{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:18px}
+@media (max-width:900px){.split-32,.split-23{grid-template-columns:minmax(0,1fr)}}
+.legend{display:flex;gap:8px 24px;flex-wrap:wrap;font-size:13.5px;color:var(--fg-2);margin:0 0 12px}
+.legend svg{color:var(--s-equity);vertical-align:middle;margin-right:8px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:8px 0 6px}
+.tile{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 18px}
+.tile .k{font-size:13px;color:var(--fg-2);font-weight:700;letter-spacing:.02em}
+.tile .v{font-size:clamp(24px,2.3vw,31px);font-weight:700;line-height:1.15;margin:6px 0 2px;color:var(--fg)}
+.tile .d{font-size:13.5px;color:var(--fg-2)}
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px 22px;align-items:end}
+.field label{display:block;font-size:13.5px;font-weight:700;color:var(--fg-2);margin-bottom:2px}
+.field output{display:block;font-size:22px;font-weight:700;line-height:1.2}
+.field .base{font-size:12.5px;color:var(--fg-2)}
+input[type=range]{width:100%;min-height:44px;margin:0;accent-color:var(--primary);cursor:pointer}
+input[type=number]{font:inherit;width:120px;padding:9px 12px;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--fg);min-height:44px}
+.status{font-size:14px;color:var(--fg-2);margin:14px 0 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:9px 16px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--fg);text-decoration:none;font:inherit;font-weight:700;font-size:14.5px;cursor:pointer;transition:background .2s,border-color .2s}
+.btn:hover{border-color:var(--primary);background:var(--muted);color:var(--fg)}
+.btn[aria-disabled="true"]{opacity:.5;cursor:not-allowed}
+.toolbar{display:flex;gap:10px 14px;flex-wrap:wrap;align-items:center;margin:0 0 14px}
+.toolbar label{font-size:14px;font-weight:700;color:var(--fg-2)}
+.chart-wrap{position:relative;height:340px;background:var(--chart-surface);border-radius:8px}
+.chart-wrap.short{height:280px}
+.case-charts{display:grid;grid-template-columns:minmax(0,5fr) minmax(150px,1fr);gap:14px}
+@media (max-width:720px){.case-charts{grid-template-columns:minmax(0,1fr)}.chart-wrap{height:300px}}
+/* grid items may shrink below the width of a table or chart canvas inside them, so the page never scrolls sideways */
+.grid2>*,.grid3>*,.case-charts>*,.split-32>*,.split-23>*,.inputs>*,.tiles>*{min-width:0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.caption{font-size:13.5px;color:var(--fg-2);margin:10px 0 0}
+.chart-fallback{padding:24px;color:var(--fg-2);font-size:14px}
+table{width:100%;border-collapse:collapse;font-size:14.5px;font-variant-numeric:tabular-nums}
+caption{text-align:left;font-weight:700;color:var(--fg-2);padding:0 0 8px;font-size:14px}
+th,td{padding:7px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+thead th{color:var(--fg-2);font-weight:700;font-size:13px;letter-spacing:.02em;background:var(--card);white-space:normal;vertical-align:bottom}
+table.compact th,table.compact td{padding:6px 7px;font-size:13.5px}
+tbody tr:hover{background:var(--muted)}
+tr.total td{font-weight:700;border-top:2px solid var(--border)}
+tr.is-base td{font-weight:700}
+.scroll-x{overflow-x:auto}
+.scroll{max-height:440px;overflow:auto;border:1px solid var(--border);border-radius:8px}
+.scroll thead th{position:sticky;top:0;z-index:1}
+.method p{margin:0 0 12px;max-width:880px}
+.method strong{color:var(--primary)}
+.downloads{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.dl{display:flex;flex-direction:column;gap:6px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 18px;text-decoration:none;color:var(--fg);transition:border-color .2s,transform .2s}
+.dl:hover{border-color:var(--primary);color:var(--fg);transform:translateY(-1px)}
+.dl .t{font-weight:700;display:flex;align-items:center;gap:8px}
+.dl .t svg{width:18px;height:18px;color:var(--accent);flex:none}
+.dl .d{font-size:13.5px;color:var(--fg-2)}
+footer{border-top:1px solid var(--border);padding:26px 0 40px;color:var(--fg-2);font-size:14px;margin-top:20px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap top">
+    <div class="brand">CDO Analysis</div>
+    <nav class="main" aria-label="Sections">
+      <a href="#inputs">Inputs</a><a href="#case">Case viewer</a><a href="#distributions">Distributions</a>
+      <a href="#sensitivities">Sensitivities</a><a href="#method">Methodology</a><a href="#downloads">Downloads</a>
+      <a href="https://github.com/pawarraj8888/valuation-assignments/tree/main/miniproject-3-cdo-analysis">GitHub</a><a href="../">All mini-projects</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <noscript><p class="card" style="margin-top:20px">This page computes its tables and charts in the browser, so it needs JavaScript. The same results are in the <a href="files/Miniproject3_CDO_Analysis_Report.pdf">PDF report</a>.</p></noscript>
+  <div class="hero">
+    <div class="eyebrow">NYU Tandon · FRE 6103 Valuation for Financial Engineering · Miniproject 3, Part 1</div>
+    <h1>Simplified CDO Analysis</h1>
+    <p class="lede">Ten 5-year speculative grade bonds sit in a CDO. We simulate 1000 cases of correlated default times
+      from a fixed set of random numbers (de-meaned and moment matched as shown in class), turn each case into quarterly cash flows with the BIS debt model, and pass
+      the pooled cash through the waterfall: Class A first, then Class B, and whatever is left to the bank's equity.</p>
+    <div class="meta">
+      <span><b id="m-authors"></b></span>
+      <span><b>1000</b> cases × <b>10</b> bonds × <b>20</b> quarters</span>
+      <span>Fixed random numbers, seed <b id="m-seed"></b></span>
+      <span>Amounts in <b>$ millions</b>, undiscounted</span>
+    </div>
+  </div>
+
+  <section id="inputs" aria-labelledby="inputs-h">
+    <h2 id="inputs-h">Model inputs</h2>
+    <p class="sub">The page starts at the assignment's inputs. Move a slider and every number, table and chart below is
+      recomputed in your browser from the same 1000 × 10 fixed random numbers, so differences come from the input
+      and not from new draws.</p>
+    <div class="card">
+      <form id="controls" class="inputs" novalidate>
+        <div class="field"><label for="in-pd">Annual default probability</label><output id="out-pd" for="in-pd"></output>
+          <input type="range" id="in-pd" min="0" max="20" step="0.5"><div class="base" id="base-pd"></div></div>
+        <div class="field"><label for="in-lgd">Loss given default</label><output id="out-lgd" for="in-lgd"></output>
+          <input type="range" id="in-lgd" min="0" max="100" step="5"><div class="base" id="base-lgd"></div></div>
+        <div class="field"><label for="in-rho">Default correlation</label><output id="out-rho" for="in-rho"></output>
+          <input type="range" id="in-rho" min="0" max="0.95" step="0.05"><div class="base" id="base-rho"></div></div>
+        <div class="field"><label for="in-a">Class A notional</label><output id="out-a" for="in-a"></output>
+          <input type="range" id="in-a" min="0" max="60" step="5"><div class="base" id="base-a"></div></div>
+        <div class="field"><label for="in-b">Class B notional</label><output id="out-b" for="in-b"></output>
+          <input type="range" id="in-b" min="0" max="60" step="5"><div class="base" id="base-b"></div></div>
+        <div class="field"><button type="button" class="btn" id="reset">Reset to the assignment's inputs</button></div>
+      </form>
+      <p class="status"><span id="status" role="status" aria-live="polite"></span> <span id="check"></span></p>
+    </div>
+  </section>
+
+  <div class="tiles" role="group" aria-label="Key results for the inputs above">
+    <div class="tile"><div class="k">Defaults per case, average</div><div class="v" id="t-defaults">…</div><div class="d" id="t-defaults-d"></div></div>
+    <div class="tile"><div class="k">Pool cash collected, average</div><div class="v" id="t-pool">…</div><div class="d" id="t-pool-d"></div></div>
+    <div class="tile"><div class="k">Cases with both classes paid in full</div><div class="v" id="t-classes">…</div><div class="d" id="t-classes-d"></div></div>
+    <div class="tile"><div class="k">Equity cash, average</div><div class="v" id="t-equity">…</div><div class="d" id="t-equity-d"></div></div>
+  </div>
+
+  <section id="case" aria-labelledby="case-h">
+    <h2 id="case-h">Case viewer</h2>
+    <p class="sub">Pick any of the 1000 cases to see its random numbers, which bonds default and when, and who receives
+      the pool's cash each quarter. The bars are stacked in the order of the waterfall.</p>
+    <div class="card">
+      <div class="toolbar">
+        <label for="case-no">Case (1 to 1000)</label>
+        <input type="number" id="case-no" min="1" max="1000" step="1" inputmode="numeric">
+        <button type="button" class="btn" id="case-prev">Previous</button>
+        <button type="button" class="btn" id="case-next">Next</button>
+        <button type="button" class="btn" id="case-worst">Worst case for equity</button>
+        <span class="caption" id="case-msg" role="status" aria-live="polite" style="margin:0"></span>
+      </div>
+      <div class="case-charts">
+        <div class="chart-wrap"><canvas id="chart-case" role="img" aria-label="Stacked bars of cash to Class A, Class B and equity in quarters 1 to 19 of the selected case"></canvas></div>
+        <div class="chart-wrap"><canvas id="chart-maturity" role="img" aria-label="Stacked bar of cash to Class A, Class B and equity at maturity in the selected case"></canvas></div>
+      </div>
+      <p class="caption" id="case-caption"></p>
+    </div>
+    <div class="split-32" style="margin-top:18px">
+      <div class="card"><div class="scroll-x" tabindex="0" role="region" aria-label="The 10 bonds in this case"><table id="bond-table" class="compact"><caption>The 10 bonds in this case</caption><thead><tr>
+        <th scope="col">Bond</th><th scope="col">Normal z</th><th scope="col">Matched z</th><th scope="col">Correlated x</th><th scope="col">u = N(x)</th>
+        <th scope="col">Default time (yrs)</th><th scope="col">Default quarter</th><th scope="col">Cash received</th></tr></thead><tbody></tbody></table></div></div>
+      <div class="card"><div class="scroll" tabindex="0" role="region" aria-label="Quarterly cash flows of this case"><table id="cf-table" class="compact"><caption class="sr">Quarterly cash flows of this case</caption><thead><tr>
+        <th scope="col">Quarter</th><th scope="col">In default</th><th scope="col">Pool</th><th scope="col">Class A</th>
+        <th scope="col">Class B</th><th scope="col">Equity</th></tr></thead><tbody></tbody></table></div></div>
+    </div>
+  </section>
+
+  <section id="distributions" aria-labelledby="dist-h">
+    <h2 id="dist-h">Distributions of outcomes</h2>
+    <p class="sub">Total cash over the five years in each of the 1000 cases, for the collateral pool and for the bank's
+      equity, and how many bonds default.</p>
+    <div class="grid2">
+      <div class="card"><div class="chart-wrap short"><canvas id="chart-pool" role="img" aria-label="Histogram of total five-year cash from the collateral pool"></canvas></div><p class="caption" id="pool-caption"></p></div>
+      <div class="card"><div class="chart-wrap short"><canvas id="chart-equity" role="img" aria-label="Histogram of total five-year cash to the equity"></canvas></div><p class="caption" id="equity-caption"></p></div>
+    </div>
+    <div class="card" style="margin-top:18px"><div class="scroll-x" tabindex="0" role="region" aria-label="Total cash received over the 5 years"><table id="summary-table"><caption>Total cash received over the 5 years ($ MM)</caption><thead><tr>
+      <th scope="col">Series</th><th scope="col">No-default amount</th><th scope="col">Mean</th><th scope="col">Std error</th><th scope="col">Std dev</th><th scope="col">5th pct</th>
+      <th scope="col">Median</th><th scope="col">Worst case</th><th scope="col">Mean / no-default</th><th scope="col">Cases below no-default</th></tr></thead><tbody></tbody></table></div>
+      <p class="caption">The no-default amount is what each would receive if no bond defaulted. The standard error of the mean is the standard deviation divided by the square root of the number of cases; it treats the cases as independent, which is only approximately true after moment matching.</p></div>
+    <div class="split-23" style="margin-top:18px">
+      <div class="card"><div class="chart-wrap short"><canvas id="chart-defaults" role="img" aria-label="Distribution of the number of defaults: simulated, exact under the model, and if independent"></canvas></div><p class="caption" id="defaults-caption"></p></div>
+      <div class="card"><div class="scroll-x" tabindex="0" role="region" aria-label="Number of bonds defaulting within 5 years"><table id="defaults-table"><caption>Number of bonds defaulting within 5 years</caption><thead><tr>
+        <th scope="col">Defaults</th><th scope="col">Cases</th><th scope="col">Simulated</th><th scope="col">Exact (model)</th>
+        <th scope="col">If independent</th><th scope="col">Avg equity cash</th></tr></thead><tbody></tbody></table></div></div>
+    </div>
+  </section>
+
+  <section id="sensitivities" aria-labelledby="sens-h">
+    <h2 id="sens-h">Sensitivities</h2>
+    <p class="sub">Each panel changes one input over a fixed grid and keeps the other inputs at the values set above.
+      The three lines are the mean, the 5th percentile and the worst case of total equity cash across the 1000 cases.</p>
+    <div class="legend">
+      <span><svg width="30" height="8" aria-hidden="true"><line x1="0" y1="4" x2="30" y2="4" stroke="currentColor" stroke-width="2"/></svg>Mean</span>
+      <span><svg width="30" height="8" aria-hidden="true"><line x1="0" y1="4" x2="30" y2="4" stroke="currentColor" stroke-width="2" stroke-dasharray="7 4"/></svg>5th percentile</span>
+      <span><svg width="30" height="8" aria-hidden="true"><line x1="0" y1="4" x2="30" y2="4" stroke="currentColor" stroke-width="2" stroke-dasharray="2 3"/></svg>Worst case</span>
+    </div>
+    <div class="grid3">
+      <div class="card"><div class="chart-wrap short"><canvas id="chart-s-pd" role="img" aria-label="Equity cash against the annual default probability"></canvas></div></div>
+      <div class="card"><div class="chart-wrap short"><canvas id="chart-s-lgd" role="img" aria-label="Equity cash against the loss given default"></canvas></div></div>
+      <div class="card"><div class="chart-wrap short"><canvas id="chart-s-rho" role="img" aria-label="Equity cash against the default correlation"></canvas></div></div>
+    </div>
+    <div class="card" style="margin-top:18px">
+      <div class="scroll-x" tabindex="0" role="region" aria-label="Sensitivity tables"><table id="sens-table"><caption>Sensitivity tables: equity cash in $ MM, and the share of cases in which a class is short in any quarter</caption><thead><tr>
+        <th scope="col">Input</th><th scope="col">Value</th><th scope="col">Avg defaults</th><th scope="col">No default</th><th scope="col">Equity mean</th>
+        <th scope="col">Equity std</th><th scope="col">Equity 5th pct</th><th scope="col">Equity min</th><th scope="col">A short</th><th scope="col">B short</th></tr></thead><tbody></tbody></table></div>
+      <p class="caption" id="sens-caption"></p>
+    </div>
+  </section>
+
+  <section id="method" class="method" aria-labelledby="method-h">
+    <h2 id="method-h">Methodology</h2>
+    <p class="sub">The assumptions and steps from the report. The <a href="files/Miniproject3_CDO_Analysis_Report.pdf">PDF</a>
+      adds the results, the sensitivity tables and the appendices.</p>
+    <div class="card" id="method-body"></div>
+  </section>
+
+  <section id="downloads" aria-labelledby="dl-h">
+    <h2 id="dl-h">Downloads</h2>
+    <p class="sub">Everything needed to reproduce or grade the project.</p>
+    <div class="downloads">
+      <a class="dl" href="files/Miniproject3_CDO_Analysis_Report.pdf"><span class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6M8 13h8M8 17h8"/></svg>Client report (PDF)</span><span class="d">Assumptions, steps, results, probability distributions, sensitivities and appendices.</span></a>
+      <a class="dl" href="files/Miniproject3_CDO_Analysis.xlsx"><span class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>Excel implementation (.xlsx)</span><span class="d">The whole model in live formulas: fixed random numbers, Cholesky, default times, waterfall for all 1000 cases and a case selector.</span></a>
+      <a class="dl" href="files/Miniproject3_CDO_Analysis.ipynb" download><span class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 4l-5 8 5 8M16 4l5 8-5 8"/></svg>Python notebook (.ipynb)</span><span class="d">Self-contained walk-through. The tested <code>cdo</code> package and its tests are on GitHub.</span></a>
+      <a class="dl" href="files/fixed_random_numbers.csv" download><span class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v3h16v-3"/></svg>Fixed random numbers (CSV)</span><span class="d">The 1000 × 10 independent standard normals behind every result.</span></a>
+      <a class="dl" href="files/pool_cash_flows.csv" download><span class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16v16H4zM4 10h16M4 15h16M10 4v16"/></svg>Pool cash flows (CSV)</span><span class="d">Quarterly cash flow of the collateral pool in every case, at the assignment's inputs.</span></a>
+      <a class="dl" href="files/case_totals.csv" download><span class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16v16H4zM4 10h16M4 15h16M10 4v16"/></svg>Case totals (CSV)</span><span class="d">Defaults and total cash to the pool, Class A, Class B and equity, case by case.</span></a>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  <div><span id="f-authors"></span> · FRE 6103 Valuation for Financial Engineering, NYU Tandon · Miniproject 3 (Part 1), Fall 2026.
+  The default model is the BIS debt model from Lecture 5. Code MIT licensed on
+  <a href="https://github.com/pawarraj8888/valuation-assignments/tree/main/miniproject-3-cdo-analysis">GitHub</a>.</div>
+</div></footer>
+
+<script src="data.js"></script>
+<script src="model.js"></script>
+<script>
+(function(){
+  'use strict';
+  const D = window.CDO_DATA, M = window.CDOModel;
+  const $ = id => document.getElementById(id);
+  if(!D || !M){ $('main').insertAdjacentHTML('afterbegin','<p class="card">Project data (data.js or model.js) not found.</p>'); return; }
+
+  const css = k => getComputedStyle(document.documentElement).getPropertyValue(k).trim();
+  const f = (x,n) => Number(x).toLocaleString('en-US',{minimumFractionDigits:n,maximumFractionDigits:n});
+  const pct = (x,n) => f(x*100,n) + '%';
+  const money = (x,n) => '$' + f(x,n) + ' MM';
+  const BASE = D.deal, N = D.z.length;
+  const Z = M.momentMatch(D.z);      // de-meaned and moment matched: the numbers the model uses
+  let chartState = typeof Chart !== 'undefined' ? 'ready' : 'loading';
+  const charts = {};
+  const setDisabled = (el, off) => el.setAttribute('aria-disabled', off ? 'true' : 'false');
+  const isDisabled = el => el.getAttribute('aria-disabled') === 'true';
+  let deal = Object.assign({}, BASE), run = null, caseNo = D.example_case;
+
+  const CONTROLS = [
+    {id:'pd',  key:'pd',         toDeal:v=>v/100, toInput:v=>v*100, show:v=>pct(v,1)},
+    {id:'lgd', key:'lgd',        toDeal:v=>v/100, toInput:v=>v*100, show:v=>pct(v,0)},
+    {id:'rho', key:'rho',        toDeal:v=>v,     toInput:v=>v,     show:v=>f(v,2)},
+    {id:'a',   key:'a_notional', toDeal:v=>v,     toInput:v=>v,     show:v=>money(v,0)},
+    {id:'b',   key:'b_notional', toDeal:v=>v,     toInput:v=>v,     show:v=>money(v,0)},
+  ];
+  const SENSITIVITIES = [
+    {id:'pd',  key:'pd',  label:'Annual default probability (%)', name:'Default probability', scale:100, show:v=>pct(v,0)},
+    {id:'lgd', key:'lgd', label:'Loss given default (%)',          name:'LGD',                 scale:100, show:v=>pct(v,0)},
+    {id:'rho', key:'rho', label:'Default correlation',             name:'Correlation',         scale:1,   show:v=>f(v,1)},
+  ];
+
+  // ---- model for the current inputs
+  function compute(){
+    run = M.simulate(Z, deal);
+    run.L = M.cholesky(deal.n_bonds, deal.rho);
+    run.poolTotal = M.totals(run.pool); run.aTotal = M.totals(run.a);
+    run.bTotal = M.totals(run.b); run.eqTotal = M.totals(run.equity);
+    run.aShort = M.shortfalls(run.a, run.aDue); run.bShort = M.shortfalls(run.b, run.bDue);
+    const pool = M.sum(run.poolPromised), a = M.sum(run.aDue), b = M.sum(run.bDue);
+    run.promised = {pool:pool, a:a, b:b, equity:pool - a - b};
+    run.pDefault = 1 - Math.pow(1 - deal.pd, deal.years);
+  }
+
+  // ---- charts
+  function draw(id, config){
+    const canvas = $(id);
+    if(!canvas) return;
+    if(chartState === 'failed'){
+      canvas.parentNode.innerHTML = '<p class="chart-fallback">The chart library could not be loaded (it comes from a CDN). Every value is in the tables on this page.</p>';
+      return;
+    }
+    if(chartState !== 'ready') return;
+    if(charts[id]) charts[id].destroy();
+    charts[id] = new Chart(canvas, config);
+  }
+  function options(xTitle, yTitle, extra){
+    const base = {
+      responsive:true, maintainAspectRatio:false, animation:false,
+      interaction:{mode:'index', intersect:false},
+      plugins:{
+        legend:{position:'top', align:'start', labels:{boxWidth:12, boxHeight:12, color:css('--fg-2'), font:{size:12.5}}},
+        tooltip:{backgroundColor:css('--card'), titleColor:css('--fg'), bodyColor:css('--fg-2'), borderColor:css('--border'), borderWidth:1, padding:10}
+      },
+      scales:{
+        x:{title:{display:true, text:xTitle, color:css('--fg-2')}, grid:{display:false}, border:{color:css('--axis')}, ticks:{color:css('--fg-2'), maxRotation:0}},
+        y:{title:{display:true, text:yTitle, color:css('--fg-2')}, grid:{color:css('--grid')}, border:{display:false}, ticks:{color:css('--fg-2')}, beginAtZero:true}
+      }
+    };
+    return Object.assign(base, extra || {});
+  }
+  // vertical reference lines with their labels written beside them
+  const referenceLines = {
+    id:'referenceLines',
+    afterDatasetsDraw(chart, args, opts){
+      const lines = (opts && opts.lines) || [];
+      const area = chart.chartArea, ctx = chart.ctx;
+      lines.forEach((line, k) => {
+        const x = area.left + (line.value - opts.lo) / (opts.hi - opts.lo) * (area.right - area.left);
+        if(!(x >= area.left - 1 && x <= area.right + 1)) return;
+        ctx.save();
+        ctx.strokeStyle = css('--fg'); ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(x, area.top); ctx.lineTo(x, area.bottom); ctx.stroke();
+        ctx.fillStyle = css('--fg-2'); ctx.font = '12px ' + css('--sans'); ctx.textBaseline = 'top';
+        // the label sits left of its line unless that would push it off the plot
+        const fitsLeft = x - 5 - ctx.measureText(line.label).width >= area.left;
+        ctx.textAlign = fitsLeft ? 'right' : 'left';
+        ctx.fillText(line.label, fitsLeft ? x - 5 : x + 5, area.top + 2 + k * 16);
+        ctx.restore();
+      });
+    }
+  };
+
+  // ---- inputs
+  function renderInputs(){
+    CONTROLS.forEach(c => {
+      const input = $('in-' + c.id);
+      input.value = c.toInput(deal[c.key]);
+      input.setAttribute('aria-valuetext', c.show(deal[c.key]));
+      $('out-' + c.id).textContent = c.show(deal[c.key]);
+      $('base-' + c.id).textContent = 'assignment: ' + c.show(BASE[c.key]);
+    });
+    const changed = CONTROLS.filter(c => Math.abs(deal[c.key] - BASE[c.key]) > 1e-12);
+    setDisabled($('reset'), changed.length === 0);
+    // the live region only changes when the state changes, so a screen reader is not interrupted on every step
+    const text = changed.length ? 'Inputs changed from the assignment.' : 'Showing the assignment\'s inputs.';
+    if($('status').textContent !== text) $('status').textContent = text;
+    $('check').textContent = checkMessage;
+  }
+  function onInput(){
+    const next = Object.assign({}, deal);
+    CONTROLS.forEach(c => { next[c.key] = c.toDeal(Number($('in-' + c.id).value)); });
+    try { M.validateDeal(next); } catch(err){ $('status').textContent = 'That input is outside the range the model can handle: ' + err.message; return; }
+    deal = next;
+    render();
+  }
+
+  // ---- tiles
+  function renderTiles(){
+    const n = run.nDefaults, zero = n.filter(v => v === 0).length;
+    $('t-defaults').textContent = f(M.mean(n), 2) + ' of ' + deal.n_bonds;
+    $('t-defaults-d').textContent = 'theory ' + f(deal.n_bonds * run.pDefault, 2) + ' · no default at all in ' + pct(zero / N, 1) + ' of cases';
+    const poolMean = M.mean(run.poolTotal);
+    $('t-pool').textContent = pct(poolMean / run.promised.pool, 1);
+    $('t-pool-d').textContent = money(poolMean, 1) + ' of the ' + money(run.promised.pool, 0) + ' promised';
+    const aShort = M.sum(run.aShort), bShort = M.sum(run.bShort);
+    const bothPaid = run.aShort.filter((v, i) => v === 0 && run.bShort[i] === 0).length;
+    $('t-classes').textContent = f(bothPaid, 0) + ' of ' + f(N, 0);
+    $('t-classes-d').textContent = 'Class A short in ' + aShort + ' cases · Class B short in ' + bShort;
+    const worst = run.eqTotal.indexOf(Math.min.apply(null, run.eqTotal));
+    $('t-equity').textContent = money(M.mean(run.eqTotal), 1);
+    $('t-equity-d').textContent = '5th percentile ' + money(M.percentile(run.eqTotal, 5), 1) + ' · worst ' + money(run.eqTotal[worst], 1) + ' (case ' + (worst + 1) + ')';
+  }
+
+  // ---- case viewer
+  function renderCase(){
+    const i = caseNo - 1, n = run.nPeriods, d = M.caseDefaults(Z[i], deal, run.L);
+    $('case-no').value = caseNo;
+    setDisabled($('case-prev'), caseNo <= 1); setDisabled($('case-next'), caseNo >= N);
+    const defaulted = d.q.filter(q => q <= n).length;
+
+    $('bond-table').tBodies[0].innerHTML = d.q.map((q, b) => {
+      let cash = 0;
+      for(let k = 0; k < n; k++) cash += run.bondPromised[k] * (k + 1 >= q ? 1 - deal.lgd : 1);
+      return `<tr><td>Bond ${b + 1}</td><td>${f(D.z[i][b], 4)}</td><td>${f(Z[i][b], 4)}</td><td>${f(d.x[b], 4)}</td><td>${f(d.u[b], 4)}</td><td>${isFinite(d.t[b]) ? f(d.t[b], 2) : 'never'}</td><td>${q <= n ? 'Q' + q : 'survives'}</td><td>${f(cash, 2)}</td></tr>`;
+    }).join('');
+
+    const rows = [];
+    for(let k = 0; k < n; k++){
+      const inDefault = d.q.filter(q => q <= k + 1).length;
+      rows.push(`<tr><td>${k + 1}</td><td>${inDefault}</td><td>${f(run.pool[i][k], 2)}</td><td>${f(run.a[i][k], 2)}</td><td>${f(run.b[i][k], 2)}</td><td>${f(run.equity[i][k], 2)}</td></tr>`);
+    }
+    rows.push(`<tr class="total"><td>Total</td><td></td><td>${f(run.poolTotal[i], 2)}</td><td>${f(run.aTotal[i], 2)}</td><td>${f(run.bTotal[i], 2)}</td><td>${f(run.eqTotal[i], 2)}</td></tr>`);
+    $('cf-table').tBodies[0].innerHTML = rows.join('');
+
+    const list = d.q.map((q, b) => q <= n ? 'bond ' + (b + 1) + ' in Q' + q : null).filter(Boolean).join(', ');
+    $('case-caption').textContent = 'Case ' + caseNo + ': ' + (defaulted ? defaulted + ' of ' + deal.n_bonds + ' bonds default (' + list + ').' : 'no bond defaults.') +
+      ' The pool pays ' + money(run.poolTotal[i], 2) + ' in total: ' + f(run.aTotal[i], 2) + ' to Class A, ' + f(run.bTotal[i], 2) + ' to Class B and ' + f(run.eqTotal[i], 2) + ' to equity.' +
+      (run.aShort[i] || run.bShort[i] ? ' A class is short in this case.' : '');
+
+    const series = [['Class A', run.a[i], '--s-a'], ['Class B', run.b[i], '--s-b'], ['Equity', run.equity[i], '--s-equity']];
+    const stack = (from, to) => series.map((s, k) => ({
+      label:s[0], data:s[1].slice(from, to), backgroundColor:css(s[2]), borderColor:css('--chart-surface'), borderWidth:1,
+      maxBarThickness:24, stack:'cash', borderRadius:k === 2 ? {topLeft:4, topRight:4} : 0, order:2
+    })).concat([{
+      type:'line', label:'Promised by the collateral', data:run.poolPromised.slice(from, to), borderColor:css('--fg'), backgroundColor:css('--fg'),
+      borderWidth:1, pointRadius:to - from === 1 ? 3 : 0, stepped:'middle', stack:'promised', order:1
+    }]);
+    const stacked = title => { const o = options(title, 'Cash flow ($ MM)'); o.scales.x.stacked = true; o.scales.y.stacked = true; return o; };
+    const quarters = Array.from({length:n - 1}, (_, k) => k + 1);
+    draw('chart-case', {type:'bar', data:{labels:quarters, datasets:stack(0, n - 1)}, options:stacked('Quarter')});
+    const maturity = stacked('Maturity'); maturity.plugins.legend.display = false;
+    draw('chart-maturity', {type:'bar', data:{labels:['Q' + n], datasets:stack(n - 1, n)}, options:maturity});
+  }
+  function setCase(value, message){
+    const v = Math.round(Number(value));
+    if(!(v >= 1 && v <= N)){ $('case-no').value = caseNo; $('case-msg').textContent = 'Enter a whole number from 1 to ' + N + '. Still showing case ' + caseNo + '.'; return; }
+    caseNo = v; $('case-msg').textContent = message || ''; renderCase();
+  }
+
+  // ---- distributions
+  function histogram(values, bins){
+    const lo = Math.min.apply(null, values), hi = Math.max.apply(null, values);
+    if(hi - lo < 1e-9) return {lo:lo - 0.5, hi:hi + 0.5, counts:[values.length], labels:[f(lo, 1)]};
+    const w = (hi - lo) / bins, counts = new Array(bins).fill(0);
+    values.forEach(v => { counts[Math.min(bins - 1, Math.floor((v - lo) / w))]++; });
+    return {lo:lo, hi:hi, counts:counts, labels:counts.map((_, k) => f(lo + (k + 0.5) * w, 0))};
+  }
+  function drawHistogram(id, values, token, top, topLabel, captionId, name){
+    const h = histogram(values, 40), mean = M.mean(values), p5 = M.percentile(values, 5);
+    const o = options('Total 5-year cash ($ MM)', 'Number of cases');
+    o.plugins.legend.display = false;
+    o.plugins.referenceLines = {lo:h.lo, hi:h.hi, lines:[
+      {value:top, label:topLabel + ' ' + f(top, 0)}, {value:mean, label:'mean ' + f(mean, 1)}, {value:p5, label:'5th percentile ' + f(p5, 1)}]};
+    o.scales.x.ticks.maxTicksLimit = 8;
+    o.plugins.tooltip.callbacks = {title:items => 'around ' + items[0].label + ' $ MM', label:item => item.parsed.y + ' cases'};
+    draw(id, {type:'bar', data:{labels:h.labels, datasets:[{label:name, data:h.counts, backgroundColor:css(token), borderColor:css('--chart-surface'), borderWidth:1, barPercentage:1, categoryPercentage:1, borderRadius:{topLeft:2, topRight:2}}]}, options:o, plugins:[referenceLines]});
+    $(captionId).textContent = name + ': mean ' + money(mean, 1) + ', standard deviation ' + f(M.std(values), 1) + ', 5th percentile ' + f(p5, 1) + ', worst case ' + f(Math.min.apply(null, values), 1) + ', against ' + f(top, 0) + ' ' + topLabel + '.';
+  }
+  function renderDistributions(){
+    drawHistogram('chart-pool', run.poolTotal, '--s-pool', run.promised.pool, 'promised', 'pool-caption', 'Collateral pool');
+    drawHistogram('chart-equity', run.eqTotal, '--s-equity', run.promised.equity, 'if no defaults', 'equity-caption', 'Equity');
+
+    const short = values => values.filter(v => v).length;
+    const below = (values, promised) => values.filter(v => v < promised - 1e-9).length;
+    const lines = [
+      ['Collateral pool', run.poolTotal, run.promised.pool, below(run.poolTotal, run.promised.pool)],
+      ['Class A', run.aTotal, run.promised.a, short(run.aShort)],
+      ['Class B', run.bTotal, run.promised.b, short(run.bShort)],
+      ['Equity (bank)', run.eqTotal, run.promised.equity, below(run.eqTotal, run.promised.equity)],
+    ];
+    $('summary-table').tBodies[0].innerHTML = lines.map(([name, values, promised, cases]) => {
+      const s = M.describe(values, promised);
+      return `<tr><td>${name}</td><td>${f(s.promised, 2)}</td><td>${f(s.mean, 2)}</td><td>${f(s.se, 2)}</td><td>${f(s.std, 2)}</td><td>${f(s.p5, 2)}</td><td>${f(s.median, 2)}</td><td>${f(s.min, 2)}</td><td>${promised ? pct(s.meanOverPromised, 1) : '-'}</td><td>${cases} of ${N}</td></tr>`;
+    }).join('');
+
+    const nb = deal.n_bonds, counts = new Array(nb + 1).fill(0), eqSum = new Array(nb + 1).fill(0);
+    run.nDefaults.forEach((k, i) => { counts[k]++; eqSum[k] += run.eqTotal[i]; });
+    const exact = M.exactDefaultCountDistribution(nb, run.pDefault, deal.rho);
+    const independent = counts.map((_, k) => M.binomialPmf(k, nb, run.pDefault));
+    $('defaults-table').tBodies[0].innerHTML = counts.map((c, k) =>
+      `<tr><td>${k}</td><td>${c}</td><td>${pct(c / N, 1)}</td><td>${pct(exact[k], 2)}</td><td>${pct(independent[k], 2)}</td><td>${c ? f(eqSum[k] / c, 2) : '-'}</td></tr>`).join('');
+    const o = options('Number of bonds defaulting within 5 years', 'Share of cases');
+    o.scales.y.ticks.callback = v => pct(v, 0);
+    o.plugins.tooltip.callbacks = {title:items => items[0].label + ' defaults', label:item => item.dataset.label + ': ' + pct(item.parsed.y, 2)};
+    draw('chart-defaults', {type:'bar', data:{labels:counts.map((_, k) => k), datasets:[
+      {label:'Simulated', data:counts.map(c => c / N), backgroundColor:css('--s-pool'), borderColor:css('--chart-surface'), borderWidth:1, maxBarThickness:24, borderRadius:{topLeft:4, topRight:4}, order:2},
+      {label:'If independent (binomial)', data:independent, backgroundColor:css('--s-bench'), borderColor:css('--chart-surface'), borderWidth:1, maxBarThickness:24, borderRadius:{topLeft:4, topRight:4}, order:2},
+      {type:'line', label:'Exact under the model', data:exact, showLine:false, pointRadius:5, pointHoverRadius:7, pointBackgroundColor:css('--s-equity'), pointBorderColor:css('--chart-surface'), pointBorderWidth:2, backgroundColor:css('--s-equity'), borderColor:css('--s-equity'), order:1}
+    ]}, options:o});
+    const four = k => k.slice(4).reduce((a, b) => a + b, 0);
+    $('defaults-caption').textContent = 'With correlation ' + f(deal.rho, 2) + ', ' + pct(four(counts) / N, 1) + ' of cases have 4 or more defaults (' + pct(four(exact), 1) + ' exactly under the model), against ' + pct(four(independent), 1) + ' if the bonds defaulted independently.';
+  }
+
+  // ---- sensitivities
+  function renderSensitivities(){
+    const body = [];
+    const addRows = (name, key, values, show) => values.map(v => {
+      const r = M.summaryRow(Z, Object.assign({}, deal, {[key]:v}));
+      const current = Math.abs(v - deal[key]) < 1e-12;
+      body.push(`<tr class="${current ? 'is-base' : ''}"><td>${name}</td><td>${show(v)}${current ? ' (current)' : ''}</td><td>${f(r['avg defaults'], 2)}</td><td>${pct(r['P(no default)'], 1)}</td><td>${f(r['equity mean'], 2)}</td><td>${f(r['equity std'], 2)}</td><td>${f(r['equity 5th pct'], 2)}</td><td>${f(r['equity min'], 2)}</td><td>${pct(r['P(A shortfall)'], 1)}</td><td>${pct(r['P(B shortfall)'], 1)}</td></tr>`);
+      return r;
+    });
+    const panels = SENSITIVITIES.map(s => ({s:s, grid:D.grids[s.key], rows:addRows(s.name, s.key, D.grids[s.key], s.show)}));
+    // the three panels share one y-scale so they can be compared directly
+    const top = Math.max.apply(null, panels.map(p => Math.max.apply(null, p.rows.map(r => r['equity mean']))));
+    const yMax = Math.max(10, Math.ceil(top / 10) * 10);
+    panels.forEach(({s, grid, rows}) => {
+      const line = (label, column, dash) => ({label:label, data:grid.map((v, k) => ({x:v * s.scale, y:rows[k][column]})), borderColor:css('--s-equity'),
+        backgroundColor:css('--s-equity'), borderWidth:2, borderDash:dash, pointRadius:4, pointHoverRadius:6, pointBorderColor:css('--chart-surface'), pointBorderWidth:2});
+      const o = options(s.label, 'Equity cash ($ MM)');
+      o.scales.x.type = 'linear';
+      o.scales.y.max = yMax;
+      o.plugins.legend.display = false;
+      o.plugins.tooltip.callbacks = {title:items => s.name + ' ' + s.show(items[0].parsed.x / s.scale), label:item => item.dataset.label + ': ' + f(item.parsed.y, 2)};
+      draw('chart-s-' + s.id, {type:'line', data:{datasets:[line('Mean', 'equity mean', []), line('5th percentile', 'equity 5th pct', [7, 4]), line('Worst case', 'equity min', [2, 3])]}, options:o});
+    });
+    addRows('Class B notional', 'b_notional', D.grids.b_notional, v => money(v, 0));
+    $('sens-table').tBodies[0].innerHTML = body.join('');
+    const safe = (run.poolPromised[run.nPeriods - 1] * (1 - deal.lgd) - run.aDue[run.nPeriods - 1]) / (1 + deal.b_coupon / deal.freq);
+    $('sens-caption').textContent = 'A class is short when it receives less than it is due in at least one quarter. With the LGD set above, the pool pays at least ' +
+      money(run.poolPromised[run.nPeriods - 1] * (1 - deal.lgd), 1) + ' at maturity even if every bond defaults, so Class B is fully covered up to a notional of about ' + money(Math.max(safe, 0), 1) + '.';
+  }
+
+  // ---- static parts
+  function renderStatic(){
+    $('m-authors').textContent = D.project.authors; $('f-authors').textContent = D.project.authors; $('m-seed').textContent = D.seed;
+    const method = $('method-body');
+    D.methodology.forEach(p => {
+      const para = document.createElement('p'), head = document.createElement('strong');
+      head.textContent = p.heading + '. '; para.appendChild(head); para.appendChild(document.createTextNode(p.html)); method.appendChild(para);
+    });
+  }
+
+  // ---- check this page's model against the Python results at the assignment's inputs
+  const checkMessage = (function(){
+    const totals = M.totals(M.simulate(Z, BASE).pool);
+    const worst = Math.max.apply(null, totals.map((v, i) => Math.abs(v - D.python.pool_total[i])));
+    return worst < 1e-9
+      ? 'Check: at the assignment\'s inputs this page reproduces the Python results in all ' + N + ' cases (largest difference in total pool cash ' + worst.toExponential(1) + ').'
+      : 'Warning: this page differs from the Python results by up to ' + worst.toExponential(2) + ' at the assignment\'s inputs.';
+  })();
+
+  function render(){ compute(); $('case-msg').textContent = ''; renderInputs(); renderTiles(); renderCase(); renderDistributions(); renderSensitivities(); }
+
+  const chartDefaults = () => { Chart.defaults.font.family = css('--sans'); Chart.defaults.font.size = 12.5; };
+  if(chartState === 'ready') chartDefaults();
+  CONTROLS.forEach(c => $('in-' + c.id).addEventListener('input', onInput));
+  // buttons that do not apply stay focusable (aria-disabled) so keyboard focus is never dropped
+  $('reset').addEventListener('click', e => { if(isDisabled(e.currentTarget)) return; deal = Object.assign({}, BASE); render(); });
+  $('case-no').addEventListener('change', e => setCase(e.target.value));
+  $('case-prev').addEventListener('click', e => { if(!isDisabled(e.currentTarget)) setCase(caseNo - 1); });
+  $('case-next').addEventListener('click', e => { if(!isDisabled(e.currentTarget)) setCase(caseNo + 1); });
+  $('case-worst').addEventListener('click', () => {
+    const worst = run.eqTotal.indexOf(Math.min.apply(null, run.eqTotal));
+    setCase(worst + 1, 'Lowest total equity cash for the inputs above.');
+  });
+  if(window.matchMedia){ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', render); }
+  renderStatic();
+  render();
+  // The tiles and tables are on screen now. The chart library is fetched afterwards, so a slow CDN cannot hold them up.
+  if(chartState !== 'ready'){
+    const lib = document.createElement('script');
+    lib.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js';
+    lib.integrity = 'sha384-dug+JxfBvklEQdJ4AYuBBAIScUz0bVN73xpy273gcAwHjb3qI0fXmuYNaNfdyYJG';
+    lib.crossOrigin = 'anonymous';
+    lib.onload = () => { chartState = 'ready'; chartDefaults(); render(); };
+    lib.onerror = () => { chartState = 'failed'; render(); };
+    document.head.appendChild(lib);
+  }
+})();
+</script>
+</body>
+</html>

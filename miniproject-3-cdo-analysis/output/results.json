@@ -1,0 +1,9248 @@
+{
+ "deal": {
+  "n_bonds": 10,
+  "years": 5,
+  "freq": 4,
+  "face": 10.0,
+  "coupon": 0.06,
+  "pd": 0.04,
+  "lgd": 0.6,
+  "rho": 0.2,
+  "a_notional": 20.0,
+  "a_coupon": 0.02,
+  "b_notional": 10.0,
+  "b_coupon": 0.04
+ },
+ "market_ytm": 0.09,
+ "risk_free": 0.01,
+ "seed": 6103,
+ "moment_matching": {
+  "raw": {
+   "max_abs_mean": 0.0672344358097,
+   "min_variance": 0.957916190125027,
+   "max_variance": 1.0388062409207677,
+   "max_abs_correlation": 0.08751621684819856
+  },
+  "matched": {
+   "max_abs_mean": 3.1974423109204506e-17,
+   "min_variance": 0.9999999999999996,
+   "max_variance": 1.0000000000000002,
+   "max_abs_correlation": 4.8405723873656825e-17
+  }
+ },
+ "n_cases": 1000,
+ "n_bonds": 10,
+ "n_periods": 20,
+ "example": {
+  "case": 5,
+  "n_defaults": 6,
+  "default_quarters": [
+   4,
+   null,
+   null,
+   20,
+   5,
+   13,
+   12,
+   null,
+   7,
+   null
+  ],
+  "pool": [
+   1.4999999999999998,
+   1.4999999999999998,
+   1.4999999999999998,
+   1.41,
+   1.3199999999999998,
+   1.3199999999999998,
+   1.23,
+   1.23,
+   1.23,
+   1.23,
+   1.23,
+   1.14,
+   1.05,
+   1.05,
+   1.05,
+   1.05,
+   1.05,
+   1.05,
+   1.05,
+   64.96000000000001
+  ],
+  "class_a": [
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   20.1
+  ],
+  "class_b": [
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   10.1
+  ],
+  "equity": [
+   1.2999999999999996,
+   1.2999999999999996,
+   1.2999999999999996,
+   1.2099999999999997,
+   1.1199999999999997,
+   1.1199999999999997,
+   1.0299999999999998,
+   1.0299999999999998,
+   1.0299999999999998,
+   1.0299999999999998,
+   1.0299999999999998,
+   0.9399999999999998,
+   0.8500000000000001,
+   0.8500000000000001,
+   0.8500000000000001,
+   0.8500000000000001,
+   0.8500000000000001,
+   0.8500000000000001,
+   0.8500000000000001,
+   34.760000000000005
+  ]
+ },
+ "promised": {
+  "bond": [
+   0.15,
+   0.15,
+   0.15,
+   0.15,
+   0.15,
+   0.15,
+   0.15,
+   0.15,
+   0.15,
+   0.15,
+   0.15,
+   0.15,
+   0.15,
+   0.15,
+   0.15,
+   0.15,
+   0.15,
+   0.15,
+   0.15,
+   10.15
+  ],
+  "pool": [
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   101.5
+  ],
+  "class_a": [
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   20.1
+  ],
+  "class_b": [
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   0.1,
+   10.1
+  ],
+  "totals": {
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  }
+ },
+ "checks": {
+  "slide_value": 984.7267849069817,
+  "slide_target": 984.73,
+  "slide_rows": [
+   {
+    "default_year": 1,
+    "probability": 0.03,
+    "pv": 426.7109339860972
+   },
+   {
+    "default_year": 2,
+    "probability": 0.029099999999999997,
+    "pv": 458.44170321686636
+   },
+   {
+    "default_year": 3,
+    "probability": 0.028227,
+    "pv": 488.9520582464522
+   },
+   {
+    "default_year": 4,
+    "probability": 0.02738019,
+    "pv": 518.2889380825924
+   },
+   {
+    "default_year": 5,
+    "probability": 0.026558784299999996,
+    "pv": 546.4974763865733
+   },
+   {
+    "default_year": null,
+    "probability": 0.8587340256999999,
+    "pv": 1066.777334965243
+   }
+  ],
+  "corr_normals": 0.2,
+  "corr_default_times": 0.1746050265597485,
+  "corr_default_flags": 0.10446815332957243,
+  "p_default_5y_theory": 0.18462730240000014,
+  "p_default_5y_simulated": 0.1821,
+  "avg_defaults_theory": 1.8462730240000014,
+  "avg_defaults_simulated": 1.821,
+  "max_quarterly_gap_pct": 0.20471086685804885,
+  "pool_total_expected": 117.12128796375868,
+  "floor_per_quarter": 0.6000000000000001,
+  "floor_at_maturity": 40.6,
+  "classes_need_per_quarter": 0.2,
+  "classes_need_at_maturity": 30.200000000000003,
+  "safe_lgd": {
+   "class_a": 0.8019704433497536,
+   "class_b": 0.7024630541871921
+  },
+  "class_a_shortfall_cases": 0,
+  "class_b_shortfall_cases": 0,
+  "p_four_or_more_simulated": 0.159,
+  "p_four_or_more_exact": 0.16259357168950467,
+  "p_four_or_more_independent": 0.09538119945950997,
+  "stress_exact_p_a_shortfall": 0.0012747715771638133,
+  "stress_exact_p_b_shortfall": 0.005043863603317719,
+  "worst_case": 760,
+  "worst_case_defaults": 9
+ },
+ "summary": [
+  {
+   "series": "pool",
+   "no-default amount": 130.0,
+   "mean": 117.28336,
+   "std dev": 12.0322692795,
+   "std error": 0.3804937634,
+   "min": 64.48,
+   "5th pct": 94.6855,
+   "median": 122.29,
+   "95th pct": 130.0,
+   "max": 130.0,
+   "mean / no-default amount": 0.9021796923,
+   "P(below no-default amount)": 0.743
+  },
+  {
+   "series": "class_a",
+   "no-default amount": 22.0,
+   "mean": 22.0,
+   "std dev": 0.0,
+   "std error": 0.0,
+   "min": 22.0,
+   "5th pct": 22.0,
+   "median": 22.0,
+   "95th pct": 22.0,
+   "max": 22.0,
+   "mean / no-default amount": 1.0,
+   "P(below no-default amount)": 0.0
+  },
+  {
+   "series": "class_b",
+   "no-default amount": 12.0,
+   "mean": 12.0,
+   "std dev": 0.0,
+   "std error": 0.0,
+   "min": 12.0,
+   "5th pct": 12.0,
+   "median": 12.0,
+   "95th pct": 12.0,
+   "max": 12.0,
+   "mean / no-default amount": 1.0,
+   "P(below no-default amount)": 0.0
+  },
+  {
+   "series": "equity",
+   "no-default amount": 96.0,
+   "mean": 83.28336,
+   "std dev": 12.0322692795,
+   "std error": 0.3804937634,
+   "min": 30.48,
+   "5th pct": 60.6855,
+   "median": 88.29,
+   "95th pct": 96.0,
+   "max": 96.0,
+   "mean / no-default amount": 0.867535,
+   "P(below no-default amount)": 0.743
+  }
+ ],
+ "default_distribution": [
+  {
+   "defaults in 5 years": 0,
+   "cases": 257,
+   "simulated probability": 0.257,
+   "exact with correlation": 0.2470392577,
+   "if independent (binomial)": 0.1298857935,
+   "avg pool cash ($MM)": 130.0,
+   "avg equity cash ($MM)": 96.0
+  },
+  {
+   "defaults in 5 years": 1,
+   "cases": 253,
+   "simulated probability": 0.253,
+   "exact with correlation": 0.2587904123,
+   "if independent (binomial)": 0.2941043249,
+   "avg pool cash ($MM)": 123.1313043478,
+   "avg equity cash ($MM)": 89.1313043478
+  },
+  {
+   "defaults in 5 years": 2,
+   "cases": 200,
+   "simulated probability": 0.2,
+   "exact with correlation": 0.1988004677,
+   "if independent (binomial)": 0.2996771873,
+   "avg pool cash ($MM)": 116.0857,
+   "avg equity cash ($MM)": 82.0857
+  },
+  {
+   "defaults in 5 years": 3,
+   "cases": 131,
+   "simulated probability": 0.131,
+   "exact with correlation": 0.1327762906,
+   "if independent (binomial)": 0.1809514948,
+   "avg pool cash ($MM)": 109.133740458,
+   "avg equity cash ($MM)": 75.133740458
+  },
+  {
+   "defaults in 5 years": 4,
+   "cases": 77,
+   "simulated probability": 0.077,
+   "exact with correlation": 0.0804691489,
+   "if independent (binomial)": 0.0717034386,
+   "avg pool cash ($MM)": 101.9125974026,
+   "avg equity cash ($MM)": 67.9125974026
+  },
+  {
+   "defaults in 5 years": 5,
+   "cases": 49,
+   "simulated probability": 0.049,
+   "exact with correlation": 0.0446243079,
+   "if independent (binomial)": 0.0194832314,
+   "avg pool cash ($MM)": 94.9655102041,
+   "avg equity cash ($MM)": 60.9655102041
+  },
+  {
+   "defaults in 5 years": 6,
+   "cases": 16,
+   "simulated probability": 0.016,
+   "exact with correlation": 0.0224505984,
+   "if independent (binomial)": 0.0036763724,
+   "avg pool cash ($MM)": 87.536875,
+   "avg equity cash ($MM)": 53.536875
+  },
+  {
+   "defaults in 5 years": 7,
+   "cases": 11,
+   "simulated probability": 0.011,
+   "exact with correlation": 0.0100056528,
+   "if independent (binomial)": 0.0004756869,
+   "avg pool cash ($MM)": 79.9409090909,
+   "avg equity cash ($MM)": 45.9409090909
+  },
+  {
+   "defaults in 5 years": 8,
+   "cases": 5,
+   "simulated probability": 0.005,
+   "exact with correlation": 0.003769092,
+   "if independent (binomial)": 4.03917e-05,
+   "avg pool cash ($MM)": 72.496,
+   "avg equity cash ($MM)": 38.496
+  },
+  {
+   "defaults in 5 years": 9,
+   "cases": 1,
+   "simulated probability": 0.001,
+   "exact with correlation": 0.0010889429,
+   "if independent (binomial)": 2.0324e-06,
+   "avg pool cash ($MM)": 64.48,
+   "avg equity cash ($MM)": 30.48
+  },
+  {
+   "defaults in 5 years": 10,
+   "cases": 0,
+   "simulated probability": 0.0,
+   "exact with correlation": 0.0001858287,
+   "if independent (binomial)": 4.6e-08,
+   "avg pool cash ($MM)": null,
+   "avg equity cash ($MM)": null
+  }
+ ],
+ "quarterly": [
+  {
+   "quarter": 1,
+   "pool promised": 1.5,
+   "pool expected (exact)": 1.4908617607,
+   "pool mean": 1.49091,
+   "pool 5th pct": 1.41,
+   "pool 95th pct": 1.5,
+   "Class A mean": 0.1,
+   "Class B mean": 0.1,
+   "equity mean": 1.29091,
+   "equity 5th pct": 1.21,
+   "equity 95th pct": 1.3
+  },
+  {
+   "quarter": 2,
+   "pool promised": 1.5,
+   "pool expected (exact)": 1.4818163074,
+   "pool mean": 1.48155,
+   "pool 5th pct": 1.41,
+   "pool 95th pct": 1.5,
+   "Class A mean": 0.1,
+   "Class B mean": 0.1,
+   "equity mean": 1.28155,
+   "equity 5th pct": 1.21,
+   "equity 95th pct": 1.3
+  },
+  {
+   "quarter": 3,
+   "pool promised": 1.5,
+   "pool expected (exact)": 1.472862698,
+   "pool mean": 1.47264,
+   "pool 5th pct": 1.32,
+   "pool 95th pct": 1.5,
+   "Class A mean": 0.1,
+   "Class B mean": 0.1,
+   "equity mean": 1.27264,
+   "equity 5th pct": 1.12,
+   "equity 95th pct": 1.3
+  },
+  {
+   "quarter": 4,
+   "pool promised": 1.5,
+   "pool expected (exact)": 1.464,
+   "pool mean": 1.46274,
+   "pool 5th pct": 1.32,
+   "pool 95th pct": 1.5,
+   "Class A mean": 0.1,
+   "Class B mean": 0.1,
+   "equity mean": 1.26274,
+   "equity 5th pct": 1.12,
+   "equity 95th pct": 1.3
+  },
+  {
+   "quarter": 5,
+   "pool promised": 1.5,
+   "pool expected (exact)": 1.4552272903,
+   "pool mean": 1.45338,
+   "pool 5th pct": 1.32,
+   "pool 95th pct": 1.5,
+   "Class A mean": 0.1,
+   "Class B mean": 0.1,
+   "equity mean": 1.25338,
+   "equity 5th pct": 1.12,
+   "equity 95th pct": 1.3
+  },
+  {
+   "quarter": 6,
+   "pool promised": 1.5,
+   "pool expected (exact)": 1.4465436551,
+   "pool mean": 1.44366,
+   "pool 5th pct": 1.23,
+   "pool 95th pct": 1.5,
+   "Class A mean": 0.1,
+   "Class B mean": 0.1,
+   "equity mean": 1.24366,
+   "equity 5th pct": 1.03,
+   "equity 95th pct": 1.3
+  },
+  {
+   "quarter": 7,
+   "pool promised": 1.5,
+   "pool expected (exact)": 1.4379481901,
+   "pool mean": 1.43565,
+   "pool 5th pct": 1.23,
+   "pool 95th pct": 1.5,
+   "Class A mean": 0.1,
+   "Class B mean": 0.1,
+   "equity mean": 1.23565,
+   "equity 5th pct": 1.03,
+   "equity 95th pct": 1.3
+  },
+  {
+   "quarter": 8,
+   "pool promised": 1.5,
+   "pool expected (exact)": 1.42944,
+   "pool mean": 1.42953,
+   "pool 5th pct": 1.23,
+   "pool 95th pct": 1.5,
+   "Class A mean": 0.1,
+   "Class B mean": 0.1,
+   "equity mean": 1.22953,
+   "equity 5th pct": 1.03,
+   "equity 95th pct": 1.3
+  },
+  {
+   "quarter": 9,
+   "pool promised": 1.5,
+   "pool expected (exact)": 1.4210181987,
+   "pool mean": 1.42035,
+   "pool 5th pct": 1.23,
+   "pool 95th pct": 1.5,
+   "Class A mean": 0.1,
+   "Class B mean": 0.1,
+   "equity mean": 1.22035,
+   "equity 5th pct": 1.03,
+   "equity 95th pct": 1.3
+  },
+  {
+   "quarter": 10,
+   "pool promised": 1.5,
+   "pool expected (exact)": 1.4126819089,
+   "pool mean": 1.41279,
+   "pool 5th pct": 1.23,
+   "pool 95th pct": 1.5,
+   "Class A mean": 0.1,
+   "Class B mean": 0.1,
+   "equity mean": 1.21279,
+   "equity 5th pct": 1.03,
+   "equity 95th pct": 1.3
+  },
+  {
+   "quarter": 11,
+   "pool promised": 1.5,
+   "pool expected (exact)": 1.4044302625,
+   "pool mean": 1.40523,
+   "pool 5th pct": 1.14,
+   "pool 95th pct": 1.5,
+   "Class A mean": 0.1,
+   "Class B mean": 0.1,
+   "equity mean": 1.20523,
+   "equity 5th pct": 0.94,
+   "equity 95th pct": 1.3
+  },
+  {
+   "quarter": 12,
+   "pool promised": 1.5,
+   "pool expected (exact)": 1.3962624,
+   "pool mean": 1.39785,
+   "pool 5th pct": 1.14,
+   "pool 95th pct": 1.5,
+   "Class A mean": 0.1,
+   "Class B mean": 0.1,
+   "equity mean": 1.19785,
+   "equity 5th pct": 0.94,
+   "equity 95th pct": 1.3
+  },
+  {
+   "quarter": 13,
+   "pool promised": 1.5,
+   "pool expected (exact)": 1.3881774707,
+   "pool mean": 1.39029,
+   "pool 5th pct": 1.14,
+   "pool 95th pct": 1.5,
+   "Class A mean": 0.1,
+   "Class B mean": 0.1,
+   "equity mean": 1.19029,
+   "equity 5th pct": 0.94,
+   "equity 95th pct": 1.3
+  },
+  {
+   "quarter": 14,
+   "pool promised": 1.5,
+   "pool expected (exact)": 1.3801746325,
+   "pool mean": 1.383,
+   "pool 5th pct": 1.14,
+   "pool 95th pct": 1.5,
+   "Class A mean": 0.1,
+   "Class B mean": 0.1,
+   "equity mean": 1.183,
+   "equity 5th pct": 0.94,
+   "equity 95th pct": 1.3
+  },
+  {
+   "quarter": 15,
+   "pool promised": 1.5,
+   "pool expected (exact)": 1.372253052,
+   "pool mean": 1.374,
+   "pool 5th pct": 1.14,
+   "pool 95th pct": 1.5,
+   "Class A mean": 0.1,
+   "Class B mean": 0.1,
+   "equity mean": 1.174,
+   "equity 5th pct": 0.94,
+   "equity 95th pct": 1.3
+  },
+  {
+   "quarter": 16,
+   "pool promised": 1.5,
+   "pool expected (exact)": 1.364411904,
+   "pool mean": 1.36563,
+   "pool 5th pct": 1.14,
+   "pool 95th pct": 1.5,
+   "Class A mean": 0.1,
+   "Class B mean": 0.1,
+   "equity mean": 1.16563,
+   "equity 5th pct": 0.94,
+   "equity 95th pct": 1.3
+  },
+  {
+   "quarter": 17,
+   "pool promised": 1.5,
+   "pool expected (exact)": 1.3566503719,
+   "pool mean": 1.35852,
+   "pool 5th pct": 1.05,
+   "pool 95th pct": 1.5,
+   "Class A mean": 0.1,
+   "Class B mean": 0.1,
+   "equity mean": 1.15852,
+   "equity 5th pct": 0.85,
+   "equity 95th pct": 1.3
+  },
+  {
+   "quarter": 18,
+   "pool promised": 1.5,
+   "pool expected (exact)": 1.3489676472,
+   "pool mean": 1.35159,
+   "pool 5th pct": 1.05,
+   "pool 95th pct": 1.5,
+   "Class A mean": 0.1,
+   "Class B mean": 0.1,
+   "equity mean": 1.15159,
+   "equity 5th pct": 0.85,
+   "equity 95th pct": 1.3
+  },
+  {
+   "quarter": 19,
+   "pool promised": 1.5,
+   "pool expected (exact)": 1.3413629299,
+   "pool mean": 1.34394,
+   "pool 5th pct": 1.05,
+   "pool 95th pct": 1.5,
+   "Class A mean": 0.1,
+   "Class B mean": 0.1,
+   "equity mean": 1.14394,
+   "equity 5th pct": 0.85,
+   "equity 95th pct": 1.3
+  },
+  {
+   "quarter": 20,
+   "pool promised": 101.5,
+   "pool expected (exact)": 90.2561972838,
+   "pool mean": 90.41011,
+   "pool 5th pct": 71.05,
+   "pool 95th pct": 101.5,
+   "Class A mean": 20.1,
+   "Class B mean": 10.1,
+   "equity mean": 60.21011,
+   "equity 5th pct": 40.85,
+   "equity 95th pct": 71.3
+  }
+ ],
+ "sensitivities": {
+  "pd": [
+   {
+    "pd": 0.01,
+    "avg defaults": 0.514,
+    "P(no default)": 0.652,
+    "P(4+ defaults)": 0.011,
+    "pool mean": 126.4444,
+    "pool 5th pct": 115.48,
+    "equity mean": 92.4444,
+    "equity std": 6.005312633,
+    "equity 5th pct": 81.48,
+    "equity min": 46.98,
+    "P(A shortfall)": 0.0,
+    "P(B shortfall)": 0.0,
+    "B paid / due": 1.0
+   },
+   {
+    "pd": 0.02,
+    "avg defaults": 0.96,
+    "P(no default)": 0.472,
+    "P(4+ defaults)": 0.046,
+    "pool mean": 123.30265,
+    "pool 5th pct": 107.5855,
+    "equity mean": 89.30265,
+    "equity std": 8.5592740375,
+    "equity 5th pct": 73.5855,
+    "equity min": 44.01,
+    "P(A shortfall)": 0.0,
+    "P(B shortfall)": 0.0,
+    "B paid / due": 1.0
+   },
+   {
+    "pd": 0.04,
+    "avg defaults": 1.821,
+    "P(no default)": 0.257,
+    "P(4+ defaults)": 0.159,
+    "pool mean": 117.28336,
+    "pool 5th pct": 94.6855,
+    "equity mean": 83.28336,
+    "equity std": 12.0322692795,
+    "equity 5th pct": 60.6855,
+    "equity min": 30.48,
+    "P(A shortfall)": 0.0,
+    "P(B shortfall)": 0.0,
+    "B paid / due": 1.0
+   },
+   {
+    "pd": 0.06,
+    "avg defaults": 2.644,
+    "P(no default)": 0.136,
+    "P(4+ defaults)": 0.3,
+    "pool mean": 111.51223,
+    "pool 5th pct": 84.9565,
+    "equity mean": 77.51223,
+    "equity std": 14.2499506533,
+    "equity 5th pct": 50.9565,
+    "equity min": 28.86,
+    "P(A shortfall)": 0.0,
+    "P(B shortfall)": 0.0,
+    "B paid / due": 1.0
+   },
+   {
+    "pd": 0.08,
+    "avg defaults": 3.426,
+    "P(no default)": 0.076,
+    "P(4+ defaults)": 0.446,
+    "pool mean": 106.01869,
+    "pool 5th pct": 78.55,
+    "equity mean": 72.01869,
+    "equity std": 15.6039837507,
+    "equity 5th pct": 44.55,
+    "equity min": 21.87,
+    "P(A shortfall)": 0.0,
+    "P(B shortfall)": 0.0,
+    "B paid / due": 1.0
+   },
+   {
+    "pd": 0.12,
+    "avg defaults": 4.73,
+    "P(no default)": 0.019,
+    "P(4+ defaults)": 0.685,
+    "pool mean": 96.71428,
+    "pool 5th pct": 67.612,
+    "equity mean": 62.71428,
+    "equity std": 16.5572727393,
+    "equity 5th pct": 33.612,
+    "equity min": 20.34,
+    "P(A shortfall)": 0.0,
+    "P(B shortfall)": 0.0,
+    "B paid / due": 1.0
+   }
+  ],
+  "lgd": [
+   {
+    "lgd": 0.4,
+    "avg defaults": 1.821,
+    "P(no default)": 0.257,
+    "P(4+ defaults)": 0.159,
+    "pool mean": 121.52224,
+    "pool 5th pct": 106.457,
+    "equity mean": 87.52224,
+    "equity std": 8.021512853,
+    "equity 5th pct": 72.457,
+    "equity min": 52.32,
+    "P(A shortfall)": 0.0,
+    "P(B shortfall)": 0.0,
+    "B paid / due": 1.0
+   },
+   {
+    "lgd": 0.5,
+    "avg defaults": 1.821,
+    "P(no default)": 0.257,
+    "P(4+ defaults)": 0.159,
+    "pool mean": 119.4028,
+    "pool 5th pct": 100.57125,
+    "equity mean": 85.4028,
+    "equity std": 10.0268910663,
+    "equity 5th pct": 66.57125,
+    "equity min": 41.4,
+    "P(A shortfall)": 0.0,
+    "P(B shortfall)": 0.0,
+    "B paid / due": 1.0
+   },
+   {
+    "lgd": 0.6,
+    "avg defaults": 1.821,
+    "P(no default)": 0.257,
+    "P(4+ defaults)": 0.159,
+    "pool mean": 117.28336,
+    "pool 5th pct": 94.6855,
+    "equity mean": 83.28336,
+    "equity std": 12.0322692795,
+    "equity 5th pct": 60.6855,
+    "equity min": 30.48,
+    "P(A shortfall)": 0.0,
+    "P(B shortfall)": 0.0,
+    "B paid / due": 1.0
+   },
+   {
+    "lgd": 0.7,
+    "avg defaults": 1.821,
+    "P(no default)": 0.257,
+    "P(4+ defaults)": 0.159,
+    "pool mean": 115.16392,
+    "pool 5th pct": 88.79975,
+    "equity mean": 81.16392,
+    "equity std": 14.0376474928,
+    "equity 5th pct": 54.79975,
+    "equity min": 19.56,
+    "P(A shortfall)": 0.0,
+    "P(B shortfall)": 0.0,
+    "B paid / due": 1.0
+   },
+   {
+    "lgd": 0.8,
+    "avg defaults": 1.821,
+    "P(no default)": 0.257,
+    "P(4+ defaults)": 0.159,
+    "pool mean": 113.04448,
+    "pool 5th pct": 82.914,
+    "equity mean": 79.04626,
+    "equity std": 16.0353032826,
+    "equity 5th pct": 48.914,
+    "equity min": 10.42,
+    "P(A shortfall)": 0.0,
+    "P(B shortfall)": 0.001,
+    "B paid / due": 0.9998516667
+   },
+   {
+    "lgd": 0.9,
+    "avg defaults": 1.821,
+    "P(no default)": 0.257,
+    "P(4+ defaults)": 0.159,
+    "pool mean": 110.92504,
+    "pool 5th pct": 77.02825,
+    "equity mean": 76.944855,
+    "equity std": 17.9708599965,
+    "equity 5th pct": 43.02825,
+    "equity min": 8.635,
+    "P(A shortfall)": 0.001,
+    "P(B shortfall)": 0.006,
+    "B paid / due": 0.9984166667
+   },
+   {
+    "lgd": 1.0,
+    "avg defaults": 1.821,
+    "P(no default)": 0.257,
+    "P(4+ defaults)": 0.159,
+    "pool mean": 108.8056,
+    "pool 5th pct": 71.1425,
+    "equity mean": 74.8752,
+    "equity std": 19.8016566369,
+    "equity 5th pct": 37.1425,
+    "equity min": 6.9,
+    "P(A shortfall)": 0.001,
+    "P(B shortfall)": 0.006,
+    "B paid / due": 0.9950291667
+   }
+  ],
+  "rho": [
+   {
+    "rho": 0.0,
+    "avg defaults": 1.833,
+    "P(no default)": 0.145,
+    "P(4+ defaults)": 0.098,
+    "pool mean": 117.2236,
+    "pool 5th pct": 101.68,
+    "equity mean": 83.2236,
+    "equity std": 8.7609781633,
+    "equity 5th pct": 67.68,
+    "equity min": 45.54,
+    "P(A shortfall)": 0.0,
+    "P(B shortfall)": 0.0,
+    "B paid / due": 1.0
+   },
+   {
+    "rho": 0.1,
+    "avg defaults": 1.822,
+    "P(no default)": 0.207,
+    "P(4+ defaults)": 0.142,
+    "pool mean": 117.27826,
+    "pool 5th pct": 97.3765,
+    "equity mean": 83.27826,
+    "equity std": 10.5710878281,
+    "equity 5th pct": 63.3765,
+    "equity min": 44.01,
+    "P(A shortfall)": 0.0,
+    "P(B shortfall)": 0.0,
+    "B paid / due": 1.0
+   },
+   {
+    "rho": 0.2,
+    "avg defaults": 1.821,
+    "P(no default)": 0.257,
+    "P(4+ defaults)": 0.159,
+    "pool mean": 117.28336,
+    "pool 5th pct": 94.6855,
+    "equity mean": 83.28336,
+    "equity std": 12.0322692795,
+    "equity 5th pct": 60.6855,
+    "equity min": 30.48,
+    "P(A shortfall)": 0.0,
+    "P(B shortfall)": 0.0,
+    "B paid / due": 1.0
+   },
+   {
+    "rho": 0.4,
+    "avg defaults": 1.844,
+    "P(no default)": 0.357,
+    "P(4+ defaults)": 0.189,
+    "pool mean": 117.15625,
+    "pool 5th pct": 86.6155,
+    "equity mean": 83.15625,
+    "equity std": 15.3787491547,
+    "equity 5th pct": 52.6155,
+    "equity min": 19.98,
+    "P(A shortfall)": 0.0,
+    "P(B shortfall)": 0.0,
+    "B paid / due": 1.0
+   },
+   {
+    "rho": 0.6,
+    "avg defaults": 1.817,
+    "P(no default)": 0.463,
+    "P(4+ defaults)": 0.2,
+    "pool mean": 117.32653,
+    "pool 5th pct": 74.98,
+    "equity mean": 83.32653,
+    "equity std": 17.9939704466,
+    "equity 5th pct": 40.98,
+    "equity min": 18.27,
+    "P(A shortfall)": 0.0,
+    "P(B shortfall)": 0.0,
+    "B paid / due": 1.0
+   },
+   {
+    "rho": 0.8,
+    "avg defaults": 1.782,
+    "P(no default)": 0.594,
+    "P(4+ defaults)": 0.197,
+    "pool mean": 117.55309,
+    "pool 5th pct": 62.866,
+    "equity mean": 83.55309,
+    "equity std": 21.2918012472,
+    "equity 5th pct": 28.866,
+    "equity min": 18.0,
+    "P(A shortfall)": 0.0,
+    "P(B shortfall)": 0.0,
+    "B paid / due": 1.0
+   }
+  ],
+  "b_notional": [
+   {
+    "b_notional": 10.0,
+    "avg defaults": 1.821,
+    "P(no default)": 0.257,
+    "P(4+ defaults)": 0.159,
+    "pool mean": 117.28336,
+    "pool 5th pct": 94.6855,
+    "equity mean": 83.28336,
+    "equity std": 12.0322692795,
+    "equity 5th pct": 60.6855,
+    "equity min": 30.48,
+    "P(A shortfall)": 0.0,
+    "P(B shortfall)": 0.0,
+    "B paid / due": 1.0
+   },
+   {
+    "b_notional": 20.0,
+    "avg defaults": 1.821,
+    "P(no default)": 0.257,
+    "P(4+ defaults)": 0.159,
+    "pool mean": 117.28336,
+    "pool 5th pct": 94.6855,
+    "equity mean": 71.28336,
+    "equity std": 12.0322692795,
+    "equity 5th pct": 48.6855,
+    "equity min": 18.48,
+    "P(A shortfall)": 0.0,
+    "P(B shortfall)": 0.0,
+    "B paid / due": 1.0
+   },
+   {
+    "b_notional": 30.0,
+    "avg defaults": 1.821,
+    "P(no default)": 0.257,
+    "P(4+ defaults)": 0.159,
+    "pool mean": 117.28336,
+    "pool 5th pct": 94.6855,
+    "equity mean": 59.28707,
+    "equity std": 12.0165334015,
+    "equity 5th pct": 36.6855,
+    "equity min": 10.19,
+    "P(A shortfall)": 0.0,
+    "P(B shortfall)": 0.001,
+    "B paid / due": 0.9998969444
+   },
+   {
+    "b_notional": 40.0,
+    "avg defaults": 1.821,
+    "P(no default)": 0.257,
+    "P(4+ defaults)": 0.159,
+    "pool mean": 117.28336,
+    "pool 5th pct": 94.6855,
+    "equity mean": 47.3537,
+    "equity std": 11.7909978008,
+    "equity 5th pct": 24.6855,
+    "equity min": 8.2,
+    "P(A shortfall)": 0.0,
+    "P(B shortfall)": 0.017,
+    "B paid / due": 0.9985345833
+   },
+   {
+    "b_notional": 50.0,
+    "avg defaults": 1.821,
+    "P(no default)": 0.257,
+    "P(4+ defaults)": 0.159,
+    "pool mean": 117.28336,
+    "pool 5th pct": 94.6855,
+    "equity mean": 35.61564,
+    "equity std": 11.1046907001,
+    "equity 5th pct": 12.78,
+    "equity min": 6.3,
+    "P(A shortfall)": 0.0,
+    "P(B shortfall)": 0.033,
+    "B paid / due": 0.994462
+   },
+   {
+    "b_notional": 60.0,
+    "avg defaults": 1.821,
+    "P(no default)": 0.257,
+    "P(4+ defaults)": 0.159,
+    "pool mean": 117.28336,
+    "pool 5th pct": 94.6855,
+    "equity mean": 24.69592,
+    "equity std": 9.1636353357,
+    "equity 5th pct": 10.07,
+    "equity min": 4.4,
+    "P(A shortfall)": 0.0,
+    "P(B shortfall)": 0.159,
+    "B paid / due": 0.9803811111
+   }
+  ]
+ },
+ "stress": {
+  "lgd": 1.0,
+  "pd": [
+   {
+    "pd": 0.04,
+    "avg defaults": 1.821,
+    "P(no default)": 0.257,
+    "P(4+ defaults)": 0.159,
+    "pool mean": 108.8056,
+    "pool 5th pct": 71.1425,
+    "equity mean": 74.8752,
+    "equity std": 19.8016566369,
+    "equity 5th pct": 37.1425,
+    "equity min": 6.9,
+    "P(A shortfall)": 0.001,
+    "P(B shortfall)": 0.006,
+    "B paid / due": 0.9950291667
+   },
+   {
+    "pd": 0.08,
+    "avg defaults": 3.426,
+    "P(no default)": 0.076,
+    "P(4+ defaults)": 0.446,
+    "pool mean": 90.03115,
+    "pool 5th pct": 44.25,
+    "equity mean": 56.6929,
+    "equity std": 24.5416614706,
+    "equity 5th pct": 11.7975,
+    "equity min": 3.15,
+    "P(A shortfall)": 0.019,
+    "P(B shortfall)": 0.045,
+    "B paid / due": 0.9623
+   },
+   {
+    "pd": 0.12,
+    "avg defaults": 4.73,
+    "P(no default)": 0.019,
+    "P(4+ defaults)": 0.685,
+    "pool mean": 74.5238,
+    "pool 5th pct": 26.02,
+    "equity mean": 42.42455,
+    "equity std": 24.4585190466,
+    "equity 5th pct": 8.1975,
+    "equity min": 1.85,
+    "P(A shortfall)": 0.056,
+    "P(B shortfall)": 0.118,
+    "B paid / due": 0.9002958333
+   },
+   {
+    "pd": 0.2,
+    "avg defaults": 6.734,
+    "P(no default)": 0.001,
+    "P(4+ defaults)": 0.909,
+    "pool mean": 50.2289,
+    "pool 5th pct": 10.3275,
+    "equity mean": 23.7548,
+    "equity std": 19.3111281812,
+    "equity 5th pct": 4.65,
+    "equity min": 0.9,
+    "P(A shortfall)": 0.247,
+    "P(B shortfall)": 0.406,
+    "B paid / due": 0.6541916667
+   }
+  ],
+  "rho": [
+   {
+    "rho": 0.0,
+    "avg defaults": 1.833,
+    "P(no default)": 0.145,
+    "P(4+ defaults)": 0.098,
+    "pool mean": 108.706,
+    "pool 5th pct": 82.8,
+    "equity mean": 74.706,
+    "equity std": 14.6016302722,
+    "equity 5th pct": 48.8,
+    "equity min": 11.9,
+    "P(A shortfall)": 0.0,
+    "P(B shortfall)": 0.0,
+    "B paid / due": 1.0
+   },
+   {
+    "rho": 0.2,
+    "avg defaults": 1.821,
+    "P(no default)": 0.257,
+    "P(4+ defaults)": 0.159,
+    "pool mean": 108.8056,
+    "pool 5th pct": 71.1425,
+    "equity mean": 74.8752,
+    "equity std": 19.8016566369,
+    "equity 5th pct": 37.1425,
+    "equity min": 6.9,
+    "P(A shortfall)": 0.001,
+    "P(B shortfall)": 0.006,
+    "B paid / due": 0.9950291667
+   },
+   {
+    "rho": 0.4,
+    "avg defaults": 1.844,
+    "P(no default)": 0.357,
+    "P(4+ defaults)": 0.189,
+    "pool mean": 108.59375,
+    "pool 5th pct": 57.6925,
+    "equity mean": 75.0794,
+    "equity std": 24.1249005483,
+    "equity 5th pct": 23.6925,
+    "equity min": 1.45,
+    "P(A shortfall)": 0.016,
+    "P(B shortfall)": 0.029,
+    "B paid / due": 0.9754333333
+   },
+   {
+    "rho": 0.6,
+    "avg defaults": 1.817,
+    "P(no default)": 0.463,
+    "P(4+ defaults)": 0.2,
+    "pool mean": 108.87755,
+    "pool 5th pct": 38.3,
+    "equity mean": 75.8664,
+    "equity std": 27.1920495476,
+    "equity 5th pct": 12.0425,
+    "equity min": 0.1,
+    "P(A shortfall)": 0.032,
+    "P(B shortfall)": 0.051,
+    "B paid / due": 0.9559583333
+   },
+   {
+    "rho": 0.8,
+    "avg defaults": 1.782,
+    "P(no default)": 0.594,
+    "P(4+ defaults)": 0.197,
+    "pool mean": 109.25515,
+    "pool 5th pct": 18.11,
+    "equity mean": 77.42235,
+    "equity std": 29.9080077388,
+    "equity 5th pct": 8.35,
+    "equity min": 0.0,
+    "P(A shortfall)": 0.069,
+    "P(B shortfall)": 0.089,
+    "B paid / due": 0.921275
+   }
+  ]
+ },
+ "cases": [
+  {
+   "case": 1,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 2,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 3,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 4,
+   "n_defaults": 2,
+   "pool": 116.2,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.2
+  },
+  {
+   "case": 5,
+   "n_defaults": 6,
+   "pool": 88.15,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 54.15
+  },
+  {
+   "case": 6,
+   "n_defaults": 3,
+   "pool": 110.74,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.74
+  },
+  {
+   "case": 7,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 8,
+   "n_defaults": 1,
+   "pool": 123.37,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.37
+  },
+  {
+   "case": 9,
+   "n_defaults": 2,
+   "pool": 117.01,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.01
+  },
+  {
+   "case": 10,
+   "n_defaults": 1,
+   "pool": 123.82,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.82
+  },
+  {
+   "case": 11,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 12,
+   "n_defaults": 1,
+   "pool": 122.65,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.65
+  },
+  {
+   "case": 13,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 14,
+   "n_defaults": 1,
+   "pool": 122.56,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.56
+  },
+  {
+   "case": 15,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 16,
+   "n_defaults": 1,
+   "pool": 123.19,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.19
+  },
+  {
+   "case": 17,
+   "n_defaults": 1,
+   "pool": 123.82,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.82
+  },
+  {
+   "case": 18,
+   "n_defaults": 2,
+   "pool": 116.83,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.83
+  },
+  {
+   "case": 19,
+   "n_defaults": 1,
+   "pool": 123.73,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.73
+  },
+  {
+   "case": 20,
+   "n_defaults": 3,
+   "pool": 109.57,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.57
+  },
+  {
+   "case": 21,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 22,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 23,
+   "n_defaults": 2,
+   "pool": 116.02,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.02
+  },
+  {
+   "case": 24,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 25,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 26,
+   "n_defaults": 5,
+   "pool": 95.95,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 61.95
+  },
+  {
+   "case": 27,
+   "n_defaults": 1,
+   "pool": 123.01,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.01
+  },
+  {
+   "case": 28,
+   "n_defaults": 2,
+   "pool": 116.47,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.47
+  },
+  {
+   "case": 29,
+   "n_defaults": 1,
+   "pool": 123.28,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.28
+  },
+  {
+   "case": 30,
+   "n_defaults": 1,
+   "pool": 123.46,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.46
+  },
+  {
+   "case": 31,
+   "n_defaults": 3,
+   "pool": 109.57,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.57
+  },
+  {
+   "case": 32,
+   "n_defaults": 2,
+   "pool": 116.11,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.11
+  },
+  {
+   "case": 33,
+   "n_defaults": 2,
+   "pool": 116.56,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.56
+  },
+  {
+   "case": 34,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 35,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 36,
+   "n_defaults": 3,
+   "pool": 110.38,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.38
+  },
+  {
+   "case": 37,
+   "n_defaults": 1,
+   "pool": 123.91,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.91
+  },
+  {
+   "case": 38,
+   "n_defaults": 2,
+   "pool": 115.84,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.84
+  },
+  {
+   "case": 39,
+   "n_defaults": 3,
+   "pool": 110.38,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.38
+  },
+  {
+   "case": 40,
+   "n_defaults": 3,
+   "pool": 110.2,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.2
+  },
+  {
+   "case": 41,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 42,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 43,
+   "n_defaults": 3,
+   "pool": 109.48,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.48
+  },
+  {
+   "case": 44,
+   "n_defaults": 3,
+   "pool": 109.03,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.03
+  },
+  {
+   "case": 45,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 46,
+   "n_defaults": 2,
+   "pool": 116.65,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.65
+  },
+  {
+   "case": 47,
+   "n_defaults": 3,
+   "pool": 107.23,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 73.23
+  },
+  {
+   "case": 48,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 49,
+   "n_defaults": 4,
+   "pool": 103.93,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 69.93
+  },
+  {
+   "case": 50,
+   "n_defaults": 2,
+   "pool": 116.47,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.47
+  },
+  {
+   "case": 51,
+   "n_defaults": 1,
+   "pool": 123.28,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.28
+  },
+  {
+   "case": 52,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 53,
+   "n_defaults": 2,
+   "pool": 115.21,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.21
+  },
+  {
+   "case": 54,
+   "n_defaults": 2,
+   "pool": 116.02,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.02
+  },
+  {
+   "case": 55,
+   "n_defaults": 3,
+   "pool": 108.85,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.85
+  },
+  {
+   "case": 56,
+   "n_defaults": 6,
+   "pool": 87.88,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 53.88
+  },
+  {
+   "case": 57,
+   "n_defaults": 3,
+   "pool": 107.32,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 73.32
+  },
+  {
+   "case": 58,
+   "n_defaults": 2,
+   "pool": 115.12,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.12
+  },
+  {
+   "case": 59,
+   "n_defaults": 5,
+   "pool": 94.87,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 60.87
+  },
+  {
+   "case": 60,
+   "n_defaults": 2,
+   "pool": 116.56,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.56
+  },
+  {
+   "case": 61,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 62,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 63,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 64,
+   "n_defaults": 3,
+   "pool": 109.21,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.21
+  },
+  {
+   "case": 65,
+   "n_defaults": 7,
+   "pool": 81.07,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 47.07
+  },
+  {
+   "case": 66,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 67,
+   "n_defaults": 3,
+   "pool": 109.3,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.3
+  },
+  {
+   "case": 68,
+   "n_defaults": 1,
+   "pool": 122.65,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.65
+  },
+  {
+   "case": 69,
+   "n_defaults": 2,
+   "pool": 114.94,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 80.94
+  },
+  {
+   "case": 70,
+   "n_defaults": 2,
+   "pool": 116.65,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.65
+  },
+  {
+   "case": 71,
+   "n_defaults": 1,
+   "pool": 123.37,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.37
+  },
+  {
+   "case": 72,
+   "n_defaults": 1,
+   "pool": 123.28,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.28
+  },
+  {
+   "case": 73,
+   "n_defaults": 1,
+   "pool": 122.47,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.47
+  },
+  {
+   "case": 74,
+   "n_defaults": 7,
+   "pool": 80.17,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 46.17
+  },
+  {
+   "case": 75,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 76,
+   "n_defaults": 1,
+   "pool": 122.56,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.56
+  },
+  {
+   "case": 77,
+   "n_defaults": 2,
+   "pool": 117.01,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.01
+  },
+  {
+   "case": 78,
+   "n_defaults": 2,
+   "pool": 115.39,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.39
+  },
+  {
+   "case": 79,
+   "n_defaults": 2,
+   "pool": 115.84,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.84
+  },
+  {
+   "case": 80,
+   "n_defaults": 1,
+   "pool": 123.73,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.73
+  },
+  {
+   "case": 81,
+   "n_defaults": 1,
+   "pool": 123.1,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.1
+  },
+  {
+   "case": 82,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 83,
+   "n_defaults": 5,
+   "pool": 95.14,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 61.14
+  },
+  {
+   "case": 84,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 85,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 86,
+   "n_defaults": 1,
+   "pool": 123.37,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.37
+  },
+  {
+   "case": 87,
+   "n_defaults": 3,
+   "pool": 109.3,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.3
+  },
+  {
+   "case": 88,
+   "n_defaults": 4,
+   "pool": 102.04,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.04
+  },
+  {
+   "case": 89,
+   "n_defaults": 1,
+   "pool": 123.91,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.91
+  },
+  {
+   "case": 90,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 91,
+   "n_defaults": 2,
+   "pool": 116.11,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.11
+  },
+  {
+   "case": 92,
+   "n_defaults": 2,
+   "pool": 115.3,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.3
+  },
+  {
+   "case": 93,
+   "n_defaults": 4,
+   "pool": 101.5,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 67.5
+  },
+  {
+   "case": 94,
+   "n_defaults": 4,
+   "pool": 101.14,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 67.14
+  },
+  {
+   "case": 95,
+   "n_defaults": 2,
+   "pool": 116.56,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.56
+  },
+  {
+   "case": 96,
+   "n_defaults": 3,
+   "pool": 108.22,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.22
+  },
+  {
+   "case": 97,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 98,
+   "n_defaults": 2,
+   "pool": 115.03,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.03
+  },
+  {
+   "case": 99,
+   "n_defaults": 1,
+   "pool": 122.92,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.92
+  },
+  {
+   "case": 100,
+   "n_defaults": 1,
+   "pool": 122.38,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.38
+  },
+  {
+   "case": 101,
+   "n_defaults": 1,
+   "pool": 123.01,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.01
+  },
+  {
+   "case": 102,
+   "n_defaults": 1,
+   "pool": 123.01,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.01
+  },
+  {
+   "case": 103,
+   "n_defaults": 4,
+   "pool": 101.32,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 67.32
+  },
+  {
+   "case": 104,
+   "n_defaults": 1,
+   "pool": 123.19,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.19
+  },
+  {
+   "case": 105,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 106,
+   "n_defaults": 1,
+   "pool": 123.46,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.46
+  },
+  {
+   "case": 107,
+   "n_defaults": 1,
+   "pool": 123.55,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.55
+  },
+  {
+   "case": 108,
+   "n_defaults": 4,
+   "pool": 102.49,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.49
+  },
+  {
+   "case": 109,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 110,
+   "n_defaults": 2,
+   "pool": 115.3,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.3
+  },
+  {
+   "case": 111,
+   "n_defaults": 2,
+   "pool": 116.02,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.02
+  },
+  {
+   "case": 112,
+   "n_defaults": 2,
+   "pool": 116.83,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.83
+  },
+  {
+   "case": 113,
+   "n_defaults": 1,
+   "pool": 123.28,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.28
+  },
+  {
+   "case": 114,
+   "n_defaults": 5,
+   "pool": 92.89,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 58.89
+  },
+  {
+   "case": 115,
+   "n_defaults": 1,
+   "pool": 123.46,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.46
+  },
+  {
+   "case": 116,
+   "n_defaults": 2,
+   "pool": 116.11,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.11
+  },
+  {
+   "case": 117,
+   "n_defaults": 1,
+   "pool": 123.46,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.46
+  },
+  {
+   "case": 118,
+   "n_defaults": 4,
+   "pool": 102.4,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.4
+  },
+  {
+   "case": 119,
+   "n_defaults": 4,
+   "pool": 102.58,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.58
+  },
+  {
+   "case": 120,
+   "n_defaults": 3,
+   "pool": 109.12,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.12
+  },
+  {
+   "case": 121,
+   "n_defaults": 2,
+   "pool": 116.02,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.02
+  },
+  {
+   "case": 122,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 123,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 124,
+   "n_defaults": 5,
+   "pool": 95.14,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 61.14
+  },
+  {
+   "case": 125,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 126,
+   "n_defaults": 6,
+   "pool": 90.13,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 56.13
+  },
+  {
+   "case": 127,
+   "n_defaults": 3,
+   "pool": 108.22,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.22
+  },
+  {
+   "case": 128,
+   "n_defaults": 3,
+   "pool": 110.74,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.74
+  },
+  {
+   "case": 129,
+   "n_defaults": 1,
+   "pool": 122.83,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.83
+  },
+  {
+   "case": 130,
+   "n_defaults": 2,
+   "pool": 114.85,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 80.85
+  },
+  {
+   "case": 131,
+   "n_defaults": 1,
+   "pool": 123.37,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.37
+  },
+  {
+   "case": 132,
+   "n_defaults": 3,
+   "pool": 108.58,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.58
+  },
+  {
+   "case": 133,
+   "n_defaults": 2,
+   "pool": 115.12,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.12
+  },
+  {
+   "case": 134,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 135,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 136,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 137,
+   "n_defaults": 2,
+   "pool": 116.29,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.29
+  },
+  {
+   "case": 138,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 139,
+   "n_defaults": 2,
+   "pool": 117.55,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.55
+  },
+  {
+   "case": 140,
+   "n_defaults": 7,
+   "pool": 77.74,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 43.74
+  },
+  {
+   "case": 141,
+   "n_defaults": 2,
+   "pool": 116.38,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.38
+  },
+  {
+   "case": 142,
+   "n_defaults": 1,
+   "pool": 123.19,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.19
+  },
+  {
+   "case": 143,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 144,
+   "n_defaults": 5,
+   "pool": 95.59,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 61.59
+  },
+  {
+   "case": 145,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 146,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 147,
+   "n_defaults": 1,
+   "pool": 123.37,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.37
+  },
+  {
+   "case": 148,
+   "n_defaults": 3,
+   "pool": 108.58,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.58
+  },
+  {
+   "case": 149,
+   "n_defaults": 2,
+   "pool": 117.37,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.37
+  },
+  {
+   "case": 150,
+   "n_defaults": 2,
+   "pool": 116.2,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.2
+  },
+  {
+   "case": 151,
+   "n_defaults": 1,
+   "pool": 122.74,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.74
+  },
+  {
+   "case": 152,
+   "n_defaults": 3,
+   "pool": 109.12,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.12
+  },
+  {
+   "case": 153,
+   "n_defaults": 4,
+   "pool": 100.6,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 66.6
+  },
+  {
+   "case": 154,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 155,
+   "n_defaults": 5,
+   "pool": 96.67,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 62.67
+  },
+  {
+   "case": 156,
+   "n_defaults": 1,
+   "pool": 123.82,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.82
+  },
+  {
+   "case": 157,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 158,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 159,
+   "n_defaults": 3,
+   "pool": 109.21,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.21
+  },
+  {
+   "case": 160,
+   "n_defaults": 2,
+   "pool": 117.19,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.19
+  },
+  {
+   "case": 161,
+   "n_defaults": 2,
+   "pool": 116.29,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.29
+  },
+  {
+   "case": 162,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 163,
+   "n_defaults": 4,
+   "pool": 102.4,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.4
+  },
+  {
+   "case": 164,
+   "n_defaults": 2,
+   "pool": 117.64,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.64
+  },
+  {
+   "case": 165,
+   "n_defaults": 2,
+   "pool": 117.1,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.1
+  },
+  {
+   "case": 166,
+   "n_defaults": 2,
+   "pool": 115.84,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.84
+  },
+  {
+   "case": 167,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 168,
+   "n_defaults": 1,
+   "pool": 122.83,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.83
+  },
+  {
+   "case": 169,
+   "n_defaults": 1,
+   "pool": 123.01,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.01
+  },
+  {
+   "case": 170,
+   "n_defaults": 1,
+   "pool": 123.19,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.19
+  },
+  {
+   "case": 171,
+   "n_defaults": 3,
+   "pool": 107.95,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 73.95
+  },
+  {
+   "case": 172,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 173,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 174,
+   "n_defaults": 6,
+   "pool": 87.79,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 53.79
+  },
+  {
+   "case": 175,
+   "n_defaults": 1,
+   "pool": 123.64,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.64
+  },
+  {
+   "case": 176,
+   "n_defaults": 3,
+   "pool": 110.02,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.02
+  },
+  {
+   "case": 177,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 178,
+   "n_defaults": 1,
+   "pool": 123.82,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.82
+  },
+  {
+   "case": 179,
+   "n_defaults": 4,
+   "pool": 101.95,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 67.95
+  },
+  {
+   "case": 180,
+   "n_defaults": 1,
+   "pool": 122.83,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.83
+  },
+  {
+   "case": 181,
+   "n_defaults": 1,
+   "pool": 122.74,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.74
+  },
+  {
+   "case": 182,
+   "n_defaults": 4,
+   "pool": 101.5,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 67.5
+  },
+  {
+   "case": 183,
+   "n_defaults": 4,
+   "pool": 104.11,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 70.11
+  },
+  {
+   "case": 184,
+   "n_defaults": 1,
+   "pool": 122.56,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.56
+  },
+  {
+   "case": 185,
+   "n_defaults": 2,
+   "pool": 115.12,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.12
+  },
+  {
+   "case": 186,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 187,
+   "n_defaults": 2,
+   "pool": 116.47,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.47
+  },
+  {
+   "case": 188,
+   "n_defaults": 2,
+   "pool": 115.57,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.57
+  },
+  {
+   "case": 189,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 190,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 191,
+   "n_defaults": 2,
+   "pool": 117.46,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.46
+  },
+  {
+   "case": 192,
+   "n_defaults": 2,
+   "pool": 116.2,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.2
+  },
+  {
+   "case": 193,
+   "n_defaults": 2,
+   "pool": 115.57,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.57
+  },
+  {
+   "case": 194,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 195,
+   "n_defaults": 1,
+   "pool": 123.55,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.55
+  },
+  {
+   "case": 196,
+   "n_defaults": 3,
+   "pool": 109.48,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.48
+  },
+  {
+   "case": 197,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 198,
+   "n_defaults": 3,
+   "pool": 109.57,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.57
+  },
+  {
+   "case": 199,
+   "n_defaults": 4,
+   "pool": 101.32,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 67.32
+  },
+  {
+   "case": 200,
+   "n_defaults": 1,
+   "pool": 122.47,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.47
+  },
+  {
+   "case": 201,
+   "n_defaults": 2,
+   "pool": 115.57,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.57
+  },
+  {
+   "case": 202,
+   "n_defaults": 2,
+   "pool": 116.02,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.02
+  },
+  {
+   "case": 203,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 204,
+   "n_defaults": 4,
+   "pool": 101.86,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 67.86
+  },
+  {
+   "case": 205,
+   "n_defaults": 5,
+   "pool": 96.49,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 62.49
+  },
+  {
+   "case": 206,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 207,
+   "n_defaults": 2,
+   "pool": 115.3,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.3
+  },
+  {
+   "case": 208,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 209,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 210,
+   "n_defaults": 6,
+   "pool": 86.8,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 52.8
+  },
+  {
+   "case": 211,
+   "n_defaults": 2,
+   "pool": 116.2,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.2
+  },
+  {
+   "case": 212,
+   "n_defaults": 3,
+   "pool": 109.66,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.66
+  },
+  {
+   "case": 213,
+   "n_defaults": 7,
+   "pool": 79.45,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 45.45
+  },
+  {
+   "case": 214,
+   "n_defaults": 4,
+   "pool": 102.31,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.31
+  },
+  {
+   "case": 215,
+   "n_defaults": 4,
+   "pool": 100.96,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 66.96
+  },
+  {
+   "case": 216,
+   "n_defaults": 7,
+   "pool": 78.73,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 44.73
+  },
+  {
+   "case": 217,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 218,
+   "n_defaults": 4,
+   "pool": 102.04,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.04
+  },
+  {
+   "case": 219,
+   "n_defaults": 3,
+   "pool": 108.31,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.31
+  },
+  {
+   "case": 220,
+   "n_defaults": 1,
+   "pool": 123.1,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.1
+  },
+  {
+   "case": 221,
+   "n_defaults": 3,
+   "pool": 109.84,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.84
+  },
+  {
+   "case": 222,
+   "n_defaults": 5,
+   "pool": 97.39,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 63.39
+  },
+  {
+   "case": 223,
+   "n_defaults": 7,
+   "pool": 76.57,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 42.57
+  },
+  {
+   "case": 224,
+   "n_defaults": 5,
+   "pool": 96.31,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 62.31
+  },
+  {
+   "case": 225,
+   "n_defaults": 1,
+   "pool": 122.74,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.74
+  },
+  {
+   "case": 226,
+   "n_defaults": 1,
+   "pool": 123.82,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.82
+  },
+  {
+   "case": 227,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 228,
+   "n_defaults": 2,
+   "pool": 116.74,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.74
+  },
+  {
+   "case": 229,
+   "n_defaults": 2,
+   "pool": 115.66,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.66
+  },
+  {
+   "case": 230,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 231,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 232,
+   "n_defaults": 4,
+   "pool": 102.04,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.04
+  },
+  {
+   "case": 233,
+   "n_defaults": 2,
+   "pool": 116.92,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.92
+  },
+  {
+   "case": 234,
+   "n_defaults": 2,
+   "pool": 116.65,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.65
+  },
+  {
+   "case": 235,
+   "n_defaults": 2,
+   "pool": 117.01,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.01
+  },
+  {
+   "case": 236,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 237,
+   "n_defaults": 1,
+   "pool": 122.29,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.29
+  },
+  {
+   "case": 238,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 239,
+   "n_defaults": 1,
+   "pool": 123.46,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.46
+  },
+  {
+   "case": 240,
+   "n_defaults": 2,
+   "pool": 115.39,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.39
+  },
+  {
+   "case": 241,
+   "n_defaults": 2,
+   "pool": 115.57,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.57
+  },
+  {
+   "case": 242,
+   "n_defaults": 7,
+   "pool": 79.45,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 45.45
+  },
+  {
+   "case": 243,
+   "n_defaults": 2,
+   "pool": 116.47,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.47
+  },
+  {
+   "case": 244,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 245,
+   "n_defaults": 2,
+   "pool": 115.48,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.48
+  },
+  {
+   "case": 246,
+   "n_defaults": 1,
+   "pool": 123.91,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.91
+  },
+  {
+   "case": 247,
+   "n_defaults": 6,
+   "pool": 86.08,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 52.08
+  },
+  {
+   "case": 248,
+   "n_defaults": 2,
+   "pool": 116.02,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.02
+  },
+  {
+   "case": 249,
+   "n_defaults": 2,
+   "pool": 116.29,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.29
+  },
+  {
+   "case": 250,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 251,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 252,
+   "n_defaults": 4,
+   "pool": 100.96,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 66.96
+  },
+  {
+   "case": 253,
+   "n_defaults": 3,
+   "pool": 107.77,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 73.77
+  },
+  {
+   "case": 254,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 255,
+   "n_defaults": 1,
+   "pool": 123.01,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.01
+  },
+  {
+   "case": 256,
+   "n_defaults": 2,
+   "pool": 116.11,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.11
+  },
+  {
+   "case": 257,
+   "n_defaults": 1,
+   "pool": 123.37,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.37
+  },
+  {
+   "case": 258,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 259,
+   "n_defaults": 3,
+   "pool": 110.29,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.29
+  },
+  {
+   "case": 260,
+   "n_defaults": 1,
+   "pool": 122.56,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.56
+  },
+  {
+   "case": 261,
+   "n_defaults": 1,
+   "pool": 123.82,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.82
+  },
+  {
+   "case": 262,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 263,
+   "n_defaults": 1,
+   "pool": 122.2,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.2
+  },
+  {
+   "case": 264,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 265,
+   "n_defaults": 2,
+   "pool": 115.66,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.66
+  },
+  {
+   "case": 266,
+   "n_defaults": 4,
+   "pool": 100.96,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 66.96
+  },
+  {
+   "case": 267,
+   "n_defaults": 2,
+   "pool": 115.84,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.84
+  },
+  {
+   "case": 268,
+   "n_defaults": 5,
+   "pool": 96.31,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 62.31
+  },
+  {
+   "case": 269,
+   "n_defaults": 2,
+   "pool": 115.21,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.21
+  },
+  {
+   "case": 270,
+   "n_defaults": 2,
+   "pool": 116.29,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.29
+  },
+  {
+   "case": 271,
+   "n_defaults": 1,
+   "pool": 123.64,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.64
+  },
+  {
+   "case": 272,
+   "n_defaults": 7,
+   "pool": 82.15,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 48.15
+  },
+  {
+   "case": 273,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 274,
+   "n_defaults": 3,
+   "pool": 109.75,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.75
+  },
+  {
+   "case": 275,
+   "n_defaults": 1,
+   "pool": 123.64,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.64
+  },
+  {
+   "case": 276,
+   "n_defaults": 2,
+   "pool": 116.2,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.2
+  },
+  {
+   "case": 277,
+   "n_defaults": 1,
+   "pool": 123.73,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.73
+  },
+  {
+   "case": 278,
+   "n_defaults": 5,
+   "pool": 93.88,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 59.88
+  },
+  {
+   "case": 279,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 280,
+   "n_defaults": 1,
+   "pool": 123.19,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.19
+  },
+  {
+   "case": 281,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 282,
+   "n_defaults": 1,
+   "pool": 122.38,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.38
+  },
+  {
+   "case": 283,
+   "n_defaults": 1,
+   "pool": 123.55,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.55
+  },
+  {
+   "case": 284,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 285,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 286,
+   "n_defaults": 1,
+   "pool": 122.47,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.47
+  },
+  {
+   "case": 287,
+   "n_defaults": 2,
+   "pool": 116.83,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.83
+  },
+  {
+   "case": 288,
+   "n_defaults": 3,
+   "pool": 107.77,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 73.77
+  },
+  {
+   "case": 289,
+   "n_defaults": 1,
+   "pool": 123.73,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.73
+  },
+  {
+   "case": 290,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 291,
+   "n_defaults": 3,
+   "pool": 108.67,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.67
+  },
+  {
+   "case": 292,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 293,
+   "n_defaults": 1,
+   "pool": 122.74,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.74
+  },
+  {
+   "case": 294,
+   "n_defaults": 1,
+   "pool": 123.55,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.55
+  },
+  {
+   "case": 295,
+   "n_defaults": 1,
+   "pool": 123.55,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.55
+  },
+  {
+   "case": 296,
+   "n_defaults": 5,
+   "pool": 92.98,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 58.98
+  },
+  {
+   "case": 297,
+   "n_defaults": 3,
+   "pool": 109.21,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.21
+  },
+  {
+   "case": 298,
+   "n_defaults": 1,
+   "pool": 122.38,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.38
+  },
+  {
+   "case": 299,
+   "n_defaults": 1,
+   "pool": 123.73,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.73
+  },
+  {
+   "case": 300,
+   "n_defaults": 1,
+   "pool": 123.01,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.01
+  },
+  {
+   "case": 301,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 302,
+   "n_defaults": 2,
+   "pool": 115.93,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.93
+  },
+  {
+   "case": 303,
+   "n_defaults": 1,
+   "pool": 123.37,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.37
+  },
+  {
+   "case": 304,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 305,
+   "n_defaults": 1,
+   "pool": 123.19,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.19
+  },
+  {
+   "case": 306,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 307,
+   "n_defaults": 1,
+   "pool": 123.28,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.28
+  },
+  {
+   "case": 308,
+   "n_defaults": 1,
+   "pool": 122.92,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.92
+  },
+  {
+   "case": 309,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 310,
+   "n_defaults": 5,
+   "pool": 92.98,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 58.98
+  },
+  {
+   "case": 311,
+   "n_defaults": 6,
+   "pool": 89.86,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 55.86
+  },
+  {
+   "case": 312,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 313,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 314,
+   "n_defaults": 1,
+   "pool": 122.47,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.47
+  },
+  {
+   "case": 315,
+   "n_defaults": 3,
+   "pool": 109.39,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.39
+  },
+  {
+   "case": 316,
+   "n_defaults": 1,
+   "pool": 123.91,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.91
+  },
+  {
+   "case": 317,
+   "n_defaults": 1,
+   "pool": 123.73,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.73
+  },
+  {
+   "case": 318,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 319,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 320,
+   "n_defaults": 2,
+   "pool": 116.56,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.56
+  },
+  {
+   "case": 321,
+   "n_defaults": 8,
+   "pool": 74.08,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 40.08
+  },
+  {
+   "case": 322,
+   "n_defaults": 1,
+   "pool": 122.47,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.47
+  },
+  {
+   "case": 323,
+   "n_defaults": 1,
+   "pool": 122.74,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.74
+  },
+  {
+   "case": 324,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 325,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 326,
+   "n_defaults": 1,
+   "pool": 122.56,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.56
+  },
+  {
+   "case": 327,
+   "n_defaults": 1,
+   "pool": 123.01,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.01
+  },
+  {
+   "case": 328,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 329,
+   "n_defaults": 5,
+   "pool": 92.71,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 58.71
+  },
+  {
+   "case": 330,
+   "n_defaults": 1,
+   "pool": 123.46,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.46
+  },
+  {
+   "case": 331,
+   "n_defaults": 1,
+   "pool": 122.65,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.65
+  },
+  {
+   "case": 332,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 333,
+   "n_defaults": 3,
+   "pool": 109.3,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.3
+  },
+  {
+   "case": 334,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 335,
+   "n_defaults": 1,
+   "pool": 122.83,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.83
+  },
+  {
+   "case": 336,
+   "n_defaults": 2,
+   "pool": 114.94,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 80.94
+  },
+  {
+   "case": 337,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 338,
+   "n_defaults": 1,
+   "pool": 122.65,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.65
+  },
+  {
+   "case": 339,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 340,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 341,
+   "n_defaults": 1,
+   "pool": 123.91,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.91
+  },
+  {
+   "case": 342,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 343,
+   "n_defaults": 1,
+   "pool": 123.28,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.28
+  },
+  {
+   "case": 344,
+   "n_defaults": 1,
+   "pool": 122.29,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.29
+  },
+  {
+   "case": 345,
+   "n_defaults": 2,
+   "pool": 116.29,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.29
+  },
+  {
+   "case": 346,
+   "n_defaults": 1,
+   "pool": 123.55,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.55
+  },
+  {
+   "case": 347,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 348,
+   "n_defaults": 1,
+   "pool": 123.82,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.82
+  },
+  {
+   "case": 349,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 350,
+   "n_defaults": 2,
+   "pool": 116.83,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.83
+  },
+  {
+   "case": 351,
+   "n_defaults": 5,
+   "pool": 94.78,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 60.78
+  },
+  {
+   "case": 352,
+   "n_defaults": 2,
+   "pool": 115.03,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.03
+  },
+  {
+   "case": 353,
+   "n_defaults": 4,
+   "pool": 100.33,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 66.33
+  },
+  {
+   "case": 354,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 355,
+   "n_defaults": 1,
+   "pool": 123.46,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.46
+  },
+  {
+   "case": 356,
+   "n_defaults": 1,
+   "pool": 123.55,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.55
+  },
+  {
+   "case": 357,
+   "n_defaults": 2,
+   "pool": 116.83,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.83
+  },
+  {
+   "case": 358,
+   "n_defaults": 5,
+   "pool": 93.61,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 59.61
+  },
+  {
+   "case": 359,
+   "n_defaults": 1,
+   "pool": 123.1,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.1
+  },
+  {
+   "case": 360,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 361,
+   "n_defaults": 2,
+   "pool": 116.92,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.92
+  },
+  {
+   "case": 362,
+   "n_defaults": 5,
+   "pool": 94.78,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 60.78
+  },
+  {
+   "case": 363,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 364,
+   "n_defaults": 1,
+   "pool": 122.92,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.92
+  },
+  {
+   "case": 365,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 366,
+   "n_defaults": 2,
+   "pool": 117.01,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.01
+  },
+  {
+   "case": 367,
+   "n_defaults": 3,
+   "pool": 110.56,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.56
+  },
+  {
+   "case": 368,
+   "n_defaults": 1,
+   "pool": 123.28,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.28
+  },
+  {
+   "case": 369,
+   "n_defaults": 4,
+   "pool": 102.04,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.04
+  },
+  {
+   "case": 370,
+   "n_defaults": 2,
+   "pool": 117.1,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.1
+  },
+  {
+   "case": 371,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 372,
+   "n_defaults": 3,
+   "pool": 110.2,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.2
+  },
+  {
+   "case": 373,
+   "n_defaults": 1,
+   "pool": 123.01,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.01
+  },
+  {
+   "case": 374,
+   "n_defaults": 2,
+   "pool": 116.02,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.02
+  },
+  {
+   "case": 375,
+   "n_defaults": 6,
+   "pool": 88.42,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 54.42
+  },
+  {
+   "case": 376,
+   "n_defaults": 4,
+   "pool": 100.42,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 66.42
+  },
+  {
+   "case": 377,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 378,
+   "n_defaults": 1,
+   "pool": 122.38,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.38
+  },
+  {
+   "case": 379,
+   "n_defaults": 1,
+   "pool": 123.91,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.91
+  },
+  {
+   "case": 380,
+   "n_defaults": 3,
+   "pool": 109.39,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.39
+  },
+  {
+   "case": 381,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 382,
+   "n_defaults": 3,
+   "pool": 107.95,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 73.95
+  },
+  {
+   "case": 383,
+   "n_defaults": 1,
+   "pool": 123.1,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.1
+  },
+  {
+   "case": 384,
+   "n_defaults": 2,
+   "pool": 116.56,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.56
+  },
+  {
+   "case": 385,
+   "n_defaults": 2,
+   "pool": 115.39,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.39
+  },
+  {
+   "case": 386,
+   "n_defaults": 5,
+   "pool": 95.59,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 61.59
+  },
+  {
+   "case": 387,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 388,
+   "n_defaults": 5,
+   "pool": 94.69,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 60.69
+  },
+  {
+   "case": 389,
+   "n_defaults": 3,
+   "pool": 109.66,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.66
+  },
+  {
+   "case": 390,
+   "n_defaults": 5,
+   "pool": 94.96,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 60.96
+  },
+  {
+   "case": 391,
+   "n_defaults": 3,
+   "pool": 108.04,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.04
+  },
+  {
+   "case": 392,
+   "n_defaults": 4,
+   "pool": 101.86,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 67.86
+  },
+  {
+   "case": 393,
+   "n_defaults": 2,
+   "pool": 115.93,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.93
+  },
+  {
+   "case": 394,
+   "n_defaults": 1,
+   "pool": 123.73,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.73
+  },
+  {
+   "case": 395,
+   "n_defaults": 4,
+   "pool": 102.49,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.49
+  },
+  {
+   "case": 396,
+   "n_defaults": 1,
+   "pool": 123.91,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.91
+  },
+  {
+   "case": 397,
+   "n_defaults": 4,
+   "pool": 103.3,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 69.3
+  },
+  {
+   "case": 398,
+   "n_defaults": 1,
+   "pool": 122.74,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.74
+  },
+  {
+   "case": 399,
+   "n_defaults": 2,
+   "pool": 117.64,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.64
+  },
+  {
+   "case": 400,
+   "n_defaults": 4,
+   "pool": 102.22,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.22
+  },
+  {
+   "case": 401,
+   "n_defaults": 1,
+   "pool": 123.19,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.19
+  },
+  {
+   "case": 402,
+   "n_defaults": 1,
+   "pool": 123.55,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.55
+  },
+  {
+   "case": 403,
+   "n_defaults": 2,
+   "pool": 115.12,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.12
+  },
+  {
+   "case": 404,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 405,
+   "n_defaults": 3,
+   "pool": 109.12,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.12
+  },
+  {
+   "case": 406,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 407,
+   "n_defaults": 5,
+   "pool": 92.62,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 58.62
+  },
+  {
+   "case": 408,
+   "n_defaults": 4,
+   "pool": 100.96,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 66.96
+  },
+  {
+   "case": 409,
+   "n_defaults": 1,
+   "pool": 122.47,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.47
+  },
+  {
+   "case": 410,
+   "n_defaults": 5,
+   "pool": 96.22,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 62.22
+  },
+  {
+   "case": 411,
+   "n_defaults": 4,
+   "pool": 102.13,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.13
+  },
+  {
+   "case": 412,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 413,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 414,
+   "n_defaults": 3,
+   "pool": 108.4,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.4
+  },
+  {
+   "case": 415,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 416,
+   "n_defaults": 4,
+   "pool": 100.42,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 66.42
+  },
+  {
+   "case": 417,
+   "n_defaults": 2,
+   "pool": 115.93,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.93
+  },
+  {
+   "case": 418,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 419,
+   "n_defaults": 2,
+   "pool": 115.12,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.12
+  },
+  {
+   "case": 420,
+   "n_defaults": 2,
+   "pool": 116.11,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.11
+  },
+  {
+   "case": 421,
+   "n_defaults": 3,
+   "pool": 108.58,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.58
+  },
+  {
+   "case": 422,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 423,
+   "n_defaults": 2,
+   "pool": 116.65,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.65
+  },
+  {
+   "case": 424,
+   "n_defaults": 4,
+   "pool": 100.69,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 66.69
+  },
+  {
+   "case": 425,
+   "n_defaults": 3,
+   "pool": 108.67,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.67
+  },
+  {
+   "case": 426,
+   "n_defaults": 2,
+   "pool": 115.39,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.39
+  },
+  {
+   "case": 427,
+   "n_defaults": 7,
+   "pool": 81.61,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 47.61
+  },
+  {
+   "case": 428,
+   "n_defaults": 1,
+   "pool": 122.92,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.92
+  },
+  {
+   "case": 429,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 430,
+   "n_defaults": 2,
+   "pool": 116.11,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.11
+  },
+  {
+   "case": 431,
+   "n_defaults": 1,
+   "pool": 122.29,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.29
+  },
+  {
+   "case": 432,
+   "n_defaults": 2,
+   "pool": 114.85,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 80.85
+  },
+  {
+   "case": 433,
+   "n_defaults": 1,
+   "pool": 123.64,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.64
+  },
+  {
+   "case": 434,
+   "n_defaults": 2,
+   "pool": 115.3,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.3
+  },
+  {
+   "case": 435,
+   "n_defaults": 3,
+   "pool": 110.11,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.11
+  },
+  {
+   "case": 436,
+   "n_defaults": 2,
+   "pool": 117.01,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.01
+  },
+  {
+   "case": 437,
+   "n_defaults": 1,
+   "pool": 123.91,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.91
+  },
+  {
+   "case": 438,
+   "n_defaults": 2,
+   "pool": 115.12,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.12
+  },
+  {
+   "case": 439,
+   "n_defaults": 4,
+   "pool": 102.04,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.04
+  },
+  {
+   "case": 440,
+   "n_defaults": 2,
+   "pool": 116.11,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.11
+  },
+  {
+   "case": 441,
+   "n_defaults": 1,
+   "pool": 122.92,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.92
+  },
+  {
+   "case": 442,
+   "n_defaults": 6,
+   "pool": 87.79,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 53.79
+  },
+  {
+   "case": 443,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 444,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 445,
+   "n_defaults": 3,
+   "pool": 110.74,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.74
+  },
+  {
+   "case": 446,
+   "n_defaults": 1,
+   "pool": 123.46,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.46
+  },
+  {
+   "case": 447,
+   "n_defaults": 4,
+   "pool": 102.13,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.13
+  },
+  {
+   "case": 448,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 449,
+   "n_defaults": 1,
+   "pool": 123.1,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.1
+  },
+  {
+   "case": 450,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 451,
+   "n_defaults": 2,
+   "pool": 116.56,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.56
+  },
+  {
+   "case": 452,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 453,
+   "n_defaults": 4,
+   "pool": 102.31,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.31
+  },
+  {
+   "case": 454,
+   "n_defaults": 4,
+   "pool": 100.69,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 66.69
+  },
+  {
+   "case": 455,
+   "n_defaults": 1,
+   "pool": 123.55,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.55
+  },
+  {
+   "case": 456,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 457,
+   "n_defaults": 4,
+   "pool": 101.59,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 67.59
+  },
+  {
+   "case": 458,
+   "n_defaults": 1,
+   "pool": 123.82,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.82
+  },
+  {
+   "case": 459,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 460,
+   "n_defaults": 3,
+   "pool": 108.22,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.22
+  },
+  {
+   "case": 461,
+   "n_defaults": 3,
+   "pool": 108.22,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.22
+  },
+  {
+   "case": 462,
+   "n_defaults": 3,
+   "pool": 107.23,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 73.23
+  },
+  {
+   "case": 463,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 464,
+   "n_defaults": 3,
+   "pool": 108.76,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.76
+  },
+  {
+   "case": 465,
+   "n_defaults": 2,
+   "pool": 115.84,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.84
+  },
+  {
+   "case": 466,
+   "n_defaults": 3,
+   "pool": 110.02,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.02
+  },
+  {
+   "case": 467,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 468,
+   "n_defaults": 2,
+   "pool": 116.2,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.2
+  },
+  {
+   "case": 469,
+   "n_defaults": 2,
+   "pool": 115.57,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.57
+  },
+  {
+   "case": 470,
+   "n_defaults": 2,
+   "pool": 117.37,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.37
+  },
+  {
+   "case": 471,
+   "n_defaults": 4,
+   "pool": 102.04,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.04
+  },
+  {
+   "case": 472,
+   "n_defaults": 2,
+   "pool": 116.92,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.92
+  },
+  {
+   "case": 473,
+   "n_defaults": 1,
+   "pool": 122.92,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.92
+  },
+  {
+   "case": 474,
+   "n_defaults": 2,
+   "pool": 116.29,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.29
+  },
+  {
+   "case": 475,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 476,
+   "n_defaults": 1,
+   "pool": 123.64,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.64
+  },
+  {
+   "case": 477,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 478,
+   "n_defaults": 1,
+   "pool": 123.19,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.19
+  },
+  {
+   "case": 479,
+   "n_defaults": 6,
+   "pool": 86.17,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 52.17
+  },
+  {
+   "case": 480,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 481,
+   "n_defaults": 1,
+   "pool": 123.46,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.46
+  },
+  {
+   "case": 482,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 483,
+   "n_defaults": 2,
+   "pool": 115.84,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.84
+  },
+  {
+   "case": 484,
+   "n_defaults": 3,
+   "pool": 108.13,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.13
+  },
+  {
+   "case": 485,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 486,
+   "n_defaults": 1,
+   "pool": 122.47,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.47
+  },
+  {
+   "case": 487,
+   "n_defaults": 4,
+   "pool": 100.51,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 66.51
+  },
+  {
+   "case": 488,
+   "n_defaults": 3,
+   "pool": 109.93,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.93
+  },
+  {
+   "case": 489,
+   "n_defaults": 2,
+   "pool": 116.29,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.29
+  },
+  {
+   "case": 490,
+   "n_defaults": 1,
+   "pool": 122.47,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.47
+  },
+  {
+   "case": 491,
+   "n_defaults": 1,
+   "pool": 123.37,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.37
+  },
+  {
+   "case": 492,
+   "n_defaults": 1,
+   "pool": 122.83,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.83
+  },
+  {
+   "case": 493,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 494,
+   "n_defaults": 2,
+   "pool": 115.3,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.3
+  },
+  {
+   "case": 495,
+   "n_defaults": 1,
+   "pool": 123.55,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.55
+  },
+  {
+   "case": 496,
+   "n_defaults": 3,
+   "pool": 110.2,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.2
+  },
+  {
+   "case": 497,
+   "n_defaults": 3,
+   "pool": 109.48,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.48
+  },
+  {
+   "case": 498,
+   "n_defaults": 2,
+   "pool": 117.01,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.01
+  },
+  {
+   "case": 499,
+   "n_defaults": 3,
+   "pool": 109.3,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.3
+  },
+  {
+   "case": 500,
+   "n_defaults": 2,
+   "pool": 115.3,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.3
+  },
+  {
+   "case": 501,
+   "n_defaults": 4,
+   "pool": 102.04,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.04
+  },
+  {
+   "case": 502,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 503,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 504,
+   "n_defaults": 2,
+   "pool": 115.84,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.84
+  },
+  {
+   "case": 505,
+   "n_defaults": 3,
+   "pool": 108.22,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.22
+  },
+  {
+   "case": 506,
+   "n_defaults": 2,
+   "pool": 117.19,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.19
+  },
+  {
+   "case": 507,
+   "n_defaults": 3,
+   "pool": 108.49,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.49
+  },
+  {
+   "case": 508,
+   "n_defaults": 1,
+   "pool": 123.19,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.19
+  },
+  {
+   "case": 509,
+   "n_defaults": 3,
+   "pool": 110.56,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.56
+  },
+  {
+   "case": 510,
+   "n_defaults": 3,
+   "pool": 108.22,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.22
+  },
+  {
+   "case": 511,
+   "n_defaults": 4,
+   "pool": 102.49,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.49
+  },
+  {
+   "case": 512,
+   "n_defaults": 3,
+   "pool": 109.39,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.39
+  },
+  {
+   "case": 513,
+   "n_defaults": 2,
+   "pool": 115.93,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.93
+  },
+  {
+   "case": 514,
+   "n_defaults": 1,
+   "pool": 123.82,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.82
+  },
+  {
+   "case": 515,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 516,
+   "n_defaults": 2,
+   "pool": 116.38,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.38
+  },
+  {
+   "case": 517,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 518,
+   "n_defaults": 2,
+   "pool": 116.38,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.38
+  },
+  {
+   "case": 519,
+   "n_defaults": 4,
+   "pool": 102.13,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.13
+  },
+  {
+   "case": 520,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 521,
+   "n_defaults": 1,
+   "pool": 123.01,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.01
+  },
+  {
+   "case": 522,
+   "n_defaults": 1,
+   "pool": 122.83,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.83
+  },
+  {
+   "case": 523,
+   "n_defaults": 1,
+   "pool": 122.92,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.92
+  },
+  {
+   "case": 524,
+   "n_defaults": 3,
+   "pool": 109.03,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.03
+  },
+  {
+   "case": 525,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 526,
+   "n_defaults": 1,
+   "pool": 123.91,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.91
+  },
+  {
+   "case": 527,
+   "n_defaults": 1,
+   "pool": 123.46,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.46
+  },
+  {
+   "case": 528,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 529,
+   "n_defaults": 4,
+   "pool": 102.67,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.67
+  },
+  {
+   "case": 530,
+   "n_defaults": 2,
+   "pool": 115.48,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.48
+  },
+  {
+   "case": 531,
+   "n_defaults": 1,
+   "pool": 123.1,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.1
+  },
+  {
+   "case": 532,
+   "n_defaults": 2,
+   "pool": 114.85,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 80.85
+  },
+  {
+   "case": 533,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 534,
+   "n_defaults": 1,
+   "pool": 123.28,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.28
+  },
+  {
+   "case": 535,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 536,
+   "n_defaults": 1,
+   "pool": 122.2,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.2
+  },
+  {
+   "case": 537,
+   "n_defaults": 6,
+   "pool": 91.03,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 57.03
+  },
+  {
+   "case": 538,
+   "n_defaults": 4,
+   "pool": 104.65,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 70.65
+  },
+  {
+   "case": 539,
+   "n_defaults": 4,
+   "pool": 101.95,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 67.95
+  },
+  {
+   "case": 540,
+   "n_defaults": 2,
+   "pool": 115.75,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.75
+  },
+  {
+   "case": 541,
+   "n_defaults": 2,
+   "pool": 116.02,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.02
+  },
+  {
+   "case": 542,
+   "n_defaults": 1,
+   "pool": 123.55,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.55
+  },
+  {
+   "case": 543,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 544,
+   "n_defaults": 1,
+   "pool": 123.1,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.1
+  },
+  {
+   "case": 545,
+   "n_defaults": 4,
+   "pool": 102.85,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.85
+  },
+  {
+   "case": 546,
+   "n_defaults": 4,
+   "pool": 103.84,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 69.84
+  },
+  {
+   "case": 547,
+   "n_defaults": 1,
+   "pool": 122.74,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.74
+  },
+  {
+   "case": 548,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 549,
+   "n_defaults": 1,
+   "pool": 122.92,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.92
+  },
+  {
+   "case": 550,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 551,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 552,
+   "n_defaults": 1,
+   "pool": 123.73,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.73
+  },
+  {
+   "case": 553,
+   "n_defaults": 3,
+   "pool": 109.93,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.93
+  },
+  {
+   "case": 554,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 555,
+   "n_defaults": 1,
+   "pool": 123.46,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.46
+  },
+  {
+   "case": 556,
+   "n_defaults": 3,
+   "pool": 107.41,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 73.41
+  },
+  {
+   "case": 557,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 558,
+   "n_defaults": 3,
+   "pool": 110.56,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.56
+  },
+  {
+   "case": 559,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 560,
+   "n_defaults": 4,
+   "pool": 100.33,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 66.33
+  },
+  {
+   "case": 561,
+   "n_defaults": 1,
+   "pool": 122.47,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.47
+  },
+  {
+   "case": 562,
+   "n_defaults": 8,
+   "pool": 70.75,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 36.75
+  },
+  {
+   "case": 563,
+   "n_defaults": 3,
+   "pool": 108.4,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.4
+  },
+  {
+   "case": 564,
+   "n_defaults": 2,
+   "pool": 116.74,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.74
+  },
+  {
+   "case": 565,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 566,
+   "n_defaults": 2,
+   "pool": 116.29,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.29
+  },
+  {
+   "case": 567,
+   "n_defaults": 2,
+   "pool": 115.57,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.57
+  },
+  {
+   "case": 568,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 569,
+   "n_defaults": 3,
+   "pool": 108.67,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.67
+  },
+  {
+   "case": 570,
+   "n_defaults": 1,
+   "pool": 123.82,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.82
+  },
+  {
+   "case": 571,
+   "n_defaults": 4,
+   "pool": 102.04,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.04
+  },
+  {
+   "case": 572,
+   "n_defaults": 4,
+   "pool": 101.95,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 67.95
+  },
+  {
+   "case": 573,
+   "n_defaults": 1,
+   "pool": 122.38,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.38
+  },
+  {
+   "case": 574,
+   "n_defaults": 4,
+   "pool": 100.87,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 66.87
+  },
+  {
+   "case": 575,
+   "n_defaults": 1,
+   "pool": 123.19,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.19
+  },
+  {
+   "case": 576,
+   "n_defaults": 5,
+   "pool": 96.31,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 62.31
+  },
+  {
+   "case": 577,
+   "n_defaults": 4,
+   "pool": 102.76,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.76
+  },
+  {
+   "case": 578,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 579,
+   "n_defaults": 5,
+   "pool": 96.49,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 62.49
+  },
+  {
+   "case": 580,
+   "n_defaults": 1,
+   "pool": 122.47,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.47
+  },
+  {
+   "case": 581,
+   "n_defaults": 1,
+   "pool": 122.74,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.74
+  },
+  {
+   "case": 582,
+   "n_defaults": 5,
+   "pool": 94.78,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 60.78
+  },
+  {
+   "case": 583,
+   "n_defaults": 3,
+   "pool": 109.12,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.12
+  },
+  {
+   "case": 584,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 585,
+   "n_defaults": 1,
+   "pool": 122.74,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.74
+  },
+  {
+   "case": 586,
+   "n_defaults": 1,
+   "pool": 123.46,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.46
+  },
+  {
+   "case": 587,
+   "n_defaults": 1,
+   "pool": 123.91,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.91
+  },
+  {
+   "case": 588,
+   "n_defaults": 5,
+   "pool": 94.42,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 60.42
+  },
+  {
+   "case": 589,
+   "n_defaults": 5,
+   "pool": 95.14,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 61.14
+  },
+  {
+   "case": 590,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 591,
+   "n_defaults": 2,
+   "pool": 114.76,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 80.76
+  },
+  {
+   "case": 592,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 593,
+   "n_defaults": 3,
+   "pool": 109.66,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.66
+  },
+  {
+   "case": 594,
+   "n_defaults": 2,
+   "pool": 114.85,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 80.85
+  },
+  {
+   "case": 595,
+   "n_defaults": 2,
+   "pool": 117.55,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.55
+  },
+  {
+   "case": 596,
+   "n_defaults": 1,
+   "pool": 122.29,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.29
+  },
+  {
+   "case": 597,
+   "n_defaults": 3,
+   "pool": 109.66,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.66
+  },
+  {
+   "case": 598,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 599,
+   "n_defaults": 1,
+   "pool": 123.37,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.37
+  },
+  {
+   "case": 600,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 601,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 602,
+   "n_defaults": 3,
+   "pool": 109.48,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.48
+  },
+  {
+   "case": 603,
+   "n_defaults": 1,
+   "pool": 123.55,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.55
+  },
+  {
+   "case": 604,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 605,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 606,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 607,
+   "n_defaults": 3,
+   "pool": 108.22,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.22
+  },
+  {
+   "case": 608,
+   "n_defaults": 1,
+   "pool": 122.47,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.47
+  },
+  {
+   "case": 609,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 610,
+   "n_defaults": 1,
+   "pool": 123.73,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.73
+  },
+  {
+   "case": 611,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 612,
+   "n_defaults": 2,
+   "pool": 117.64,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.64
+  },
+  {
+   "case": 613,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 614,
+   "n_defaults": 1,
+   "pool": 123.82,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.82
+  },
+  {
+   "case": 615,
+   "n_defaults": 1,
+   "pool": 122.2,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.2
+  },
+  {
+   "case": 616,
+   "n_defaults": 5,
+   "pool": 94.15,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 60.15
+  },
+  {
+   "case": 617,
+   "n_defaults": 1,
+   "pool": 123.01,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.01
+  },
+  {
+   "case": 618,
+   "n_defaults": 8,
+   "pool": 73.09,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 39.09
+  },
+  {
+   "case": 619,
+   "n_defaults": 2,
+   "pool": 115.84,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.84
+  },
+  {
+   "case": 620,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 621,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 622,
+   "n_defaults": 2,
+   "pool": 116.47,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.47
+  },
+  {
+   "case": 623,
+   "n_defaults": 1,
+   "pool": 123.82,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.82
+  },
+  {
+   "case": 624,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 625,
+   "n_defaults": 2,
+   "pool": 115.93,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.93
+  },
+  {
+   "case": 626,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 627,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 628,
+   "n_defaults": 1,
+   "pool": 122.29,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.29
+  },
+  {
+   "case": 629,
+   "n_defaults": 3,
+   "pool": 109.93,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.93
+  },
+  {
+   "case": 630,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 631,
+   "n_defaults": 2,
+   "pool": 115.48,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.48
+  },
+  {
+   "case": 632,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 633,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 634,
+   "n_defaults": 1,
+   "pool": 122.38,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.38
+  },
+  {
+   "case": 635,
+   "n_defaults": 5,
+   "pool": 94.6,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 60.6
+  },
+  {
+   "case": 636,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 637,
+   "n_defaults": 3,
+   "pool": 107.59,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 73.59
+  },
+  {
+   "case": 638,
+   "n_defaults": 2,
+   "pool": 115.39,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.39
+  },
+  {
+   "case": 639,
+   "n_defaults": 1,
+   "pool": 123.91,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.91
+  },
+  {
+   "case": 640,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 641,
+   "n_defaults": 1,
+   "pool": 123.46,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.46
+  },
+  {
+   "case": 642,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 643,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 644,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 645,
+   "n_defaults": 2,
+   "pool": 116.38,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.38
+  },
+  {
+   "case": 646,
+   "n_defaults": 1,
+   "pool": 123.28,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.28
+  },
+  {
+   "case": 647,
+   "n_defaults": 7,
+   "pool": 81.43,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 47.43
+  },
+  {
+   "case": 648,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 649,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 650,
+   "n_defaults": 3,
+   "pool": 109.12,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.12
+  },
+  {
+   "case": 651,
+   "n_defaults": 4,
+   "pool": 102.4,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.4
+  },
+  {
+   "case": 652,
+   "n_defaults": 4,
+   "pool": 100.24,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 66.24
+  },
+  {
+   "case": 653,
+   "n_defaults": 1,
+   "pool": 122.38,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.38
+  },
+  {
+   "case": 654,
+   "n_defaults": 3,
+   "pool": 109.48,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.48
+  },
+  {
+   "case": 655,
+   "n_defaults": 1,
+   "pool": 123.01,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.01
+  },
+  {
+   "case": 656,
+   "n_defaults": 1,
+   "pool": 123.01,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.01
+  },
+  {
+   "case": 657,
+   "n_defaults": 2,
+   "pool": 117.28,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.28
+  },
+  {
+   "case": 658,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 659,
+   "n_defaults": 5,
+   "pool": 95.32,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 61.32
+  },
+  {
+   "case": 660,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 661,
+   "n_defaults": 2,
+   "pool": 115.21,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.21
+  },
+  {
+   "case": 662,
+   "n_defaults": 2,
+   "pool": 115.12,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.12
+  },
+  {
+   "case": 663,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 664,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 665,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 666,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 667,
+   "n_defaults": 1,
+   "pool": 123.73,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.73
+  },
+  {
+   "case": 668,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 669,
+   "n_defaults": 5,
+   "pool": 92.89,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 58.89
+  },
+  {
+   "case": 670,
+   "n_defaults": 3,
+   "pool": 109.3,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.3
+  },
+  {
+   "case": 671,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 672,
+   "n_defaults": 2,
+   "pool": 116.38,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.38
+  },
+  {
+   "case": 673,
+   "n_defaults": 1,
+   "pool": 123.37,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.37
+  },
+  {
+   "case": 674,
+   "n_defaults": 3,
+   "pool": 109.84,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.84
+  },
+  {
+   "case": 675,
+   "n_defaults": 1,
+   "pool": 123.46,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.46
+  },
+  {
+   "case": 676,
+   "n_defaults": 1,
+   "pool": 123.37,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.37
+  },
+  {
+   "case": 677,
+   "n_defaults": 3,
+   "pool": 108.67,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.67
+  },
+  {
+   "case": 678,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 679,
+   "n_defaults": 3,
+   "pool": 108.85,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.85
+  },
+  {
+   "case": 680,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 681,
+   "n_defaults": 1,
+   "pool": 123.73,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.73
+  },
+  {
+   "case": 682,
+   "n_defaults": 6,
+   "pool": 85.45,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 51.45
+  },
+  {
+   "case": 683,
+   "n_defaults": 2,
+   "pool": 115.12,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.12
+  },
+  {
+   "case": 684,
+   "n_defaults": 3,
+   "pool": 109.3,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.3
+  },
+  {
+   "case": 685,
+   "n_defaults": 4,
+   "pool": 101.77,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 67.77
+  },
+  {
+   "case": 686,
+   "n_defaults": 4,
+   "pool": 101.59,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 67.59
+  },
+  {
+   "case": 687,
+   "n_defaults": 4,
+   "pool": 100.87,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 66.87
+  },
+  {
+   "case": 688,
+   "n_defaults": 1,
+   "pool": 123.1,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.1
+  },
+  {
+   "case": 689,
+   "n_defaults": 5,
+   "pool": 96.94,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 62.94
+  },
+  {
+   "case": 690,
+   "n_defaults": 1,
+   "pool": 123.82,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.82
+  },
+  {
+   "case": 691,
+   "n_defaults": 1,
+   "pool": 123.28,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.28
+  },
+  {
+   "case": 692,
+   "n_defaults": 2,
+   "pool": 117.37,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.37
+  },
+  {
+   "case": 693,
+   "n_defaults": 3,
+   "pool": 108.58,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.58
+  },
+  {
+   "case": 694,
+   "n_defaults": 1,
+   "pool": 122.74,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.74
+  },
+  {
+   "case": 695,
+   "n_defaults": 1,
+   "pool": 122.29,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.29
+  },
+  {
+   "case": 696,
+   "n_defaults": 1,
+   "pool": 122.47,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.47
+  },
+  {
+   "case": 697,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 698,
+   "n_defaults": 3,
+   "pool": 108.67,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.67
+  },
+  {
+   "case": 699,
+   "n_defaults": 3,
+   "pool": 109.21,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.21
+  },
+  {
+   "case": 700,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 701,
+   "n_defaults": 4,
+   "pool": 101.68,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 67.68
+  },
+  {
+   "case": 702,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 703,
+   "n_defaults": 3,
+   "pool": 108.49,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.49
+  },
+  {
+   "case": 704,
+   "n_defaults": 5,
+   "pool": 95.59,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 61.59
+  },
+  {
+   "case": 705,
+   "n_defaults": 4,
+   "pool": 103.84,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 69.84
+  },
+  {
+   "case": 706,
+   "n_defaults": 4,
+   "pool": 101.23,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 67.23
+  },
+  {
+   "case": 707,
+   "n_defaults": 1,
+   "pool": 123.19,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.19
+  },
+  {
+   "case": 708,
+   "n_defaults": 4,
+   "pool": 101.95,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 67.95
+  },
+  {
+   "case": 709,
+   "n_defaults": 6,
+   "pool": 86.44,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 52.44
+  },
+  {
+   "case": 710,
+   "n_defaults": 1,
+   "pool": 123.82,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.82
+  },
+  {
+   "case": 711,
+   "n_defaults": 2,
+   "pool": 116.56,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.56
+  },
+  {
+   "case": 712,
+   "n_defaults": 2,
+   "pool": 116.38,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.38
+  },
+  {
+   "case": 713,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 714,
+   "n_defaults": 1,
+   "pool": 122.56,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.56
+  },
+  {
+   "case": 715,
+   "n_defaults": 1,
+   "pool": 123.46,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.46
+  },
+  {
+   "case": 716,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 717,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 718,
+   "n_defaults": 1,
+   "pool": 123.28,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.28
+  },
+  {
+   "case": 719,
+   "n_defaults": 2,
+   "pool": 117.1,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.1
+  },
+  {
+   "case": 720,
+   "n_defaults": 1,
+   "pool": 123.73,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.73
+  },
+  {
+   "case": 721,
+   "n_defaults": 4,
+   "pool": 103.48,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 69.48
+  },
+  {
+   "case": 722,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 723,
+   "n_defaults": 1,
+   "pool": 122.47,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.47
+  },
+  {
+   "case": 724,
+   "n_defaults": 2,
+   "pool": 115.39,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.39
+  },
+  {
+   "case": 725,
+   "n_defaults": 3,
+   "pool": 110.2,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.2
+  },
+  {
+   "case": 726,
+   "n_defaults": 1,
+   "pool": 123.91,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.91
+  },
+  {
+   "case": 727,
+   "n_defaults": 2,
+   "pool": 117.1,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.1
+  },
+  {
+   "case": 728,
+   "n_defaults": 2,
+   "pool": 117.28,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.28
+  },
+  {
+   "case": 729,
+   "n_defaults": 2,
+   "pool": 116.29,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.29
+  },
+  {
+   "case": 730,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 731,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 732,
+   "n_defaults": 3,
+   "pool": 108.22,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.22
+  },
+  {
+   "case": 733,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 734,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 735,
+   "n_defaults": 2,
+   "pool": 116.47,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.47
+  },
+  {
+   "case": 736,
+   "n_defaults": 5,
+   "pool": 94.69,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 60.69
+  },
+  {
+   "case": 737,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 738,
+   "n_defaults": 2,
+   "pool": 116.11,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.11
+  },
+  {
+   "case": 739,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 740,
+   "n_defaults": 3,
+   "pool": 108.22,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.22
+  },
+  {
+   "case": 741,
+   "n_defaults": 3,
+   "pool": 107.68,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 73.68
+  },
+  {
+   "case": 742,
+   "n_defaults": 1,
+   "pool": 123.64,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.64
+  },
+  {
+   "case": 743,
+   "n_defaults": 3,
+   "pool": 108.22,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.22
+  },
+  {
+   "case": 744,
+   "n_defaults": 2,
+   "pool": 116.47,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.47
+  },
+  {
+   "case": 745,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 746,
+   "n_defaults": 1,
+   "pool": 123.55,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.55
+  },
+  {
+   "case": 747,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 748,
+   "n_defaults": 1,
+   "pool": 123.01,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.01
+  },
+  {
+   "case": 749,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 750,
+   "n_defaults": 2,
+   "pool": 115.21,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.21
+  },
+  {
+   "case": 751,
+   "n_defaults": 1,
+   "pool": 122.74,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.74
+  },
+  {
+   "case": 752,
+   "n_defaults": 2,
+   "pool": 115.57,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.57
+  },
+  {
+   "case": 753,
+   "n_defaults": 2,
+   "pool": 116.56,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.56
+  },
+  {
+   "case": 754,
+   "n_defaults": 5,
+   "pool": 95.86,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 61.86
+  },
+  {
+   "case": 755,
+   "n_defaults": 1,
+   "pool": 123.64,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.64
+  },
+  {
+   "case": 756,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 757,
+   "n_defaults": 2,
+   "pool": 116.2,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.2
+  },
+  {
+   "case": 758,
+   "n_defaults": 5,
+   "pool": 95.23,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 61.23
+  },
+  {
+   "case": 759,
+   "n_defaults": 8,
+   "pool": 73.54,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 39.54
+  },
+  {
+   "case": 760,
+   "n_defaults": 9,
+   "pool": 64.48,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 30.48
+  },
+  {
+   "case": 761,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 762,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 763,
+   "n_defaults": 1,
+   "pool": 123.37,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.37
+  },
+  {
+   "case": 764,
+   "n_defaults": 2,
+   "pool": 116.38,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.38
+  },
+  {
+   "case": 765,
+   "n_defaults": 1,
+   "pool": 122.56,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.56
+  },
+  {
+   "case": 766,
+   "n_defaults": 1,
+   "pool": 122.29,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.29
+  },
+  {
+   "case": 767,
+   "n_defaults": 1,
+   "pool": 122.2,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.2
+  },
+  {
+   "case": 768,
+   "n_defaults": 2,
+   "pool": 117.19,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.19
+  },
+  {
+   "case": 769,
+   "n_defaults": 2,
+   "pool": 116.65,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.65
+  },
+  {
+   "case": 770,
+   "n_defaults": 1,
+   "pool": 123.1,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.1
+  },
+  {
+   "case": 771,
+   "n_defaults": 2,
+   "pool": 115.57,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.57
+  },
+  {
+   "case": 772,
+   "n_defaults": 2,
+   "pool": 115.21,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.21
+  },
+  {
+   "case": 773,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 774,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 775,
+   "n_defaults": 4,
+   "pool": 100.96,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 66.96
+  },
+  {
+   "case": 776,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 777,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 778,
+   "n_defaults": 4,
+   "pool": 100.15,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 66.15
+  },
+  {
+   "case": 779,
+   "n_defaults": 2,
+   "pool": 115.75,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.75
+  },
+  {
+   "case": 780,
+   "n_defaults": 2,
+   "pool": 116.83,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.83
+  },
+  {
+   "case": 781,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 782,
+   "n_defaults": 1,
+   "pool": 123.1,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.1
+  },
+  {
+   "case": 783,
+   "n_defaults": 1,
+   "pool": 123.46,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.46
+  },
+  {
+   "case": 784,
+   "n_defaults": 4,
+   "pool": 101.14,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 67.14
+  },
+  {
+   "case": 785,
+   "n_defaults": 4,
+   "pool": 102.4,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.4
+  },
+  {
+   "case": 786,
+   "n_defaults": 2,
+   "pool": 116.38,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.38
+  },
+  {
+   "case": 787,
+   "n_defaults": 6,
+   "pool": 86.17,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 52.17
+  },
+  {
+   "case": 788,
+   "n_defaults": 1,
+   "pool": 122.56,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.56
+  },
+  {
+   "case": 789,
+   "n_defaults": 2,
+   "pool": 115.48,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.48
+  },
+  {
+   "case": 790,
+   "n_defaults": 1,
+   "pool": 123.82,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.82
+  },
+  {
+   "case": 791,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 792,
+   "n_defaults": 1,
+   "pool": 123.19,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.19
+  },
+  {
+   "case": 793,
+   "n_defaults": 2,
+   "pool": 117.73,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.73
+  },
+  {
+   "case": 794,
+   "n_defaults": 1,
+   "pool": 122.83,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.83
+  },
+  {
+   "case": 795,
+   "n_defaults": 1,
+   "pool": 122.29,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.29
+  },
+  {
+   "case": 796,
+   "n_defaults": 1,
+   "pool": 122.92,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.92
+  },
+  {
+   "case": 797,
+   "n_defaults": 1,
+   "pool": 122.2,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.2
+  },
+  {
+   "case": 798,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 799,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 800,
+   "n_defaults": 3,
+   "pool": 109.12,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.12
+  },
+  {
+   "case": 801,
+   "n_defaults": 5,
+   "pool": 95.95,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 61.95
+  },
+  {
+   "case": 802,
+   "n_defaults": 4,
+   "pool": 102.94,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.94
+  },
+  {
+   "case": 803,
+   "n_defaults": 1,
+   "pool": 123.82,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.82
+  },
+  {
+   "case": 804,
+   "n_defaults": 3,
+   "pool": 108.76,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.76
+  },
+  {
+   "case": 805,
+   "n_defaults": 2,
+   "pool": 114.67,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 80.67
+  },
+  {
+   "case": 806,
+   "n_defaults": 1,
+   "pool": 123.91,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.91
+  },
+  {
+   "case": 807,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 808,
+   "n_defaults": 6,
+   "pool": 85.36,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 51.36
+  },
+  {
+   "case": 809,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 810,
+   "n_defaults": 1,
+   "pool": 123.37,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.37
+  },
+  {
+   "case": 811,
+   "n_defaults": 6,
+   "pool": 87.07,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 53.07
+  },
+  {
+   "case": 812,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 813,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 814,
+   "n_defaults": 2,
+   "pool": 115.84,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.84
+  },
+  {
+   "case": 815,
+   "n_defaults": 1,
+   "pool": 122.83,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.83
+  },
+  {
+   "case": 816,
+   "n_defaults": 5,
+   "pool": 94.51,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 60.51
+  },
+  {
+   "case": 817,
+   "n_defaults": 3,
+   "pool": 110.11,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.11
+  },
+  {
+   "case": 818,
+   "n_defaults": 2,
+   "pool": 117.28,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.28
+  },
+  {
+   "case": 819,
+   "n_defaults": 2,
+   "pool": 115.75,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.75
+  },
+  {
+   "case": 820,
+   "n_defaults": 2,
+   "pool": 115.3,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.3
+  },
+  {
+   "case": 821,
+   "n_defaults": 1,
+   "pool": 122.74,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.74
+  },
+  {
+   "case": 822,
+   "n_defaults": 3,
+   "pool": 110.56,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.56
+  },
+  {
+   "case": 823,
+   "n_defaults": 4,
+   "pool": 99.7,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 65.7
+  },
+  {
+   "case": 824,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 825,
+   "n_defaults": 2,
+   "pool": 115.93,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.93
+  },
+  {
+   "case": 826,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 827,
+   "n_defaults": 2,
+   "pool": 117.73,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.73
+  },
+  {
+   "case": 828,
+   "n_defaults": 4,
+   "pool": 102.04,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.04
+  },
+  {
+   "case": 829,
+   "n_defaults": 3,
+   "pool": 109.93,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.93
+  },
+  {
+   "case": 830,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 831,
+   "n_defaults": 5,
+   "pool": 94.42,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 60.42
+  },
+  {
+   "case": 832,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 833,
+   "n_defaults": 1,
+   "pool": 122.92,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.92
+  },
+  {
+   "case": 834,
+   "n_defaults": 3,
+   "pool": 110.2,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.2
+  },
+  {
+   "case": 835,
+   "n_defaults": 4,
+   "pool": 102.22,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.22
+  },
+  {
+   "case": 836,
+   "n_defaults": 1,
+   "pool": 122.29,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.29
+  },
+  {
+   "case": 837,
+   "n_defaults": 3,
+   "pool": 109.39,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.39
+  },
+  {
+   "case": 838,
+   "n_defaults": 3,
+   "pool": 108.76,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.76
+  },
+  {
+   "case": 839,
+   "n_defaults": 3,
+   "pool": 108.4,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.4
+  },
+  {
+   "case": 840,
+   "n_defaults": 1,
+   "pool": 122.56,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.56
+  },
+  {
+   "case": 841,
+   "n_defaults": 2,
+   "pool": 115.93,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.93
+  },
+  {
+   "case": 842,
+   "n_defaults": 2,
+   "pool": 115.12,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.12
+  },
+  {
+   "case": 843,
+   "n_defaults": 1,
+   "pool": 122.38,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.38
+  },
+  {
+   "case": 844,
+   "n_defaults": 4,
+   "pool": 102.22,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.22
+  },
+  {
+   "case": 845,
+   "n_defaults": 3,
+   "pool": 107.86,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 73.86
+  },
+  {
+   "case": 846,
+   "n_defaults": 2,
+   "pool": 116.11,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.11
+  },
+  {
+   "case": 847,
+   "n_defaults": 3,
+   "pool": 108.49,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.49
+  },
+  {
+   "case": 848,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 849,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 850,
+   "n_defaults": 8,
+   "pool": 71.02,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 37.02
+  },
+  {
+   "case": 851,
+   "n_defaults": 3,
+   "pool": 110.74,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.74
+  },
+  {
+   "case": 852,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 853,
+   "n_defaults": 1,
+   "pool": 122.2,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.2
+  },
+  {
+   "case": 854,
+   "n_defaults": 1,
+   "pool": 122.65,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.65
+  },
+  {
+   "case": 855,
+   "n_defaults": 3,
+   "pool": 107.23,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 73.23
+  },
+  {
+   "case": 856,
+   "n_defaults": 3,
+   "pool": 108.49,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.49
+  },
+  {
+   "case": 857,
+   "n_defaults": 2,
+   "pool": 116.11,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.11
+  },
+  {
+   "case": 858,
+   "n_defaults": 1,
+   "pool": 123.19,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.19
+  },
+  {
+   "case": 859,
+   "n_defaults": 2,
+   "pool": 117.64,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.64
+  },
+  {
+   "case": 860,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 861,
+   "n_defaults": 1,
+   "pool": 122.47,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.47
+  },
+  {
+   "case": 862,
+   "n_defaults": 3,
+   "pool": 108.4,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.4
+  },
+  {
+   "case": 863,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 864,
+   "n_defaults": 2,
+   "pool": 115.75,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.75
+  },
+  {
+   "case": 865,
+   "n_defaults": 1,
+   "pool": 123.55,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.55
+  },
+  {
+   "case": 866,
+   "n_defaults": 2,
+   "pool": 114.76,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 80.76
+  },
+  {
+   "case": 867,
+   "n_defaults": 1,
+   "pool": 123.01,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.01
+  },
+  {
+   "case": 868,
+   "n_defaults": 1,
+   "pool": 123.37,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.37
+  },
+  {
+   "case": 869,
+   "n_defaults": 3,
+   "pool": 108.67,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.67
+  },
+  {
+   "case": 870,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 871,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 872,
+   "n_defaults": 1,
+   "pool": 123.01,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.01
+  },
+  {
+   "case": 873,
+   "n_defaults": 2,
+   "pool": 115.57,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.57
+  },
+  {
+   "case": 874,
+   "n_defaults": 3,
+   "pool": 109.03,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.03
+  },
+  {
+   "case": 875,
+   "n_defaults": 5,
+   "pool": 92.8,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 58.8
+  },
+  {
+   "case": 876,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 877,
+   "n_defaults": 2,
+   "pool": 115.75,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.75
+  },
+  {
+   "case": 878,
+   "n_defaults": 2,
+   "pool": 114.4,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 80.4
+  },
+  {
+   "case": 879,
+   "n_defaults": 3,
+   "pool": 108.85,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.85
+  },
+  {
+   "case": 880,
+   "n_defaults": 3,
+   "pool": 108.4,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.4
+  },
+  {
+   "case": 881,
+   "n_defaults": 1,
+   "pool": 122.56,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.56
+  },
+  {
+   "case": 882,
+   "n_defaults": 1,
+   "pool": 122.47,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.47
+  },
+  {
+   "case": 883,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 884,
+   "n_defaults": 3,
+   "pool": 110.2,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.2
+  },
+  {
+   "case": 885,
+   "n_defaults": 1,
+   "pool": 123.46,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.46
+  },
+  {
+   "case": 886,
+   "n_defaults": 3,
+   "pool": 108.67,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.67
+  },
+  {
+   "case": 887,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 888,
+   "n_defaults": 1,
+   "pool": 123.73,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.73
+  },
+  {
+   "case": 889,
+   "n_defaults": 2,
+   "pool": 116.38,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.38
+  },
+  {
+   "case": 890,
+   "n_defaults": 5,
+   "pool": 95.86,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 61.86
+  },
+  {
+   "case": 891,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 892,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 893,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 894,
+   "n_defaults": 3,
+   "pool": 108.58,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.58
+  },
+  {
+   "case": 895,
+   "n_defaults": 3,
+   "pool": 110.38,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.38
+  },
+  {
+   "case": 896,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 897,
+   "n_defaults": 1,
+   "pool": 122.2,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.2
+  },
+  {
+   "case": 898,
+   "n_defaults": 2,
+   "pool": 114.49,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 80.49
+  },
+  {
+   "case": 899,
+   "n_defaults": 7,
+   "pool": 80.98,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 46.98
+  },
+  {
+   "case": 900,
+   "n_defaults": 4,
+   "pool": 102.4,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.4
+  },
+  {
+   "case": 901,
+   "n_defaults": 1,
+   "pool": 122.38,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.38
+  },
+  {
+   "case": 902,
+   "n_defaults": 3,
+   "pool": 108.76,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.76
+  },
+  {
+   "case": 903,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 904,
+   "n_defaults": 3,
+   "pool": 109.66,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.66
+  },
+  {
+   "case": 905,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 906,
+   "n_defaults": 3,
+   "pool": 110.02,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.02
+  },
+  {
+   "case": 907,
+   "n_defaults": 3,
+   "pool": 108.94,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.94
+  },
+  {
+   "case": 908,
+   "n_defaults": 3,
+   "pool": 109.03,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.03
+  },
+  {
+   "case": 909,
+   "n_defaults": 2,
+   "pool": 116.11,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.11
+  },
+  {
+   "case": 910,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 911,
+   "n_defaults": 4,
+   "pool": 104.56,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 70.56
+  },
+  {
+   "case": 912,
+   "n_defaults": 2,
+   "pool": 116.29,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.29
+  },
+  {
+   "case": 913,
+   "n_defaults": 1,
+   "pool": 123.19,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.19
+  },
+  {
+   "case": 914,
+   "n_defaults": 2,
+   "pool": 115.75,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.75
+  },
+  {
+   "case": 915,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 916,
+   "n_defaults": 1,
+   "pool": 123.46,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.46
+  },
+  {
+   "case": 917,
+   "n_defaults": 4,
+   "pool": 102.76,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.76
+  },
+  {
+   "case": 918,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 919,
+   "n_defaults": 1,
+   "pool": 122.92,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.92
+  },
+  {
+   "case": 920,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 921,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 922,
+   "n_defaults": 1,
+   "pool": 123.1,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.1
+  },
+  {
+   "case": 923,
+   "n_defaults": 2,
+   "pool": 116.47,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.47
+  },
+  {
+   "case": 924,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 925,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 926,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 927,
+   "n_defaults": 2,
+   "pool": 114.67,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 80.67
+  },
+  {
+   "case": 928,
+   "n_defaults": 3,
+   "pool": 110.56,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.56
+  },
+  {
+   "case": 929,
+   "n_defaults": 1,
+   "pool": 123.64,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.64
+  },
+  {
+   "case": 930,
+   "n_defaults": 2,
+   "pool": 115.66,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.66
+  },
+  {
+   "case": 931,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 932,
+   "n_defaults": 1,
+   "pool": 122.65,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.65
+  },
+  {
+   "case": 933,
+   "n_defaults": 1,
+   "pool": 122.74,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.74
+  },
+  {
+   "case": 934,
+   "n_defaults": 1,
+   "pool": 123.46,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.46
+  },
+  {
+   "case": 935,
+   "n_defaults": 2,
+   "pool": 117.19,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.19
+  },
+  {
+   "case": 936,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 937,
+   "n_defaults": 2,
+   "pool": 115.21,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.21
+  },
+  {
+   "case": 938,
+   "n_defaults": 3,
+   "pool": 108.31,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 74.31
+  },
+  {
+   "case": 939,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 940,
+   "n_defaults": 1,
+   "pool": 122.47,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.47
+  },
+  {
+   "case": 941,
+   "n_defaults": 2,
+   "pool": 114.58,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 80.58
+  },
+  {
+   "case": 942,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 943,
+   "n_defaults": 2,
+   "pool": 114.67,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 80.67
+  },
+  {
+   "case": 944,
+   "n_defaults": 1,
+   "pool": 122.38,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.38
+  },
+  {
+   "case": 945,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 946,
+   "n_defaults": 2,
+   "pool": 115.3,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.3
+  },
+  {
+   "case": 947,
+   "n_defaults": 5,
+   "pool": 93.79,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 59.79
+  },
+  {
+   "case": 948,
+   "n_defaults": 2,
+   "pool": 116.92,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.92
+  },
+  {
+   "case": 949,
+   "n_defaults": 1,
+   "pool": 122.47,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.47
+  },
+  {
+   "case": 950,
+   "n_defaults": 3,
+   "pool": 110.11,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.11
+  },
+  {
+   "case": 951,
+   "n_defaults": 3,
+   "pool": 110.38,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.38
+  },
+  {
+   "case": 952,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 953,
+   "n_defaults": 4,
+   "pool": 102.04,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.04
+  },
+  {
+   "case": 954,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 955,
+   "n_defaults": 1,
+   "pool": 123.1,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.1
+  },
+  {
+   "case": 956,
+   "n_defaults": 2,
+   "pool": 117.01,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.01
+  },
+  {
+   "case": 957,
+   "n_defaults": 3,
+   "pool": 109.75,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.75
+  },
+  {
+   "case": 958,
+   "n_defaults": 3,
+   "pool": 107.5,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 73.5
+  },
+  {
+   "case": 959,
+   "n_defaults": 5,
+   "pool": 95.86,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 61.86
+  },
+  {
+   "case": 960,
+   "n_defaults": 5,
+   "pool": 96.31,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 62.31
+  },
+  {
+   "case": 961,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 962,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 963,
+   "n_defaults": 1,
+   "pool": 122.2,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.2
+  },
+  {
+   "case": 964,
+   "n_defaults": 1,
+   "pool": 123.55,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.55
+  },
+  {
+   "case": 965,
+   "n_defaults": 3,
+   "pool": 109.3,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.3
+  },
+  {
+   "case": 966,
+   "n_defaults": 1,
+   "pool": 123.37,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.37
+  },
+  {
+   "case": 967,
+   "n_defaults": 1,
+   "pool": 123.46,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.46
+  },
+  {
+   "case": 968,
+   "n_defaults": 2,
+   "pool": 115.84,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.84
+  },
+  {
+   "case": 969,
+   "n_defaults": 2,
+   "pool": 116.29,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.29
+  },
+  {
+   "case": 970,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 971,
+   "n_defaults": 1,
+   "pool": 122.65,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 88.65
+  },
+  {
+   "case": 972,
+   "n_defaults": 1,
+   "pool": 123.64,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.64
+  },
+  {
+   "case": 973,
+   "n_defaults": 3,
+   "pool": 109.84,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.84
+  },
+  {
+   "case": 974,
+   "n_defaults": 4,
+   "pool": 101.05,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 67.05
+  },
+  {
+   "case": 975,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 976,
+   "n_defaults": 2,
+   "pool": 117.1,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 83.1
+  },
+  {
+   "case": 977,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 978,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 979,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 980,
+   "n_defaults": 1,
+   "pool": 123.01,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.01
+  },
+  {
+   "case": 981,
+   "n_defaults": 0,
+   "pool": 130.0,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 96.0
+  },
+  {
+   "case": 982,
+   "n_defaults": 2,
+   "pool": 115.57,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.57
+  },
+  {
+   "case": 983,
+   "n_defaults": 1,
+   "pool": 123.64,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.64
+  },
+  {
+   "case": 984,
+   "n_defaults": 2,
+   "pool": 115.48,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.48
+  },
+  {
+   "case": 985,
+   "n_defaults": 2,
+   "pool": 115.93,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.93
+  },
+  {
+   "case": 986,
+   "n_defaults": 5,
+   "pool": 95.14,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 61.14
+  },
+  {
+   "case": 987,
+   "n_defaults": 5,
+   "pool": 94.15,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 60.15
+  },
+  {
+   "case": 988,
+   "n_defaults": 5,
+   "pool": 93.97,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 59.97
+  },
+  {
+   "case": 989,
+   "n_defaults": 2,
+   "pool": 115.66,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.66
+  },
+  {
+   "case": 990,
+   "n_defaults": 3,
+   "pool": 110.65,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 76.65
+  },
+  {
+   "case": 991,
+   "n_defaults": 3,
+   "pool": 109.66,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 75.66
+  },
+  {
+   "case": 992,
+   "n_defaults": 5,
+   "pool": 95.59,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 61.59
+  },
+  {
+   "case": 993,
+   "n_defaults": 1,
+   "pool": 123.1,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.1
+  },
+  {
+   "case": 994,
+   "n_defaults": 1,
+   "pool": 123.55,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.55
+  },
+  {
+   "case": 995,
+   "n_defaults": 2,
+   "pool": 116.38,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 82.38
+  },
+  {
+   "case": 996,
+   "n_defaults": 4,
+   "pool": 102.49,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 68.49
+  },
+  {
+   "case": 997,
+   "n_defaults": 1,
+   "pool": 123.37,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.37
+  },
+  {
+   "case": 998,
+   "n_defaults": 2,
+   "pool": 115.39,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 81.39
+  },
+  {
+   "case": 999,
+   "n_defaults": 1,
+   "pool": 123.91,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.91
+  },
+  {
+   "case": 1000,
+   "n_defaults": 1,
+   "pool": 123.82,
+   "class_a": 22.0,
+   "class_b": 12.0,
+   "equity": 89.82
+  }
+ ]
+}
