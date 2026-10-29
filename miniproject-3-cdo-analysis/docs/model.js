@@ -346,9 +346,15 @@
       var q = Object.assign({}, p); q[key] = c;
       return valueStructure(pool, q, rate, costPerUnitRisk).value[col] - principal;
     }
-    var lo = 0, hi = 1;
-    if (gap(hi) < 0) { return null; }
-    if (gap(lo) >= 0) { return lo; }
+    // the value is not always rising in the coupon, so scan upwards for the first coupon that reaches par
+    var lo = null, hi = null;
+    for (var step = 0; step <= 100; step++) {
+      var c = step / 100;
+      if (gap(c) >= 0) { hi = c; break; }
+      lo = c;
+    }
+    if (hi === null) { return null; }
+    if (lo === null) { return hi; }
     for (var i = 0; i < 60; i++) {
       var mid = (lo + hi) / 2;
       if (gap(mid) >= 0) { hi = mid; } else { lo = mid; }

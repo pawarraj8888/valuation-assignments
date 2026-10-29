@@ -29,8 +29,8 @@ from cdo.random_numbers import load_fixed_normals, moment_match  # noqa: E402
 from cdo.report import COLORS, apply_chart_style, plot_class_b_choice, plot_pv_distributions, reference_line  # noqa: E402
 from cdo.valuation import (  # noqa: E402
     bond_market_value, break_even_size, cost_of_risk, default_indicators, discount_factors, fair_coupon,
-    lintner_values, optimise_class_b, structure_values, tranche_cash_flows, tranche_pvs, valuation_precision,
-    value_cdo, value_sensitivity,
+    gain_turns_positive, largest_class_b_at_par, lintner_values, optimise_class_b, structure_values,
+    tranche_cash_flows, tranche_pvs, valuation_precision, value_cdo, value_sensitivity,
 )
 from cdo.waterfall import waterfall  # noqa: E402
 
@@ -114,14 +114,15 @@ their moment matching, the correlated default times and the waterfall.
         md("""
 ## 3. Step 1: scheduled cash flows of the classes
 
-Each class gets its coupon every quarter and its principal back in quarter 20.
+Each class gets its coupon every quarter and its principal back in quarter 20. If no bond defaults the residual
+gets the rest. Each quarter stands alone: a shortfall is not made up later.
 """),
         code("""
 a_due = promised_cash_flows(base["a_notional"], base["a_coupon"], N_PERIODS, FREQ)
 b_due = promised_cash_flows(base["b_notional"], base["b_coupon"], N_PERIODS, FREQ)
 pool_due = N_BONDS * promised_cash_flows(base["face"], base["coupon"], N_PERIODS, FREQ)
-schedule = pd.DataFrame({"pool promised": pool_due, "due to Class A": a_due, "due to Class B": b_due},
-                        index=pd.Index(quarters, name="quarter"))
+schedule = pd.DataFrame({"pool promised": pool_due, "due to Class A": a_due, "due to Class B": b_due,
+                         "residual if no default": pool_due - a_due - b_due}, index=pd.Index(quarters, name="quarter"))
 schedule.loc["Total"] = schedule.sum()
 schedule.round(5)
 """),
@@ -240,14 +241,17 @@ answer (the residual's highest value), the bank's gain (cash from selling both c
 residual, less the bonds) at Class B's target rate, Class B's fair coupon at each size, and the best size
 at the target rate if Class B's default probability is capped.
 """),
-        code(source_of(break_even_size, optimise_class_b), """
+        code(source_of(break_even_size, gain_turns_positive, largest_class_b_at_par, optimise_class_b), """
 sizes = np.arange(0.0, 100.5, 1.0)
 coupons = np.round(np.arange(0.0, 0.10001, 0.0025), 4)
 bonus = optimise_class_b(pool_cf, base, RISK_FREE, MARKET_YTM, sizes, coupons)
 print("Literal answer:", {k: round(x, 4) for k, x in bonus["literal"].items()})
 print(f"5.5% is a fair rate for Class B at {bonus['break_even_size']:.2f} MM "
       f"(short in {bonus['p_default_b_at_break_even']:.1%} of cases)")
-print(f"Largest Class B that can be worth par: {bonus['largest_class_b_at_par']:.2f} MM")
+print(f"At 5.5% the bank's gain turns positive at about {bonus['gain_turns_positive']:.2f} MM")
+print(f"Largest Class B that any coupon can make worth par: {bonus['largest_class_b_at_par']:.2f} MM "
+      f"(the bonds less Class A: {bonus['bonds_less_class_a']:.2f} MM)")
+print(f"Lowest residual value in the search: {bonus['min_residual_value_in_grid']:.4f}")
 pd.DataFrame(bonus["default_limits"]).round(4)
 """),
         code("""
@@ -265,9 +269,10 @@ plt.show()
         md("""
 Taken literally, the residual is worth the most with no Class B, because the three values always add up
 to the bonds' market value. Measured by the bank's gain, Class B at its fair coupon gives the same result
-at every size (the bank loses only what Class A's 4.5% costs), and at the 5.5% target rate the bank loses
-money until Class B is about $65.5 MM. Our structure keeps the sizes and pays both classes their fair rate
-of 4.0%.
+at every size (the bank loses only what Class A's 4.5% costs). At the 5.5% target rate, 5.5% is a fair rate
+for Class B at about $65.5 MM and the bank's gain only turns positive at about $66.5 MM, where Class B investors
+would be paying more than the class is worth. Our structure keeps the sizes and pays both classes their fair
+rate of 4.0%.
 """),
     ]
 

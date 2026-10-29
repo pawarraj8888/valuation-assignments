@@ -100,12 +100,17 @@ def structure_values(pool_cf: np.ndarray, p: dict, rate: float, cost_per_unit_ri
             "p_default": default_indicators(flows).mean(axis=0)}
 
 
-def fair_coupon(pool_cf: np.ndarray, p: dict, rate: float, cost_per_unit_risk: float, cls: str = "b") -> float | None:
-    """Coupon at which Class A or B is worth exactly its principal, or None if no coupon does it.
+def fair_coupon(pool_cf: np.ndarray, p: dict, rate: float, cost_per_unit_risk: float, cls: str = "b",
+                coupons: np.ndarray | None = None) -> float | None:
+    """Lowest coupon at which Class A or B is worth its principal, or None if no coupon up to 100% does it.
 
-    A class can never be worth more than the pool can pay it, so a class that is too large
-    stays below par whatever its coupon.
+    A class that is too large stays below par whatever its coupon. The value is not always rising
+    in the coupon (the Lintner weights of the no-default cases are negative), so the coupons are
+    scanned upwards (0% to 100% in 1% steps unless coupons are given) to find the first one that
+    reaches par before the root is refined.
     """
+    if coupons is None:
+        coupons = np.linspace(0.0, 1.0, 101)
     if cls not in ("a", "b"):
         raise ValueError(f"class must be 'a' or 'b', got {cls!r}")
     principal = p[f"{cls}_notional"]
@@ -116,12 +121,12 @@ def fair_coupon(pool_cf: np.ndarray, p: dict, rate: float, cost_per_unit_risk: f
     def gap(coupon):
         return structure_values(pool_cf, {**p, f"{cls}_coupon": coupon}, rate, cost_per_unit_risk)["value"][column] - principal
 
-    low, high = 0.0, 1.0
-    if gap(high) < 0:
-        return None
-    if gap(low) >= 0:
-        return low
-    return brentq(gap, low, high, xtol=1e-12)
+    previous = None
+    for coupon in coupons:
+        if gap(coupon) >= 0:
+            return float(coupon) if previous is None else brentq(gap, previous, coupon, xtol=1e-12)
+        previous = coupon
+    return None
 
 
 def break_even_size(pool_cf: np.ndarray, p: dict, rate: float, cost_per_unit_risk: float,
@@ -140,6 +145,31 @@ def break_even_size(pool_cf: np.ndarray, p: dict, rate: float, cost_per_unit_ris
         if gap_lo >= 0 > gap_hi:
             return brentq(gap, size_lo, size_hi, xtol=1e-10)
     return None
+
+
+def gain_turns_positive(at_target: list) -> float | None:
+    """Class B principal at which the bank's gain at the target coupon first crosses zero (linear
+    interpolation between the sizes searched), or None if it never does."""
+    for low, high in zip(at_target, at_target[1:]):
+        if low["bank_gain"] < 0 <= high["bank_gain"]:
+            t = -low["bank_gain"] / (high["bank_gain"] - low["bank_gain"])
+            return low["b_notional"] + t * (high["b_notional"] - low["b_notional"])
+    return None
+
+
+def largest_class_b_at_par(pool_cf: np.ndarray, p: dict, rate: float, cost_per_unit_risk: float,
+                           low: float, high: float, tol: float = 0.005) -> float:
+    """Largest Class B principal that some coupon (up to 100%) can make worth par, by bisection
+    between a size that can (low) and one that cannot (high)."""
+    def can(size):
+        return fair_coupon(pool_cf, {**p, "b_notional": size}, rate, cost_per_unit_risk) is not None
+
+    if not can(low) or can(high):
+        raise ValueError("the search for the largest Class B needs a size that can reach par and one that cannot")
+    while high - low > tol:
+        middle = (low + high) / 2
+        low, high = (middle, high) if can(middle) else (low, middle)
+    return low
 
 
 def optimise_class_b(pool_cf: np.ndarray, p: dict, rate: float, ytm: float, sizes: np.ndarray,
@@ -192,13 +222,17 @@ def optimise_class_b(pool_cf: np.ndarray, p: dict, rate: float, ytm: float, size
                        "p_default_b": best["p_default_b"], "bank_gain": best["bank_gain"]})
 
     no_b = structure_values(pool_cf, {**p, "b_notional": 0.0}, rate, lam)
+    bonds_less_a = market_value - float(no_b["value"][0])
     return {
         "a_notional": p["a_notional"], "a_coupon": p["a_coupon"], "target_b_coupon": p["b_coupon"],
         "market_value": market_value, "cost_per_unit_risk": lam,
         "literal": literal,
         "residual_with_no_class_b": float(no_b["value"][2]),
-        "largest_class_b_at_par": market_value - float(no_b["value"][0]),
+        "bonds_less_class_a": bonds_less_a,
+        "largest_class_b_at_par": largest_class_b_at_par(pool_cf, p, rate, lam, bonds_less_a - 2, bonds_less_a + 2),
+        "min_residual_value_in_grid": min(row["value_residual"] for row in grid),
         "break_even_size": break_even,
+        "gain_turns_positive": gain_turns_positive(at_target),
         "p_default_b_at_break_even": (float(structure_values(pool_cf, {**p, "b_notional": break_even}, rate,
                                                              lam)["p_default"][1]) if break_even is not None else None),
         "at_target_rate": at_target,

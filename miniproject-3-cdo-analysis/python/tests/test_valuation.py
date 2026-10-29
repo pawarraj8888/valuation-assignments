@@ -111,4 +111,24 @@ def test_bonus_literal_answer_and_flat_gain_at_fair_coupons(pool_cf):
     gains = [row["bank_gain"] for row in bonus["fair_coupon_curve"]]
     assert np.ptp(gains) < 1e-6
     assert gains[0] == pytest.approx(15.0 - 15.338354118117447, abs=1e-6)
-    assert bonus["largest_class_b_at_par"] == pytest.approx(bonus["market_value"] - 15.338354118117447, abs=1e-9)
+    # a little above the bonds less Class A: the no-default cases carry a negative Lintner weight
+    assert bonus["bonds_less_class_a"] == pytest.approx(bonus["market_value"] - 15.338354118117447, abs=1e-9)
+    assert bonus["bonds_less_class_a"] < bonus["largest_class_b_at_par"] < bonus["bonds_less_class_a"] + 0.5
+    assert bonus["min_residual_value_in_grid"] < 0
+
+
+def test_fair_coupon_finds_the_lowest_coupon_when_value_is_not_monotonic(pool_cf, base_value):
+    lam = base_value["cost_per_unit_risk"]
+    size = 72.75   # only very high coupons reach par here
+    coupon = fair_coupon(pool_cf, {**PART2_DEAL, "b_notional": size}, PART2_RISK_FREE, lam)
+    assert coupon is not None and coupon > 0.2
+    value = structure_values(pool_cf, {**PART2_DEAL, "b_notional": size, "b_coupon": coupon}, PART2_RISK_FREE, lam)
+    assert value["value"][1] == pytest.approx(size, abs=1e-7)
+    assert value["value"][2] < 0
+
+
+def test_bank_gain_at_the_target_rate_turns_positive_after_the_break_even_size(pool_cf):
+    bonus = optimise_class_b(pool_cf, PART2_DEAL, PART2_RISK_FREE, MARKET_YTM, np.arange(60.0, 71.0, 1.0),
+                             np.array([0.055]), default_limits=(0.2,))
+    assert bonus["break_even_size"] < bonus["gain_turns_positive"] < bonus["break_even_size"] + 2
+    assert 66.0 < bonus["gain_turns_positive"] < 67.0

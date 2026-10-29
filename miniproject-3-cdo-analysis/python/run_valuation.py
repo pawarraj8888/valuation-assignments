@@ -27,6 +27,7 @@ from cdo import (  # noqa: E402
     PART2_RISK_FREE,
     SEED,
     TRANCHES,
+    exact_default_count_distribution,
     fair_coupon,
     load_fixed_normals,
     moment_match,
@@ -43,7 +44,8 @@ B_COUPONS = np.round(np.arange(0.0, 0.10001, 0.0025), 4)  # Class B coupons sear
 DEFAULT_LIMITS = (0.0, 0.01, 0.05, 0.10, 0.20)          # caps on the share of cases Class B is short
 SENSITIVITIES = {"rho": (0.0, 0.2, 0.4, 0.6, 0.8), "pd": (0.02, 0.04, 0.06, 0.08, 0.12), "lgd": (0.4, 0.6, 0.8, 1.0)}
 PRECISION_SETS = 500
-MAX_ERROR_SE = 3                                         # max error of a mean, in standard errors
+MAX_ERROR_SE = 2                                         # max error of a mean, in standard errors (as in class)
+RISKY_B = 60.0                                           # a Class B large enough to carry risk, shown for comparison
 
 
 def parse_args(argv=None) -> argparse.Namespace:
@@ -86,6 +88,18 @@ def build_valuation_results(Z: np.ndarray, deal: dict, rate: float, ytm: float, 
     lam = v["cost_per_unit_risk"]
     fair = {"a": fair_coupon(r["pool_cf"], deal, rate, lam, "a"), "b": fair_coupon(r["pool_cf"], deal, rate, lam, "b")}
     at_fair = value_cdo(r["pool_cf"], {**deal, "a_coupon": fair["a"], "b_coupon": fair["b"]}, rate, ytm)
+    risky = value_cdo(r["pool_cf"], {**deal, "b_notional": RISKY_B}, rate, ytm)
+    n_defaults = r["defaulted"].sum(axis=1)
+    p_default_5y = 1 - (1 - deal["pd"]) ** deal["years"]
+    floor = {
+        "pool_per_quarter": float(r["pool_promised"][0] * (1 - deal["lgd"])),
+        "pool_at_maturity_all_default": float(r["pool_promised"][-1] * (1 - deal["lgd"])),
+        "classes_per_quarter": float(r["a_due"][0] + r["b_due"][0]),
+        "classes_at_maturity": float(r["a_due"][-1] + r["b_due"][-1]),
+        "worst_case_defaults": int(n_defaults.max()),
+        "min_pool_at_maturity": float(r["pool_cf"][:, -1].min()),
+        "p_all_default_exact": float(exact_default_count_distribution(deal["n_bonds"], p_default_5y, deal["rho"])[-1]),
+    }
     bonus = optimise_class_b(r["pool_cf"], deal, rate, ytm, B_SIZES, B_COUPONS, DEFAULT_LIMITS)
     grid = pd.DataFrame(bonus.pop("grid"))
     results = {
@@ -98,6 +112,9 @@ def build_valuation_results(Z: np.ndarray, deal: dict, rate: float, ytm: float, 
         "valuation": valuation_block(v, deal),
         "fair_coupons": fair,
         "at_fair_coupons": valuation_block(at_fair, deal),
+        "risky_example": {**valuation_block(risky, {**deal, "b_notional": RISKY_B}), "b_notional": RISKY_B,
+                          "b_coupon": deal["b_coupon"]},
+        "floor": floor,
         "bonus": bonus,
         "sensitivities": {name: value_sensitivity(Z, deal, rate, ytm, name, values) for name, values in SENSITIVITIES.items()},
         "precision": valuation_precision(deal, rate, ytm, len(Z), n_sets=PRECISION_SETS),

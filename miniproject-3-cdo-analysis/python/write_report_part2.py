@@ -40,7 +40,10 @@ def assumptions(r: dict) -> list:
          f"Class A: ${d['a_notional']:.0f} MM at {pct(d['a_coupon'])}. Class B: ${d['b_notional']:.0f} MM at "
          f"{pct(d['b_coupon'])}. We use the target rates in the assignment as the coupons, so a class sold at par pays "
          f"its target rate. Both are bullet bonds: Class A is owed ${a[0]:.5f} MM a quarter and ${a[-1]:.5f} MM at "
-         f"maturity, Class B ${b[0]:.4f} MM and ${b[-1]:.4f} MM. The waterfall is the same as in Part 1."),
+         f"maturity, Class B ${b[0]:.4f} MM and ${b[-1]:.4f} MM. If no bond defaults the residual receives "
+         f"${r['promised']['pool'][0] - a[0] - b[0]:.5f} MM a quarter and ${r['promised']['pool'][-1] - a[-1] - b[-1]:.5f} MM "
+         "at maturity. The waterfall is the same as in Part 1: each quarter stands alone, so a shortfall is not "
+         "made up later."),
         ("Risk-Free Rate",
          f"{pct(r['risk_free'], 0)} a year, compounded quarterly: a payment in quarter k is discounted by "
          f"(1 + {r['risk_free']:.2f}/4)^-k."),
@@ -89,7 +92,7 @@ def steps(r: dict) -> list:
 def valuation_table(r: dict) -> Table:
     v, d = r["valuation"], r["deal"]
     principal = [d["a_notional"], d["b_notional"], None]
-    rows = [["", "Principal", "Expected PV\nat 4%", "Max error\n(3 s.e.)", "Covariance\nwith pool", "Risk\ncharge",
+    rows = [["", "Principal", "Expected PV\nat 4%", "Max error\n(2 s.e.)", "Covariance\nwith pool", "Risk\ncharge",
              "Lintner\nvalue", "Value per\n$100", "Cases\nshort"]]
     for i, name in enumerate(v["tranches"]):
         short = f"{v['default_cases'][i]}" if i < 2 else "-"
@@ -112,30 +115,58 @@ def covariance_table(r: dict) -> Table:
 
 
 def results_text(r: dict) -> list:
-    v, d, fair = r["valuation"], r["deal"], r["fair_coupons"]
+    v, d, fair, fl = r["valuation"], r["deal"], r["fair_coupons"], r["floor"]
     a, b, res = v["value"]
     return [
         Paragraph(
             f"Neither class misses a payment in any of the {r['n_cases']} cases: the default indicators are 0 "
-            f"everywhere. With a {pct(d['lgd'], 0)} LGD the pool always pays at least "
-            f"{pct(1 - d['lgd'], 0)} of what it promised, $0.60 MM a quarter and $40.60 MM at maturity, while the two "
-            f"classes together need ${r['promised']['class_a'][0] + r['promised']['class_b'][0]:.2f} MM and "
-            f"${r['promised']['class_a'][-1] + r['promised']['class_b'][-1]:.2f} MM. So the PVs of Class A and Class B "
-            "are the same in every case, their covariances with the pool are 0, and they carry no risk charge: each is "
-            "worth its promised cash flows at the risk-free rate. All of the "
+            f"everywhere. Each quarter the pool pays at least ${fl['pool_per_quarter']:.2f} MM, more than the "
+            f"${fl['classes_per_quarter']:.2f} MM the classes need. At maturity they need "
+            f"${fl['classes_at_maturity']:.2f} MM, and the pool pays less than that only if all ten bonds default (it "
+            f"would then pay ${fl['pool_at_maturity_all_default']:.2f} MM). That has a "
+            f"{pct(fl['p_all_default_exact'], 2)} chance under the model and happens in none of our cases: the worst case "
+            f"has {fl['worst_case_defaults']} defaults and still pays ${fl['min_pool_at_maturity']:.2f} MM at maturity. So "
+            "the PVs of Class A and Class B are the same in every case, their covariances with the pool are 0, and they "
+            "carry no risk charge: each is worth its promised cash flows at the risk-free rate. All of the "
             f"${mm(v['cost_of_risk'])} MM cost of risk falls on the residual, which is worth ${mm(res)} MM against an "
             f"expected PV of ${mm(v['expected_pv'][2])} MM.", BODY),
         Paragraph(
-            f"Because the classes are risk-free but pay more than {pct(r['risk_free'], 0)}, they are worth more than "
+            f"Because the classes are never short in our cases but pay more than {pct(r['risk_free'], 0)}, they are "
+            "worth more than "
             f"their principal: Class A ${mm(a)} MM for ${d['a_notional']:.0f} MM, Class B ${mm(b)} MM for "
             f"${d['b_notional']:.0f} MM. If the bank sells them at par, the investors receive "
             f"${mm(a + b - d['a_notional'] - d['b_notional'])} MM more than they pay. The bank keeps a residual worth "
             f"${mm(res)} MM after putting in ${mm(v['bank_investment'])} MM of its own (the bonds less the "
-            f"${d['a_notional'] + d['b_notional']:.0f} MM raised), a loss of ${mm(-v['bank_gain'])} MM. A fair coupon "
-            f"for both classes is {pct(fair['a'])} (Class A) and {pct(fair['b'])} (Class B), the risk-free rate; at "
-            f"those coupons each class is worth exactly par and the residual is worth "
+            f"${d['a_notional'] + d['b_notional']:.0f} MM raised), a loss of ${mm(-v['bank_gain'])} MM. The fair coupon "
+            f"for both classes is {pct(fair['b'])}, the risk-free rate; at that coupon each class is worth exactly par "
+            "and the residual is worth "
             f"${mm(r['at_fair_coupons']['value'][2])} MM.", BODY),
     ]
+
+
+def risky_table(r: dict) -> Table:
+    x = r["risky_example"]
+    rows = [["", "Principal", "Expected PV\nat 4%", "Covariance\nwith pool", "Risk\ncharge", "Lintner\nvalue",
+             "Value per\n$100", "Cases\nshort"]]
+    principal = [r["deal"]["a_notional"], x["b_notional"], None]
+    for i, name in enumerate(x["tranches"]):
+        rows.append([name, mm(principal[i]) if principal[i] else "-", mm(x["expected_pv"][i]), mm(x["cov_with_pool"][i]),
+                     mm(x["risk_charge"][i]), mm(x["value"][i]),
+                     f"{100 * x['value'][i] / principal[i]:.2f}" if principal[i] else "-",
+                     f"{x['default_cases'][i]}" if i < 2 else "-"])
+    return table(rows, font=8.5)
+
+
+def risky_text(r: dict) -> Paragraph:
+    x, v = r["risky_example"], r["valuation"]
+    return Paragraph(
+        f"We kept the assignment's structure, and with it neither class carries any risk, so the covariance matrix "
+        "has only one entry that is not 0. To see the method charge a class for risk, Table 3 values the same cases "
+        f"with Class B at ${x['b_notional']:.0f} MM (still at {pct(x['b_coupon'])}). Class B is then short in "
+        f"{x['default_cases'][1]} of the {r['n_cases']} cases, its PV moves with the pool's, and it is charged "
+        f"${mm(x['risk_charge'][1])} MM for risk: it is worth ${mm(x['value'][1])} MM against an expected PV of "
+        f"${mm(x['expected_pv'][1])} MM. The residual's charge falls to ${mm(x['risk_charge'][2])} MM, and the three "
+        f"charges still add up to the same ${mm(v['cost_of_risk'])} MM.", BODY)
 
 
 def sensitivity_table(r: dict) -> Table:
@@ -164,7 +195,8 @@ def sensitivity_text(r: dict) -> list:
             f"${mm(r['valuation']['market_value'])} MM because it comes from their price, not from our model. So the cost "
             "of risk takes up the change and the values hardly move: the residual stays near "
             f"${mm(r['valuation']['value'][2], 1)} MM in every row, and the classes keep their risk-free values until they "
-            "start to miss payments (Class B at high correlation or LGD). Correlation leaves the expected PV alone but "
+            "start to miss payments (Class B at a high correlation, default probability or LGD; Class A only at 100% LGD, "
+            "in 0.1% of the cases). Correlation leaves the expected PV alone but "
             "spreads the pool's PV out, so the cost per unit risk falls from "
             f"{s['rho'][0.0]['cost_per_unit_risk']:.3f} to {s['rho'][0.8]['cost_per_unit_risk']:.3f}. At a "
             f"{pct(0.12, 0)} default probability the pool's expected PV (${mm(worst['expected_pool_pv'])} MM) is below the "
@@ -214,23 +246,31 @@ def bonus_text(r: dict) -> list:
             f"<b>Taken literally,</b> the residual is worth the most with no Class B at all: "
             f"${mm(bonus['residual_with_no_class_b'])} MM. That follows from the method. The values of Class A, Class B "
             f"and the residual always add up to the bonds' ${mm(bonus['market_value'])} MM, so whatever Class B is worth "
-            "comes out of the residual, and a lower coupon on Class B always helps the residual. It is not a useful "
-            "answer, because it ignores the cash the bank receives for Class B.", BODY),
+            "comes out of the residual, and the residual is worth the most when Class B is worth nothing. We held Class "
+            f"A's {pct(bonus['a_coupon'])} coupon in the search because the assignment fixes Class A; a lower Class A "
+            "coupon would move value to the residual in the same way. It is not a useful answer, because it ignores "
+            "the cash the bank receives for Class B.", BODY),
         Paragraph(
             "<b>The bank's gain.</b> So we measured each structure by the bank's gain: the cash from selling both "
-            "classes at par plus the value of the residual it keeps, less the bonds it puts in (Figure 2 and Table 4). "
-            f"At Class B's {pct(bonus['target_b_coupon'])} target rate the gain is negative for every Class B up to "
-            f"${bonus['break_even_size']:.1f} MM: below that size Class B's fair rate is under "
-            f"{pct(bonus['target_b_coupon'])}, so the coupon pays its investors more than their risk is worth. At the "
-            f"proposed ${d['b_notional']:.0f} MM the bank gives away ${mm(-proposed['bank_gain'])} MM. At "
+            "classes at par plus the value of the residual it keeps, less the bonds it puts in (Figure 2 and Table 5). "
+            f"At Class B's {pct(bonus['target_b_coupon'])} target rate the gain is negative for every Class B up to about "
+            f"${bonus['gain_turns_positive']:.1f} MM. Up to ${bonus['break_even_size']:.1f} MM, Class B's fair rate is "
+            f"under {pct(bonus['target_b_coupon'])}, so the coupon pays its investors more than their risk is worth; at "
+            f"the proposed ${d['b_notional']:.0f} MM the bank gives away ${mm(-proposed['bank_gain'])} MM. At "
             f"${bonus['break_even_size']:.1f} MM, {pct(bonus['target_b_coupon'])} is exactly a fair rate (Class B is "
-            f"short in {pct(bonus['p_default_b_at_break_even'])} of the cases). Above that, Class B investors would be "
-            "paying more than the class is worth, which a buyer using the same model would refuse.", BODY),
+            f"short in {pct(bonus['p_default_b_at_break_even'])} of the cases), and the bank still loses what Class A's "
+            f"{pct(bonus['a_coupon'])} costs. Above about ${bonus['gain_turns_positive']:.1f} MM the gain turns positive, "
+            "but only because Class B investors would then pay more than the class is worth, which a buyer using the "
+            "same model would refuse.", BODY),
         Paragraph(
             "<b>Fair coupons.</b> If Class B's coupon is set to its fair rate instead (the coupon at which it is worth "
             f"exactly par), the bank loses the same ${mm(-gain_at_fair)} MM at every size, which is what Class A's "
-            f"{pct(bonus['a_coupon'])} coupon costs. That holds up to ${mm(bonus['largest_class_b_at_par'], 1)} MM, "
-            "the largest Class B that can be worth par at any coupon (the bonds less Class A). The fair rate stays at "
+            f"{pct(bonus['a_coupon'])} coupon costs. That holds up to about ${mm(bonus['largest_class_b_at_par'], 1)} MM, "
+            "the largest Class B that any coupon can make worth par. That is a little more than the bonds less Class A "
+            f"(${mm(bonus['bonds_less_class_a'])} MM), because the Lintner model gives the cases with no default a negative "
+            "weight: at very high coupons the residual is worth slightly less than zero (as low as minus "
+            f"${mm(-bonus['min_residual_value_in_grid'])} MM in our search), the negative values the lecture warns about. "
+            "The fair rate stays at "
             f"{pct(fair[30.0]['fair_coupon'])} while Class B is never short (up to about $31 MM) and rises to "
             f"{pct(fair[50.0]['fair_coupon'])} at $50 MM and {pct(fair[70.0]['fair_coupon'])} at $70 MM.", BODY),
         Paragraph(
@@ -292,19 +332,23 @@ def body(r: dict, figures: Path) -> list:
     v = r["valuation"]
     story = [Paragraph("3. Values", H2), valuation_table(r),
              Paragraph(f"Table 1. Lintner values of the Part 2 structure, $ MM, from {r['n_cases']} cases. The max error is "
-                       "three standard errors of the expected PV, using the formula for independent cases. Covariance "
+                       "two standard errors of the expected PV, as in class, from the formula for independent cases; with "
+                       "moment matching that formula overstates the error (see Precision). Covariance "
                        f"with the pool is the sum of the row of Table 2. Risk charge = {v['cost_per_unit_risk']:.5f} x "
                        "covariance. For the pool row, the value per $100 column shows the bonds' market value.", CAPTION)]
     story += results_text(r)
     story += [covariance_table(r),
               Paragraph("Table 2. Covariance matrix of the three PVs across the cases. Class A and Class B have the same PV in "
                         "every case, so their rows and columns are 0.", CAPTION),
+              risky_text(r), risky_table(r),
+              Paragraph(f"Table 3. The same valuation with Class B at ${r['risky_example']['b_notional']:.0f} MM and "
+                        f"{pct(r['risky_example']['b_coupon'])}, Class A unchanged, $ MM.", CAPTION),
               figure(figures / "pv_distributions.png", 6.4 * inch),
               Paragraph("Figure 1. PV at the risk-free rate across the 1000 cases. Left: the pool, with its expected PV and the "
                         "bonds' market value; the gap is the cost of risk. Right: the residual, with its expected PV and its "
                         "Lintner value; here the gap is the whole risk charge.", CAPTION)]
     story += [Paragraph("4. What Moves the Values", H2), sensitivity_table(r),
-              Paragraph("Table 3. Values with one input of the default model changed, the bonds' market value held at its 9% "
+              Paragraph("Table 4. Values with one input of the default model changed, the bonds' market value held at its 9% "
                         "price. B short = share of cases in which Class B is paid less than it is due.", CAPTION)]
     story += sensitivity_text(r)
     story += [Paragraph("5. Bonus: Choosing Class B", H2)]
@@ -314,7 +358,7 @@ def body(r: dict, figures: Path) -> list:
                         "rate and with it set to its fair rate. Right: Class B's fair coupon and the share of cases in which "
                         "it is short at that coupon.", CAPTION),
               bonus_table(r),
-              Paragraph(f"Table 4. Class B sizes with Class A held at ${r['deal']['a_notional']:.0f} MM and "
+              Paragraph(f"Table 5. Class B sizes with Class A held at ${r['deal']['a_notional']:.0f} MM and "
                         f"{pct(r['deal']['a_coupon'])}. Bank's gain = cash from selling both classes at par + residual value "
                         "- bonds' market value. 'none': no coupon makes a Class B that large worth par.", CAPTION)]
     story += bonus_text(r)[3:]

@@ -326,7 +326,7 @@ footer{border-top:1px solid var(--border);padding:26px 0 40px;color:var(--fg-2);
     if(!v) return;
     const c = gainCurve();
     $('gain-caption').textContent = 'Solid: Class B coupon fixed at ' + f(s.cb,2) + '%. Dashed: Class B coupon set to its fair rate, up to ' +
-      money(c.largest,1) + ', the largest Class B that can be worth par.';
+      money(c.largest,1) + ' (the bonds less Class A, about the largest Class B that any coupon can make worth par).';
     if(chartState !== 'ready'){ if(chartState === 'failed') $('gain-chart').parentNode.innerHTML = '<p class="chart-fallback">The chart library did not load. The table on the left has the same information.</p>'; return; }
     const data = {labels: c.xs, datasets: [
       {label: 'Class B coupon ' + f(s.cb,2) + '%', data: c.gains, borderColor: css('--s-b'), backgroundColor: css('--s-b'), pointRadius: 0, borderWidth: 2},

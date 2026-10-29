@@ -201,10 +201,13 @@ def plot_pv_distributions(pool_pv: np.ndarray, residual_pv: np.ndarray, market_v
         (axes[0], pool_pv, COLORS["pool"], "Collateral pool", (market_value, "market value at 9%")),
         (axes[1], residual_pv, COLORS["equity"], "Residual (bank)", (residual_value, "Lintner value")),
     ]
+    label_box = {"boxstyle": "square,pad=0.15", "fc": COLORS["surface"], "ec": "none"}
     for ax, x, color, title, (mark, mark_label) in panels:
         ax.hist(x, bins=40, color=color, edgecolor=COLORS["surface"], linewidth=0.8)
-        reference_line(ax, x.mean(), f"expected PV {x.mean():.1f}", 0.99)
-        reference_line(ax, mark, f"{mark_label} {mark:.1f}", 0.87)
+        for value, text, height in ((x.mean(), f"expected PV {x.mean():.1f}", 0.99), (mark, f"{mark_label} {mark:.1f}", 0.87)):
+            ax.axvline(value, color=COLORS["ink"], linewidth=1.0)
+            ax.annotate(text, xy=(value, height), xycoords=("data", "axes fraction"), xytext=(-5, 0), textcoords="offset points",
+                        ha="right", va="top", fontsize=8.5, color=COLORS["ink_secondary"], bbox=label_box, zorder=5)
         ax.set_title(title)
         ax.set_xlabel(f"PV of the 5-year cash flows at {rate:.0%} ($MM)")
     axes[0].set_ylabel("Number of cases")
@@ -230,15 +233,26 @@ def plot_class_b_choice(at_target: list, fair_curve: list, target_coupon: float,
     left.legend(loc="upper left", bbox_to_anchor=(0.0, 0.8))
 
     fair_size = [row["b_notional"] for row in fair_curve]
-    right.plot(fair_size, [row["fair_coupon"] for row in fair_curve], color=COLORS["class_b"], label="Fair coupon")
-    right.plot(fair_size, [row["p_default_b"] for row in fair_curve], color=COLORS["ink_secondary"], linestyle=":",
-               label="Share of cases Class B is short")
+    fair_rate = [row["fair_coupon"] for row in fair_curve]
+    right.plot(fair_size, fair_rate, color=COLORS["class_b"], label="Fair coupon (left axis)")
     right.axhline(target_coupon, color=COLORS["axis"], linewidth=0.8)
-    right.yaxis.set_major_formatter(PercentFormatter(1.0))
-    right.set_ylim(0, 0.5)
+    right.annotate(f"target rate {target_coupon:.1%}", xy=(0.01, target_coupon), xycoords=("axes fraction", "data"),
+                   xytext=(0, 3), textcoords="offset points", fontsize=8.5, color=COLORS["ink_secondary"])
+    right.yaxis.set_major_formatter(PercentFormatter(1.0, decimals=1))
+    right.set_ylim(0.035, max(fair_rate) * 1.08)
+    right.set_ylabel("Fair coupon")
+    short = right.twinx()
+    short.plot(fair_size, [row["p_default_b"] for row in fair_curve], color=COLORS["ink_secondary"], linestyle=":",
+               label="Share of cases Class B is short (right axis)")
+    short.yaxis.set_major_formatter(PercentFormatter(1.0))
+    short.set_ylim(0, 1)
+    short.grid(False)
+    short.spines["right"].set_visible(True)
+    short.set_ylabel("Share of cases short")
+    lines = right.get_legend_handles_labels(), short.get_legend_handles_labels()
+    right.legend(lines[0][0] + lines[1][0], lines[0][1] + lines[1][1], loc="upper left", bbox_to_anchor=(0.0, 0.92))
     right.set_title("Class B at its fair coupon")
     right.set_xlabel("Class B principal ($MM)")
-    right.legend(loc="upper left")
     fig.tight_layout()
     return fig
 
