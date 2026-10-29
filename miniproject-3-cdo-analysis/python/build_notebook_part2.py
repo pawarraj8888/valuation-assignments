@@ -24,9 +24,12 @@ from build_notebook import code, execute, md, source_of  # noqa: E402
 from cdo import MARKET_YTM, N_CASES, PART2_DEAL, PART2_RISK_FREE, PROJECT_PART2, SEED  # noqa: E402
 from cdo.bonds import bis_cash_flows, promised_cash_flows  # noqa: E402
 from cdo.defaults import correlate, correlation_matrix, default_period, default_times  # noqa: E402
+from cdo.leverage import GOAL_SEEK, bank_position, irr, leverage_analysis, leverage_point, max_class_b_for_risk  # noqa: E402
 from cdo.model import simulate, validate_deal  # noqa: E402
 from cdo.random_numbers import load_fixed_normals, moment_match  # noqa: E402
-from cdo.report import COLORS, apply_chart_style, plot_class_b_choice, plot_pv_distributions, reference_line  # noqa: E402
+from cdo.report import (  # noqa: E402
+    COLORS, apply_chart_style, plot_class_b_choice, plot_leverage, plot_pv_distributions, reference_line,
+)
 from cdo.valuation import (  # noqa: E402
     bond_market_value, break_even_size, cost_of_risk, default_indicators, discount_factors, fair_coupon,
     gain_turns_positive, largest_class_b_at_par, lintner_values, optimise_class_b, structure_values,
@@ -271,8 +274,41 @@ Taken literally, the residual is worth the most with no Class B, because the thr
 to the bonds' market value. Measured by the bank's gain, Class B at its fair coupon gives the same result
 at every size (the bank loses only what Class A's 4.5% costs). At the 5.5% target rate, 5.5% is a fair rate
 for Class B at about $65.5 MM and the bank's gain only turns positive at about $66.5 MM, where Class B investors
-would be paying more than the class is worth. Our structure keeps the sizes and pays both classes their fair
-rate of 4.0%.
+would be paying more than the class is worth. So once Class B is priced fairly, its size is a question of risk,
+not value. That is the next section.
+"""),
+        md("""
+## 10. Bonus: leverage and the bank's risk (the Leverage sheet of the workbook)
+
+Each class is sold for what it is worth: Class A for its Lintner value, Class B at par at its fair coupon.
+The bank pays the rest of the bonds' price, which is always exactly the residual's Lintner value. For each
+size of Class B we find its fair coupon, then the bank's expected IRR (its investment against the residual's
+average cash flow in each quarter, compounded to a year) and its relative equity risk (the standard
+deviation of the residual's PV across the cases divided by the investment). For each cap on that risk we
+find the largest Class B by root finding. The workbook does the same with Goal Seek; its answers are in
+`GOAL_SEEK` for comparison.
+"""),
+        code(f"GOAL_SEEK = {GOAL_SEEK!r}\nRISK_LIMITS = tuple(limit for limit, _ in GOAL_SEEK)",
+             source_of(irr, bank_position, leverage_point, max_class_b_for_risk, leverage_analysis), """
+lev = leverage_analysis(pool_cf, base, RISK_FREE, MARKET_YTM, np.arange(0.0, 72.01, 0.5))
+for name, label in (("no_class_b", "No Class B"), ("as_given", "Class B $30 MM at 5.5%, sold for its value")):
+    x = lev[name]
+    print(f"{label}: bank's investment {x['investment']:.4f}, expected IRR {x['expected_irr']:.4%}, "
+          f"relative risk {x['relative_risk']:.4f}")
+limits = pd.DataFrame([row for row in lev["risk_limits"] if row is not None]).set_index("max_relative_risk")
+limits[["b_notional", "b_coupon", "p_default_b", "investment", "expected_irr", "excess_irr", "relative_risk",
+        "goal_seek_b_notional"]].round(4)
+"""),
+        code(source_of(plot_leverage), """
+plot_leverage(lev["profile"], lev["risk_limits"], lev["no_class_b"], lev["risk_free_annual"])
+plt.show()
+"""),
+        md("""
+Under the Lintner model a bigger Class B adds no value: the bank's investment always equals the residual's
+value. It only raises the bank's expected IRR and its risk together, so the choice depends on how much risk
+the bank will carry. With a cap of 100% on the relative equity risk the bank can sell about $65.25 MM of
+Class B at a fair 5.47%, close to the 5.5% target rate, and expect 26.15% a year on $7.44 MM; with a cap of
+50%, about $54.19 MM at 4.46% for 16.16%. Goal Seek's sizes are within $0.17 MM of the exact ones.
 """),
     ]
 

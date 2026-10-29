@@ -91,13 +91,15 @@ def structure_values(pool_cf: np.ndarray, p: dict, rate: float, cost_per_unit_ri
 
     The cost per unit risk comes from the bonds alone, so it stays the same whatever the
     classes look like. Only each tranche's covariance with the pool has to be recomputed.
+    The per-case PVs and cash flows are returned too, for the leverage calculations.
     """
     flows = tranche_cash_flows(pool_cf, p)
     pv = tranche_pvs(flows, rate, p["freq"])
     pool = pv.sum(axis=1)
     cov_with_pool = (pv - pv.mean(axis=0)).T @ (pool - pool.mean()) / (len(pool) - 1)
-    return {"value": pv.mean(axis=0) - cost_per_unit_risk * cov_with_pool,
-            "p_default": default_indicators(flows).mean(axis=0)}
+    charge = cost_per_unit_risk * cov_with_pool
+    return {"value": pv.mean(axis=0) - charge, "risk_charge": charge,
+            "p_default": default_indicators(flows).mean(axis=0), "pv": pv, "flows": flows}
 
 
 def fair_coupon(pool_cf: np.ndarray, p: dict, rate: float, cost_per_unit_risk: float, cls: str = "b",

@@ -85,7 +85,8 @@ def steps(r: dict) -> list:
          "add up to the pool's variance, so the three values add up to the bonds' market value."),
         ("Cross-check",
          "The Valuation sheet of the Excel workbook does the same steps with formulas. It gives the same PVs in all "
-         "1000 cases and the same values as the Python code."),
+         "1000 cases and the same values as the Python code. The Leverage sheet does the bank's side of the bonus "
+         "with Goal Seek, and the Python code solves the same problem exactly."),
     ]
 
 
@@ -234,7 +235,6 @@ def bonus_text(r: dict) -> list:
     gain_at_fair = bonus["fair_coupon_curve"][0]["bank_gain"]
     target = keyed(bonus["at_target_rate"], "b_notional")
     fair = keyed(bonus["fair_coupon_curve"], "b_notional")
-    limits = keyed(bonus["default_limits"], "max_p_default_b")
     proposed = target[float(d["b_notional"])]
     return [
         Paragraph(
@@ -273,23 +273,77 @@ def bonus_text(r: dict) -> list:
             "The fair rate stays at "
             f"{pct(fair[30.0]['fair_coupon'])} while Class B is never short (up to about $31 MM) and rises to "
             f"{pct(fair[50.0]['fair_coupon'])} at $50 MM and {pct(fair[70.0]['fair_coupon'])} at $70 MM.", BODY),
+    ]
+
+
+def leverage_rows(r: dict) -> dict:
+    """The rows of the leverage analysis keyed by the cap on the relative equity risk."""
+    return {row["max_relative_risk"]: row for row in r["leverage"]["risk_limits"] if row is not None}
+
+
+def leverage_text(r: dict) -> Paragraph:
+    lev, d = r["leverage"], r["deal"]
+    given, none = lev["as_given"], lev["no_class_b"]
+    rows = leverage_rows(r)
+    gap = max(abs(row["b_notional"] - row["goal_seek_b_notional"]) for row in rows.values())
+    loss_at_par = -r["bonus"]["fair_coupon_curve"][0]["bank_gain"]
+    return Paragraph(
+        "<b>Leverage.</b> So the real choice is how much of the bonds the bank funds with Class B, and with it how "
+        "much risk it keeps. The Leverage sheet of our workbook looks at this from the bank's side. Unlike Table 5, "
+        f"Class A is now sold for its value, ${mm(given['value_a'])} MM, not at par (with no risk and a "
+        f"{pct(d['a_coupon'])} coupon, investors will pay more than its ${d['a_notional']:.0f} MM principal), which "
+        f"removes the ${mm(loss_at_par)} MM loss. Class B is sold at par at its fair coupon, and the bank "
+        f"pays the rest of the bonds' ${mm(lev['market_value'])} MM. That is always exactly the Lintner value of the "
+        "residual it keeps, so the bank neither gains nor loses value at any size. What changes is its return and its "
+        "risk. The expected IRR is the rate at which the residual's average cash flow in each quarter pays back the "
+        "bank's investment, compounded to a year. The relative equity risk is the standard deviation of the "
+        "residual's PV across the cases divided by the bank's investment. With no Class B the bank puts in "
+        f"${mm(none['investment'])} MM for an expected IRR of {pct(none['expected_irr'])} at a relative risk of "
+        f"{pct(none['relative_risk'])}; with the assignment's Class B (${d['b_notional']:.0f} MM at "
+        f"{pct(d['b_coupon'])}, sold for its value of ${mm(given['value_b'])} MM rather than at par as in section 3, "
+        f"where the bank puts in ${mm(r['valuation']['bank_investment'])} MM) it puts in "
+        f"${mm(given['investment'])} MM for {pct(given['expected_irr'])} at {pct(given['relative_risk'])}. Both rise "
+        "as Class B grows and the bank's stake shrinks (Figure 3). For a cap on the relative risk, the Leverage sheet "
+        "uses Goal Seek to find the largest Class B, which also gives the highest expected IRR under that cap. In "
+        "Python we solve the same problem exactly, finding Class B's fair coupon at each size by root finding and then "
+        f"the size at which the relative risk equals the cap (Table 6). The Goal Seek answers are within "
+        f"${gap:.2f} MM of the exact sizes; where they differ, Goal Seek stopped a little short of the cap.", BODY)
+
+
+def leverage_table(r: dict) -> Table:
+    rows = [["Cap on\nrelative risk", "Largest\nClass B", "Fair\ncoupon", "Class B\nshort", "Bank's\ninvestment",
+             "Expected\nIRR", "IRR over\nrisk-free", "Goal Seek\nClass B"]]
+    for limit, row in leverage_rows(r).items():
+        rows.append([pct(limit, 0), mm(row["b_notional"]), pct(row["b_coupon"], 3), pct(row["p_default_b"]),
+                     mm(row["investment"]), pct(row["expected_irr"], 2), pct(row["excess_irr"], 2),
+                     mm(row["goal_seek_b_notional"])])
+    return table(rows, font=8.5, first_left=False)
+
+
+def conclusion_text(r: dict) -> list:
+    d, bonus = r["deal"], r["bonus"]
+    rows = leverage_rows(r)
+    top, mid = rows[1.0], rows[0.5]
+    proposed = keyed(bonus["at_target_rate"], "b_notional")[float(d["b_notional"])]
+    return [
         Paragraph(
-            "<b>What this means.</b> Once the classes are priced fairly, the size of Class B does not change the value "
-            "of what the bank keeps compared with what it puts in: a larger Class B means less of the bank's own money "
-            "in a riskier residual, but no gain. The residual can only gain at the classes' expense, by paying them "
-            "less than a fair coupon. With the default indicator we can see how far that would have to go: if Class B "
-            f"investors took {pct(bonus['target_b_coupon'])} as long as the class is "
-            "short in no more than a set share of cases, the bank's best Class B would be "
-            f"${limits[0.1]['b_notional']:.0f} (no Class B) for any limit up to {pct(0.10, 0)}, and "
-            f"${limits[0.2]['b_notional']:.0f} MM (gain ${mm(limits[0.2]['bank_gain'])} MM) with a {pct(0.20, 0)} limit.",
-            BODY),
+            "<b>What this means.</b> Under the Lintner model the bank cannot add value by choosing Class B's size. Once "
+            "each class is sold for what it is worth, a larger Class B only swaps the bank's own money for a riskier "
+            "stake, and the higher expected IRR is only the reward for that extra risk. So there is no single best structure: "
+            "it depends on how much risk the bank will carry. The residual can only gain at the investors' expense, by "
+            "paying a class less than its fair coupon or selling it for more than it is worth, which buyers using the "
+            "same model would refuse.", BODY),
         Paragraph(
-            f"<b>Our structure.</b> Keep Class A at ${d['a_notional']:.0f} MM and Class B at ${d['b_notional']:.0f} MM, "
-            f"but pay both {pct(r['fair_coupons']['a'])}, their fair rate, since neither is ever short. The residual is "
-            f"then worth ${mm(r['at_fair_coupons']['value'][2])} MM instead of ${mm(r['valuation']['value'][2])} MM, the "
-            f"same as the ${mm(r['valuation']['bank_investment'])} MM the bank puts in. The bank can take a larger "
-            "Class B at its fair coupon to tie up less of its own money; under the Lintner model that does not add "
-            "value.", BODY),
+            f"<b>Our structure.</b> Keep Class A at ${d['a_notional']:.0f} MM and {pct(d['a_coupon'])}, sold for its "
+            f"value of ${mm(r['leverage']['as_given']['value_a'])} MM, and size Class B to the bank's risk limit at its "
+            "fair coupon. If the bank will carry a standard deviation as large as its own stake (a cap of 100%), it "
+            f"should sell ${mm(top['b_notional'])} MM of Class B at {pct(top['b_coupon'], 2)}, close to the "
+            f"{pct(bonus['target_b_coupon'])} target rate ({pct(bonus['target_b_coupon'])} is exactly fair at "
+            f"${bonus['break_even_size']:.1f} MM). It then puts in ${mm(top['investment'])} MM and expects "
+            f"{pct(top['expected_irr'], 2)} a year. With a cap of 50% it would sell ${mm(mid['b_notional'])} MM at "
+            f"{pct(mid['b_coupon'], 2)} and expect {pct(mid['expected_irr'], 2)}. Either way the bank gets full value "
+            f"for the classes, instead of giving investors ${mm(-proposed['bank_gain'])} MM by selling the proposed "
+            "classes at par.", BODY),
     ]
 
 
@@ -319,7 +373,7 @@ def front_matter(r: dict) -> list:
         Paragraph("<b>Aim:</b> To value Class A, Class B and the bank's residual with the Lintner model from class, "
                   "using the cash flows of Part 1 in 1000 cases, to find the cost of risk implied by the bonds' market "
                   "price, and (bonus) to find the structure that gives the residual the most value with Class A held at "
-                  "$15 MM.", BODY),
+                  "$15 MM, and how much Class B the bank should sell for a given limit on its risk.", BODY),
         Paragraph("1. Key Assumptions", H2_SPLIT),
         assumption_table(r),
         Paragraph("2. Implementation Steps", H2),
@@ -362,6 +416,19 @@ def body(r: dict, figures: Path) -> list:
                         f"{pct(r['deal']['a_coupon'])}. Bank's gain = cash from selling both classes at par + residual value "
                         "- bonds' market value. 'none': no coupon makes a Class B that large worth par.", CAPTION)]
     story += bonus_text(r)[3:]
+    story += [leverage_text(r), figure(figures / "leverage.png", 6.4 * inch),
+              Paragraph("Figure 3. The bank's side, with Class A sold for its value and Class B at its fair coupon at every "
+                        "size. Left: relative equity risk (standard deviation of the residual's PV across the cases / the "
+                        "bank's investment) against Class B's principal; the dots are the Goal Seek answers on the "
+                        "Leverage sheet. Right: the expected IRR on the bank's investment against that risk, from no "
+                        "Class B up to a cap of 120%.", CAPTION),
+              leverage_table(r),
+              Paragraph("Table 6. Largest Class B (at its fair coupon) for each cap on the relative equity risk, and the "
+                        "bank's position there, $ MM. Expected IRR: the bank's investment against the residual's expected "
+                        f"quarterly cash flows, compounded to a year; the risk-free rate is "
+                        f"{pct(r['leverage']['risk_free_annual'], 2)} on the same basis. Goal Seek: the answer on the "
+                        "Leverage sheet of the workbook.", CAPTION)]
+    story += conclusion_text(r)
     return story
 
 

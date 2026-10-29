@@ -117,7 +117,7 @@ footer{border-top:1px solid var(--border);padding:26px 0 40px;color:var(--fg-2);
   <div class="wrap top">
     <div class="brand">CDO Valuation</div>
     <nav class="main" aria-label="Sections">
-      <a href="#inputs">Structure</a><a href="#values">Values</a><a href="#bonus">Bonus</a>
+      <a href="#inputs">Structure</a><a href="#values">Values</a><a href="#bonus">Bonus</a><a href="#leverage">Leverage</a>
       <a href="#method">Methodology</a><a href="#downloads">Downloads</a><a href="./">Part 1 dashboard</a>
       <a href="https://github.com/pawarraj8888/valuation-assignments/tree/main/miniproject-3-cdo-analysis">GitHub</a><a href="../">All mini-projects</a>
     </nav>
@@ -197,6 +197,19 @@ footer{border-top:1px solid var(--border);padding:26px 0 40px;color:var(--fg-2);
         <p class="caption" id="gain-caption"></p>
       </div>
     </div>
+  </section>
+
+  <section id="leverage" aria-labelledby="lev-h">
+    <h2 id="lev-h">Leverage: the bank's risk and return</h2>
+    <p class="sub">Class A sold for its value and Class B at par at its fair coupon, so the bank's investment always equals the
+      residual's value. A bigger Class B raises the bank's expected IRR and its relative equity risk (the standard deviation of the
+      residual's PV across the cases divided by the bank's investment) together. The table gives the largest Class B for each cap
+      on that risk, solved exactly in Python, next to the Goal Seek answer on the workbook's Leverage sheet.</p>
+    <div class="card"><div class="scroll-x" tabindex="0" role="region" aria-label="Largest Class B for each cap on the relative equity risk"><table id="lev-table" class="compact">
+      <caption>Largest Class B for each cap on the relative equity risk (assignment's rates)</caption>
+      <thead><tr><th scope="col">Cap</th><th scope="col">Largest Class B</th><th scope="col">Fair coupon</th><th scope="col">Cases short</th><th scope="col">Bank's investment</th><th scope="col">Expected IRR</th><th scope="col">Goal Seek</th></tr></thead>
+      <tbody></tbody></table></div>
+      <p class="caption" id="lev-caption"></p></div>
   </section>
 
   <section id="method" class="method" aria-labelledby="method-h">
@@ -340,11 +353,25 @@ footer{border-top:1px solid var(--border);padding:26px 0 40px;color:var(--fg-2);
     else { chart = new Chart($('gain-chart'), {type: 'line', data: data, options: options}); }
   }
 
+  function renderLeverage(){
+    const L = P.leverage;
+    if(!L){ $('leverage').hidden = true; return; }
+    $('lev-table').querySelector('tbody').innerHTML = L.risk_limits.map(r => '<tr><td>' + pct(r.max_relative_risk,0) + '</td><td>' +
+      money(r.b_notional,2) + '</td><td>' + pct(r.b_coupon,3) + '</td><td>' + pct(r.p_default_b,1) + '</td><td>' + money(r.investment,2) +
+      '</td><td>' + pct(r.expected_irr,2) + '</td><td>' + money(r.goal_seek_b_notional,2) + '</td></tr>').join('');
+    $('lev-caption').textContent = 'With no Class B the bank puts in ' + money(L.no_class_b.investment,2) + ' for an expected IRR of ' +
+      pct(L.no_class_b.expected_irr,1) + ' at a relative risk of ' + pct(L.no_class_b.relative_risk,1) + '; with the assignment\'s ' +
+      money(BASE.b_notional,0) + ' of Class B at ' + pct(BASE.b_coupon,1) + ' (sold for its value) it puts in ' + money(L.as_given.investment,2) +
+      ' for ' + pct(L.as_given.expected_irr,1) + ' at ' + pct(L.as_given.relative_risk,1) + '. Expected IRR: the bank\'s investment against ' +
+      'the residual\'s expected quarterly cash flows, compounded to a year (risk-free ' + pct(L.risk_free_annual,2) + ' on the same basis).';
+  }
+
   function render(){ compute(); renderInputs(); renderTiles(); renderValues(); renderFair(); renderChart(); }
 
   FIELDS.forEach(c => $('in-' + c.id).addEventListener('input', e => { s[c.id] = Number(e.target.value); render(); }));
   $('reset').addEventListener('click', e => { if(e.currentTarget.getAttribute('aria-disabled') === 'true') return; s = Object.assign({}, START); render(); });
   renderStatic();
+  renderLeverage();
   render();
   if(chartState !== 'ready'){
     const lib = document.createElement('script');

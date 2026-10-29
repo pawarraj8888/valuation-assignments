@@ -66,6 +66,22 @@ def part2_payload(r: dict) -> dict:
         "market_ytm": r["market_ytm"],
         "python": {"value": v["value"], "cost_per_unit_risk": v["cost_per_unit_risk"], "market_value": v["market_value"]},
         "methodology": [{"heading": heading, "html": text} for heading, text in part2_assumptions(r) + part2_steps(r)],
+        "leverage": leverage_payload(r["leverage"]),
+    }
+
+
+def leverage_payload(lev: dict) -> dict:
+    """The bank's side of the bonus for the page: the largest Class B for each cap on the relative equity risk."""
+    fields = ("b_notional", "b_coupon", "p_default_b", "investment", "expected_irr", "relative_risk")
+
+    def pick(row, extra=()):
+        return {k: row[k] for k in fields + extra}
+
+    return {
+        "risk_free_annual": lev["risk_free_annual"],
+        "no_class_b": pick(lev["no_class_b"]),
+        "as_given": pick(lev["as_given"]),
+        "risk_limits": [pick(row, ("max_relative_risk", "goal_seek_b_notional")) for row in lev["risk_limits"] if row],
     }
 
 

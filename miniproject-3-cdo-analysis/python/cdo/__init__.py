@@ -39,6 +39,7 @@ from .valuation import (
     value_cdo,
     value_sensitivity,
 )
+from .leverage import GOAL_SEEK, RISK_LIMITS, bank_position, leverage_analysis, leverage_point, max_class_b_for_risk
 from .waterfall import waterfall
 
 # Shown on the notebook, the write-up and the project page.
@@ -105,4 +106,10 @@ __all__ = [
     "optimise_class_b",
     "value_sensitivity",
     "valuation_precision",
+    "GOAL_SEEK",
+    "RISK_LIMITS",
+    "bank_position",
+    "leverage_point",
+    "max_class_b_for_risk",
+    "leverage_analysis",
 ]

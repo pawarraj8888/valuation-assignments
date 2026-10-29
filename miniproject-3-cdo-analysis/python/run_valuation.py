@@ -29,6 +29,7 @@ from cdo import (  # noqa: E402
     TRANCHES,
     exact_default_count_distribution,
     fair_coupon,
+    leverage_analysis,
     load_fixed_normals,
     moment_match,
     optimise_class_b,
@@ -37,9 +38,12 @@ from cdo import (  # noqa: E402
     value_cdo,
     value_sensitivity,
 )
-from cdo.report import apply_chart_style, plot_class_b_choice, plot_pv_distributions, save_figure, write_json  # noqa: E402
+from cdo.report import (  # noqa: E402
+    apply_chart_style, plot_class_b_choice, plot_leverage, plot_pv_distributions, save_figure, write_json,
+)
 
 B_SIZES = np.arange(0.0, 100.5, 1.0)                    # Class B principals searched in the bonus ($MM)
+LEVERAGE_SIZES = np.arange(0.0, 72.01, 0.5)             # Class B principals on the leverage curve (fair coupon at each)
 B_COUPONS = np.round(np.arange(0.0, 0.10001, 0.0025), 4)  # Class B coupons searched in the bonus
 DEFAULT_LIMITS = (0.0, 0.01, 0.05, 0.10, 0.20)          # caps on the share of cases Class B is short
 SENSITIVITIES = {"rho": (0.0, 0.2, 0.4, 0.6, 0.8), "pd": (0.02, 0.04, 0.06, 0.08, 0.12), "lgd": (0.4, 0.6, 0.8, 1.0)}
@@ -116,6 +120,7 @@ def build_valuation_results(Z: np.ndarray, deal: dict, rate: float, ytm: float, 
                           "b_coupon": deal["b_coupon"]},
         "floor": floor,
         "bonus": bonus,
+        "leverage": leverage_analysis(r["pool_cf"], deal, rate, ytm, LEVERAGE_SIZES),
         "sensitivities": {name: value_sensitivity(Z, deal, rate, ytm, name, values) for name, values in SENSITIVITIES.items()},
         "precision": valuation_precision(deal, rate, ytm, len(Z), n_sets=PRECISION_SETS),
     }
@@ -134,6 +139,10 @@ def write_tables(results: dict, cases: pd.DataFrame, grid: pd.DataFrame, out: Pa
     bonus = results["bonus"]
     pd.DataFrame(bonus["at_target_rate"]).to_csv(out / "class_b_at_target_rate.csv", index=False, float_format="%.10f")
     pd.DataFrame(bonus["fair_coupon_curve"]).to_csv(out / "fair_coupon_curve.csv", index=False, float_format="%.10f")
+    leverage = results["leverage"]
+    pd.DataFrame(leverage["profile"]).to_csv(out / "leverage_profile.csv", index=False, float_format="%.10f")
+    pd.DataFrame([row for row in leverage["risk_limits"] if row is not None]).to_csv(
+        out / "leverage_risk_limits.csv", index=False, float_format="%.10f")
     frames = [pd.DataFrame(rows).rename(columns={name: "input value"}).assign(input=name)
               for name, rows in results["sensitivities"].items()]
     pd.concat(frames, ignore_index=True).to_csv(out / "value_sensitivities.csv", index=False, float_format="%.10f")
@@ -146,6 +155,9 @@ def write_figures(results: dict, cases: pd.DataFrame, figures: Path) -> None:
                                       v["value"][2], results["risk_free"]), figures / "pv_distributions.png")
     save_figure(plot_class_b_choice(bonus["at_target_rate"], bonus["fair_coupon_curve"], bonus["target_b_coupon"],
                                     bonus["break_even_size"], results["deal"]["b_notional"]), figures / "class_b_choice.png")
+    leverage = results["leverage"]
+    save_figure(plot_leverage(leverage["profile"], leverage["risk_limits"], leverage["no_class_b"],
+                              leverage["risk_free_annual"]), figures / "leverage.png")
 
 
 def main(argv=None) -> int:
@@ -168,6 +180,10 @@ def main(argv=None) -> int:
         print(f"  {name:9} expected PV {expected:9.4f}   Lintner value {value:9.4f}")
     print(f"Bonus: break-even Class B at {bonus['target_b_coupon']:.1%} = {bonus['break_even_size']:.2f}, "
           f"largest Class B worth par = {bonus['largest_class_b_at_par']:.2f}")
+    for row in results["leverage"]["risk_limits"]:
+        if row is not None:
+            print(f"  relative equity risk <= {row['max_relative_risk']:.0%}: Class B {row['b_notional']:.2f} at "
+                  f"{row['b_coupon']:.3%}, expected IRR {row['expected_irr']:.2%} (Goal Seek: {row['goal_seek_b_notional']})")
     print(f"Outputs written to {out.resolve()}")
     return 0
 

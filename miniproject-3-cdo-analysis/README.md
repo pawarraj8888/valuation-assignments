@@ -50,12 +50,15 @@ cases. The structure is the one given for Part 2: Class A $15 MM at a 4.5% targe
 | Residual | $40.66 MM against an expected PV of $51.13 MM: it carries the whole $10.47 MM risk charge |
 | Fair coupons | 4.0% for both classes at these sizes; the proposed coupons give the investors $2.37 MM of the bank's value |
 | Bonus (Class A held at $15 MM) | Taken literally the residual is worth most with no Class B ($72.69 MM). With Class B at its fair coupon the bank's gain is the same for every size; at the 5.5% target rate Class B is only worth par at $65.5 MM |
+| Leverage (bonus, bank's side) | With each class sold for its value, a bigger Class B raises the bank's expected IRR and its risk together. Capping the SD of the residual's PV at 100% of the bank's investment allows $65.25 MM of Class B at a fair 5.47% (IRR 26.15% on $7.44 MM); a 50% cap allows $54.19 MM at 4.46% (IRR 16.16%) |
 
 The write-up is [`writeup/Miniproject3_Part2_CDO_Valuation_Report.pdf`](writeup/Miniproject3_Part2_CDO_Valuation_Report.pdf);
 the notebook is `notebooks/Miniproject3_Part2_CDO_Valuation.ipynb`; the workbook is
-`excel/Miniproject3_Part2_CDO_Valuation.xlsx` (the Part 1 model with the Part 2 classes and a `Valuation` sheet).
-The Python valuation is `python/cdo/valuation.py`, run by `python/run_valuation.py` into `output/part2/`. The
-Excel `Valuation` sheet and the page's JavaScript give the same PVs and values as Python.
+`excel/Miniproject3_Part2_CDO_Valuation.xlsx` (the Part 1 model with the Part 2 classes, a `Valuation` sheet and a
+`Leverage` sheet that finds the largest Class B for each risk cap with Goal Seek).
+The Python valuation is `python/cdo/valuation.py` and the leverage calculation `python/cdo/leverage.py`, run by
+`python/run_valuation.py` into `output/part2/`. The Excel `Valuation` and `Leverage` sheets and the page's
+JavaScript give the same numbers as Python; Python solves the leverage caps exactly, within $0.17 MM of Goal Seek.
 
 ## Repository layout
 
@@ -68,7 +71,7 @@ python/     cdo/                                package: bonds.py, defaults.py, 
             build_excel.py                      builds the Excel implementation (live formulas, case selector)
             recalc_excel_mac.sh, verify_excel.py    recalculate in Excel (macOS) and prove Excel == Python
             write_report.py, build_site.py      the PDF report and the data for the project page
-            run_valuation.py                    Part 2: Lintner valuation and the bonus search -> output/part2/
+            run_valuation.py                    Part 2: Lintner valuation, the bonus search and leverage -> output/part2/
             write_report_part2.py, build_notebook_part2.py    Part 2 report and notebook
             tests/                              pytest suite
 notebooks/  Miniproject3_CDO_Analysis.ipynb     executed, self-contained walk-through notebook

@@ -257,6 +257,50 @@ def plot_class_b_choice(at_target: list, fair_curve: list, target_coupon: float,
     return fig
 
 
+def plot_leverage(profile: list, limits: list, no_class_b: dict, risk_free: float, labelled: tuple = (0.25, 0.5, 1.0),
+                  max_risk: float = 1.2) -> Figure:
+    """Bonus, the bank's side, with Class B at its fair coupon: the relative equity risk against Class B's
+    size with the Goal Seek answers on top (left), and the expected IRR against that risk (right)."""
+    fig, (left, right) = plt.subplots(1, 2, figsize=(11, 4.0))
+    shown = [no_class_b] + [row for row in profile if row["relative_risk"] <= max_risk]
+    sizes = [row["b_notional"] for row in shown]
+    risks = [row["relative_risk"] for row in shown]
+    irrs = [row["expected_irr"] for row in shown]
+    solved = [row for row in limits if row is not None]
+
+    left.plot(sizes, risks, color=COLORS["equity"], label="Python (exact)")
+    left.scatter([row["goal_seek_b_notional"] for row in solved], [row["max_relative_risk"] for row in solved], s=24,
+                 color=COLORS["class_b"], zorder=3, label="Goal Seek on the Leverage sheet")
+    left.yaxis.set_major_formatter(PercentFormatter(1.0))
+    left.set_ylim(0, max_risk)
+    left.set_title("Relative equity risk: SD of the residual's PV / bank's stake")
+    left.set_xlabel("Class B principal ($MM)")
+    left.set_ylabel("Relative equity risk")
+    left.legend(loc="upper left")
+
+    right.plot(risks, irrs, color=COLORS["equity"])
+    right.axhline(risk_free, color=COLORS["axis"], linewidth=0.8)
+    right.annotate(f"risk-free {risk_free:.2%}", xy=(0.99, risk_free), xycoords=("axes fraction", "data"), xytext=(0, 3),
+                   textcoords="offset points", ha="right", fontsize=8.5, color=COLORS["ink_secondary"])
+    right.scatter([no_class_b["relative_risk"]], [no_class_b["expected_irr"]], s=24, color=COLORS["pool"], zorder=3)
+    right.annotate("no Class B", xy=(no_class_b["relative_risk"], no_class_b["expected_irr"]), xytext=(6, -12),
+                   textcoords="offset points", fontsize=8.5, color=COLORS["ink_secondary"])
+    for row in solved:
+        if any(abs(row["max_relative_risk"] - x) < 1e-12 for x in labelled):
+            right.scatter([row["relative_risk"]], [row["expected_irr"]], s=24, color=COLORS["class_b"], zorder=3)
+            right.annotate(f"Class B ${row['b_notional']:.1f} MM", xy=(row["relative_risk"], row["expected_irr"]),
+                           xytext=(-6, 6), textcoords="offset points", ha="right", fontsize=8.5, color=COLORS["ink"])
+    right.xaxis.set_major_formatter(PercentFormatter(1.0))
+    right.yaxis.set_major_formatter(PercentFormatter(1.0))
+    right.set_xlim(0, max_risk)
+    right.set_ylim(0, max(irrs) * 1.1)
+    right.set_title("Expected IRR against relative equity risk")
+    right.set_xlabel("Relative equity risk")
+    right.set_ylabel("Expected IRR (a year)")
+    fig.tight_layout()
+    return fig
+
+
 def save_figure(fig: Figure, path: Path) -> None:
     """Write a figure to disk and release it."""
     fig.savefig(path)
