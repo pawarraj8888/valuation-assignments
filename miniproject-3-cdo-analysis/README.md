@@ -1,4 +1,4 @@
-# Miniproject 3 (Part 1) - Simplified CDO Analysis
+# Miniproject 3 - Simplified CDO Analysis and Valuation
 
 **FRE 6103 Valuation for Financial Engineering (NYU Tandon)** | Raj Pawar (rsp9234) and Michael Brick (mb11311)
 
@@ -7,7 +7,8 @@ residual as equity. This project simulates 1000 cases of correlated default time
 random numbers, turns each case into quarterly cash flows for the 10 bonds with the BIS debt model from
 class, and distributes the pooled cash through the waterfall (Class A, then Class B, then equity). It then
 describes the cash flows statistically and shows how they respond to the main inputs. The model is
-implemented in Python, in Excel and in the browser, and all three give the same numbers. Valuation is Part 2.
+implemented in Python, in Excel and in the browser, and all three give the same numbers. Part 2 values the
+classes with the Lintner model from class (see [Part 2](#part-2-valuation-with-the-lintner-model) below).
 
 **Project page (case viewer, live inputs, downloads):** https://pawarraj8888.github.io/valuation-assignments/cdo-analysis/
 
@@ -31,6 +32,31 @@ All amounts are undiscounted totals over the 20 quarters. The write-up is in
 [`writeup/`](writeup/Miniproject3_CDO_Analysis_Report.pdf): assumptions, steps, results, probability
 distributions, sensitivities, and appendices with the quarterly table and a worked case.
 
+## Part 2: valuation with the Lintner model
+
+Part 2 values Class A, Class B and the bank's residual with the Lintner model from Lecture 6, on the same 1000
+cases. The structure is the one given for Part 2: Class A $15 MM at a 4.5% target rate, Class B $30 MM at 5.5%
+(the target rates are used as the coupons), risk-free rate 4% a year, compounded quarterly.
+
+**Project page (change Class B and the coupons, values update):** https://pawarraj8888.github.io/valuation-assignments/cdo-analysis/valuation.html
+
+| | |
+|---|---|
+| Bonds' market value | $88.03 MM: the pool's promised cash flows at the 9% market yield |
+| Cost of risk | expected PV of the pool at 4% is $98.50 MM, so the market charges $10.47 MM for the risk |
+| Cost per unit risk | 0.10533 per unit of variance of the pool's PV |
+| Class A | $15.34 MM. Never short in any case, so no risk charge; worth more than par because 4.5% is above 4% |
+| Class B | $32.03 MM. Never short either |
+| Residual | $40.66 MM against an expected PV of $51.13 MM: it carries the whole $10.47 MM risk charge |
+| Fair coupons | 4.0% for both classes at these sizes; the proposed coupons give the investors $2.37 MM of the bank's value |
+| Bonus (Class A held at $15 MM) | Taken literally the residual is worth most with no Class B ($72.69 MM). With Class B at its fair coupon the bank's gain is the same for every size; at the 5.5% target rate Class B is only worth par at $65.5 MM |
+
+The write-up is [`writeup/Miniproject3_Part2_CDO_Valuation_Report.pdf`](writeup/Miniproject3_Part2_CDO_Valuation_Report.pdf);
+the notebook is `notebooks/Miniproject3_Part2_CDO_Valuation.ipynb`; the workbook is
+`excel/Miniproject3_Part2_CDO_Valuation.xlsx` (the Part 1 model with the Part 2 classes and a `Valuation` sheet).
+The Python valuation is `python/cdo/valuation.py`, run by `python/run_valuation.py` into `output/part2/`. The
+Excel `Valuation` sheet and the page's JavaScript give the same PVs and values as Python.
+
 ## Repository layout
 
 ```
@@ -42,7 +68,9 @@ python/     cdo/                                package: bonds.py, defaults.py, 
             build_excel.py                      builds the Excel implementation (live formulas, case selector)
             recalc_excel_mac.sh, verify_excel.py    recalculate in Excel (macOS) and prove Excel == Python
             write_report.py, build_site.py      the PDF report and the data for the project page
-            tests/                              pytest suite (99 tests)
+            run_valuation.py                    Part 2: Lintner valuation and the bonus search -> output/part2/
+            write_report_part2.py, build_notebook_part2.py    Part 2 report and notebook
+            tests/                              pytest suite
 notebooks/  Miniproject3_CDO_Analysis.ipynb     executed, self-contained walk-through notebook
 excel/      Miniproject3_CDO_Analysis.xlsx      Excel implementation
 output/     results.json, case_totals.csv, pool_cash_flows.csv, default_quarters.csv, sensitivities.csv,
@@ -98,7 +126,10 @@ python3 build_notebook.py                         # notebooks/Miniproject3_CDO_A
 python3 build_excel.py                            # excel/Miniproject3_CDO_Analysis.xlsx
 ./recalc_excel_mac.sh && python3 verify_excel.py  # macOS + Excel: recalculate, then prove Excel == Python
 python3 write_report.py                           # writeup/Miniproject3_CDO_Analysis_Report.pdf
-python3 build_site.py                             # docs/data.js + copies of the downloads
+python3 run_valuation.py                          # Part 2: output/part2/ (values, case PVs, bonus grid, figures)
+python3 write_report_part2.py                     # writeup/Miniproject3_Part2_CDO_Valuation_Report.pdf
+python3 build_notebook_part2.py                   # notebooks/Miniproject3_Part2_CDO_Valuation.ipynb, executed
+python3 build_site.py                             # docs/data.js, docs/valuation-data.js + copies of the downloads
 python3 -m pytest -q tests                        # the JavaScript tests need node, and are skipped without it
 ```
 

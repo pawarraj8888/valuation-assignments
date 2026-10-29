@@ -20,6 +20,25 @@ from .bonds import bis_cash_flows, bis_expected_value, promised_cash_flows
 from .defaults import correlate, correlation_matrix, default_period, default_times
 from .model import BASE_DEAL, MARKET_YTM, RISK_FREE, simulate, validate_deal
 from .random_numbers import N_CASES, SEED, load_fixed_normals, moment_match
+from .valuation import (
+    PART2_DEAL,
+    PART2_RISK_FREE,
+    TRANCHES,
+    bond_market_value,
+    break_even_size,
+    cost_of_risk,
+    default_indicators,
+    discount_factors,
+    fair_coupon,
+    lintner_values,
+    optimise_class_b,
+    structure_values,
+    tranche_cash_flows,
+    tranche_pvs,
+    valuation_precision,
+    value_cdo,
+    value_sensitivity,
+)
 from .waterfall import waterfall
 
 # Shown on the notebook, the write-up and the project page.
@@ -33,8 +52,16 @@ PROJECT = {
     "site_url": "https://pawarraj8888.github.io/valuation-assignments/cdo-analysis/",
 }
 
+PROJECT_PART2 = {
+    **PROJECT,
+    "title": "CDO Valuation with the Lintner Model",
+    "assignment": "Miniproject 3 (Part 2)",
+    "site_url": "https://pawarraj8888.github.io/valuation-assignments/cdo-analysis/valuation.html",
+}
+
 __all__ = [
     "PROJECT",
+    "PROJECT_PART2",
     "BASE_DEAL",
     "MARKET_YTM",
     "RISK_FREE",
@@ -61,4 +88,21 @@ __all__ = [
     "build_results",
     "load_fixed_normals",
     "moment_match",
+    "PART2_DEAL",
+    "PART2_RISK_FREE",
+    "TRANCHES",
+    "discount_factors",
+    "bond_market_value",
+    "tranche_cash_flows",
+    "tranche_pvs",
+    "default_indicators",
+    "cost_of_risk",
+    "lintner_values",
+    "value_cdo",
+    "structure_values",
+    "fair_coupon",
+    "break_even_size",
+    "optimise_class_b",
+    "value_sensitivity",
+    "valuation_precision",
 ]

@@ -266,11 +266,102 @@
     });
   }
 
+  // Part 2: the Lintner valuation (Lecture 6). Each tranche is discounted at the risk-free rate in every case;
+  // the bonds' market value at the market yield fixes the cost of risk, and each tranche is charged for risk in
+  // proportion to the covariance of its PV with the PV of the whole pool.
+  function discountFactors(rate, freq, nPeriods) {
+    var f = [];
+    for (var k = 1; k <= nPeriods; k++) { f.push(Math.pow(1 + rate / freq, -k)); }
+    return f;
+  }
+
+  function bondMarketValue(p, ytm) {
+    var nPeriods = p.years * p.freq;
+    var factors = discountFactors(ytm, p.freq, nPeriods);
+    return promisedCashFlows(p.face, p.coupon, nPeriods, p.freq).reduce(function (acc, v, k) {
+      return acc + p.n_bonds * v * factors[k];
+    }, 0);
+  }
+
+  // PVs (cases x [A, B, residual]) and default indicators (cases x [A, B]) for one structure on the pool's cash flows.
+  function tranchePVs(pool, p, rate) {
+    var nPeriods = pool[0].length;
+    var aDue = promisedCashFlows(p.a_notional, p.a_coupon, nPeriods, p.freq);
+    var bDue = promisedCashFlows(p.b_notional, p.b_coupon, nPeriods, p.freq);
+    var factors = discountFactors(rate, p.freq, nPeriods);
+    var pv = [], defaults = [];
+    for (var c = 0; c < pool.length; c++) {
+      var pa = 0, pb = 0, pe = 0, shortA = 0, shortB = 0;
+      for (var k = 0; k < nPeriods; k++) {
+        var cash = pool[c][k];
+        var a = Math.min(cash, aDue[k]);
+        var b = Math.min(cash - a, bDue[k]);
+        pa += a * factors[k]; pb += b * factors[k]; pe += (cash - a - b) * factors[k];
+        if (a < aDue[k] - 1e-9) { shortA = 1; }
+        if (b < bDue[k] - 1e-9) { shortB = 1; }
+      }
+      pv.push([pa, pb, pe]); defaults.push([shortA, shortB]);
+    }
+    return { pv: pv, defaults: defaults };
+  }
+
+  // Lintner values for a structure, with the cost per unit risk given (it comes from the bonds alone).
+  function valueStructure(pool, p, rate, costPerUnitRisk) {
+    var t = tranchePVs(pool, p, rate), n = t.pv.length;
+    var means = [0, 1, 2].map(function (j) { return sum(t.pv.map(function (r) { return r[j]; })) / n; });
+    var poolMean = means[0] + means[1] + means[2];
+    var cov = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+    t.pv.forEach(function (r) {
+      for (var i = 0; i < 3; i++) { for (var j = 0; j < 3; j++) { cov[i][j] += (r[i] - means[i]) * (r[j] - means[j]); } }
+    });
+    cov = cov.map(function (row) { return row.map(function (v) { return v / (n - 1); }); });
+    var covWithPool = cov.map(function (row) { return row[0] + row[1] + row[2]; });
+    var shortA = sum(t.defaults.map(function (d) { return d[0]; }));
+    var shortB = sum(t.defaults.map(function (d) { return d[1]; }));
+    return { expected: means, poolMean: poolMean, covariance: cov, covWithPool: covWithPool,
+             poolVariance: covWithPool[0] + covWithPool[1] + covWithPool[2],
+             riskCharge: covWithPool.map(function (v) { return costPerUnitRisk * v; }),
+             value: means.map(function (m, j) { return m - costPerUnitRisk * covWithPool[j]; }),
+             shortCases: [shortA, shortB] };
+  }
+
+  // The full Part 2 valuation: cost of risk from the bonds, then the Lintner values.
+  function valueCdo(pool, p, rate, ytm) {
+    var first = valueStructure(pool, p, rate, 0);
+    var marketValue = bondMarketValue(p, ytm);
+    if (!(first.poolVariance > 0)) { throw new Error("the pool's PV is the same in every case, so there is no risk to price"); }
+    var costOfRisk = first.poolMean - marketValue;
+    var lambda = costOfRisk / first.poolVariance;
+    var v = valueStructure(pool, p, rate, lambda);
+    v.marketValue = marketValue; v.costOfRisk = costOfRisk; v.costPerUnitRisk = lambda;
+    return v;
+  }
+
+  // Coupon at which Class A ("a") or Class B ("b") is worth exactly its principal, or null if none does.
+  function fairCoupon(pool, p, rate, costPerUnitRisk, cls) {
+    var col = cls === "a" ? 0 : 1, key = cls === "a" ? "a_coupon" : "b_coupon";
+    var principal = cls === "a" ? p.a_notional : p.b_notional;
+    if (!(principal > 0)) { return null; }
+    function gap(c) {
+      var q = Object.assign({}, p); q[key] = c;
+      return valueStructure(pool, q, rate, costPerUnitRisk).value[col] - principal;
+    }
+    var lo = 0, hi = 1;
+    if (gap(hi) < 0) { return null; }
+    if (gap(lo) >= 0) { return lo; }
+    for (var i = 0; i < 60; i++) {
+      var mid = (lo + hi) / 2;
+      if (gap(mid) >= 0) { hi = mid; } else { lo = mid; }
+    }
+    return (lo + hi) / 2;
+  }
+
   return {
     normCdf: normCdf, normInv: normInv, cholesky: cholesky, choleskyOf: choleskyOf, momentMatch: momentMatch, promisedCashFlows: promisedCashFlows,
     validateDeal: validateDeal, caseDefaults: caseDefaults, simulate: simulate, sum: sum, mean: mean, std: std,
     percentile: percentile, totals: totals, describe: describe, shortfalls: shortfalls, summaryRow: summaryRow,
     binomialPmf: binomialPmf, exactDefaultCountDistribution: exactDefaultCountDistribution,
-    expectedPoolCashFlows: expectedPoolCashFlows
+    expectedPoolCashFlows: expectedPoolCashFlows, discountFactors: discountFactors, bondMarketValue: bondMarketValue,
+    tranchePVs: tranchePVs, valueStructure: valueStructure, valueCdo: valueCdo, fairCoupon: fairCoupon
   };
 });

@@ -83,3 +83,35 @@ def test_exact_benchmarks_match_python(javascript, index, deal):
     p_default = 1 - (1 - deal["pd"]) ** deal["years"]
     assert np.allclose(run["expected"], expected_pool_cash_flows(deal), rtol=0, atol=1e-9)
     assert np.allclose(run["exact"], exact_default_count_distribution(deal["n_bonds"], p_default, deal["rho"]), atol=1e-8)
+
+
+VALUATION_SCRIPT = """
+const model = require(process.argv[process.argv.length - 1]);
+const input = JSON.parse(require('fs').readFileSync(0, 'utf8'));
+const pool = model.simulate(input.z, input.deal).pool;
+const v = model.valueCdo(pool, input.deal, input.rate, input.ytm);
+const fair = model.fairCoupon(pool, Object.assign({}, input.deal, { b_notional: 60 }), input.rate, v.costPerUnitRisk, 'b');
+process.stdout.write(JSON.stringify({ v: v, fair60: fair }));
+"""
+
+
+def test_lintner_valuation_matches_python(normals):
+    node = shutil.which("node")
+    if node is None:
+        pytest.skip("node is not installed")
+    from cdo import MARKET_YTM, PART2_DEAL, PART2_RISK_FREE
+    from cdo.valuation import fair_coupon, value_cdo
+
+    payload = json.dumps({"z": normals.tolist(), "deal": PART2_DEAL, "rate": PART2_RISK_FREE, "ytm": MARKET_YTM})
+    done = subprocess.run([node, "-e", VALUATION_SCRIPT, str(MODEL_JS)], input=payload, capture_output=True, text=True,
+                          timeout=120)
+    assert done.returncode == 0, done.stderr
+    js = json.loads(done.stdout)
+    pool_cf = simulate(normals, PART2_DEAL)["pool_cf"]
+    py = value_cdo(pool_cf, PART2_DEAL, PART2_RISK_FREE, MARKET_YTM)
+    assert js["v"]["marketValue"] == pytest.approx(py["market_value"], abs=1e-10)
+    assert js["v"]["costPerUnitRisk"] == pytest.approx(py["cost_per_unit_risk"], rel=1e-10)
+    assert js["v"]["value"] == pytest.approx(py["value"].tolist(), abs=1e-9)
+    assert js["v"]["shortCases"] == py["defaults"].sum(axis=0).tolist()
+    fair60 = fair_coupon(pool_cf, {**PART2_DEAL, "b_notional": 60.0}, PART2_RISK_FREE, py["cost_per_unit_risk"])
+    assert js["fair60"] == pytest.approx(fair60, abs=1e-9)

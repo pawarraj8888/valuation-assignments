@@ -1,0 +1,1904 @@
+{
+ "deal": {
+  "n_bonds": 10,
+  "years": 5,
+  "freq": 4,
+  "face": 10.0,
+  "coupon": 0.06,
+  "pd": 0.04,
+  "lgd": 0.6,
+  "rho": 0.2,
+  "a_notional": 15.0,
+  "a_coupon": 0.045,
+  "b_notional": 30.0,
+  "b_coupon": 0.055
+ },
+ "risk_free": 0.04,
+ "market_ytm": 0.09,
+ "n_cases": 1000,
+ "seed": 6103,
+ "promised": {
+  "class_a": [
+   0.16874999999999998,
+   0.16874999999999998,
+   0.16874999999999998,
+   0.16874999999999998,
+   0.16874999999999998,
+   0.16874999999999998,
+   0.16874999999999998,
+   0.16874999999999998,
+   0.16874999999999998,
+   0.16874999999999998,
+   0.16874999999999998,
+   0.16874999999999998,
+   0.16874999999999998,
+   0.16874999999999998,
+   0.16874999999999998,
+   0.16874999999999998,
+   0.16874999999999998,
+   0.16874999999999998,
+   0.16874999999999998,
+   15.16875
+  ],
+  "class_b": [
+   0.4125,
+   0.4125,
+   0.4125,
+   0.4125,
+   0.4125,
+   0.4125,
+   0.4125,
+   0.4125,
+   0.4125,
+   0.4125,
+   0.4125,
+   0.4125,
+   0.4125,
+   0.4125,
+   0.4125,
+   0.4125,
+   0.4125,
+   0.4125,
+   0.4125,
+   30.4125
+  ],
+  "pool": [
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   1.5,
+   101.5
+  ]
+ },
+ "valuation": {
+  "tranches": [
+   "Class A",
+   "Class B",
+   "Residual"
+  ],
+  "market_value": 88.02721572251812,
+  "expected_pool_pv": 98.50074499729747,
+  "cost_of_risk": 10.473529274779352,
+  "pool_variance": 99.43090230383036,
+  "cost_per_unit_risk": 0.10533475038550345,
+  "expected_pv": [
+   15.338354118117447,
+   32.03012470870477,
+   51.13226617047461
+  ],
+  "sd_pv": [
+   1.1907546086212732e-13,
+   6.469174291614081e-13,
+   9.971504515559845
+  ],
+  "max_error": [
+   1.1296490092756784e-14,
+   6.137197602632042e-14,
+   0.9459799790346906
+  ],
+  "covariance": [
+   [
+    1.4178965379528016e-26,
+    7.703199101713728e-26,
+    -1.3261075573493078e-26
+   ],
+   [
+    7.703199101713728e-26,
+    4.185021601528055e-25,
+    -7.223081456274326e-26
+   ],
+   [
+    -1.3261075573493078e-26,
+    -7.223081456274326e-26,
+    99.43090230383031
+   ]
+  ],
+  "cov_with_pool": [
+   7.794988082317223e-26,
+   4.233033366071995e-25,
+   99.43090230383031
+  ],
+  "risk_charge": [
+   8.21083123908859e-27,
+   4.4588551298870107e-26,
+   10.473529274779345
+  ],
+  "value": [
+   15.338354118117447,
+   32.03012470870477,
+   40.65873689569526
+  ],
+  "p_default": [
+   0.0,
+   0.0
+  ],
+  "default_cases": [
+   0,
+   0
+  ],
+  "bank_investment": 43.02721572251812,
+  "bank_gain": -2.368478826822866
+ },
+ "fair_coupons": {
+  "a": 0.04000000000000119,
+  "b": 0.0399999999999973
+ },
+ "at_fair_coupons": {
+  "tranches": [
+   "Class A",
+   "Class B",
+   "Residual"
+  ],
+  "market_value": 88.02721572251812,
+  "expected_pool_pv": 98.50074499729747,
+  "cost_of_risk": 10.473529274779352,
+  "pool_variance": 99.43090230383031,
+  "cost_per_unit_risk": 0.10533475038550352,
+  "expected_pv": [
+   15.000000000000007,
+   29.999999999999943,
+   53.50074499729808
+  ],
+  "sd_pv": [
+   6.931258169586515e-14,
+   3.127952404736479e-13,
+   9.971504515559847
+  ],
+  "max_error": [
+   6.575568859962903e-15,
+   2.967436203470439e-14,
+   0.9459799790346907
+  ],
+  "covariance": [
+   [
+    4.8042339813459815e-27,
+    -2.1680645659407508e-26,
+    -2.117243919611846e-26
+   ],
+   [
+    -2.1680645659407508e-26,
+    9.784086246296721e-26,
+    9.569644951047309e-26
+   ],
+   [
+    -2.117243919611846e-26,
+    9.569644951047309e-26,
+    99.43090230383025
+   ]
+  ],
+  "cov_with_pool": [
+   -3.804885087417999e-26,
+   1.718566663140328e-25,
+   99.43090230383025
+  ],
+  "risk_charge": [
+   -4.007866209286996e-27,
+   1.8102479048273417e-26,
+   10.473529274779347
+  ],
+  "value": [
+   15.000000000000007,
+   29.999999999999943,
+   43.02721572251873
+  ],
+  "p_default": [
+   0.0,
+   0.0
+  ],
+  "default_cases": [
+   0,
+   0
+  ],
+  "bank_investment": 43.02721572251812,
+  "bank_gain": 6.110667527536862e-13
+ },
+ "bonus": {
+  "a_notional": 15.0,
+  "a_coupon": 0.045,
+  "target_b_coupon": 0.055,
+  "market_value": 88.02721572251812,
+  "cost_per_unit_risk": 0.10533475038550345,
+  "literal": {
+   "b_notional": 0.0,
+   "b_coupon": 0.0,
+   "value_a": 15.338354118117447,
+   "value_b": 0.0,
+   "value_residual": 72.68886160440063,
+   "p_default_b": 0.0
+  },
+  "residual_with_no_class_b": 72.68886160440063,
+  "largest_class_b_at_par": 72.68886160440067,
+  "break_even_size": 65.48174236349483,
+  "p_default_b_at_break_even": 0.159,
+  "at_target_rate": [
+   {
+    "b_notional": 0.0,
+    "value_a": 15.338354118117447,
+    "value_b": 0.0,
+    "value_residual": 72.68886160440063,
+    "p_default_b": 0.0,
+    "bank_position": 87.68886160440063,
+    "bank_gain": -0.3383541181174934
+   },
+   {
+    "b_notional": 1.0,
+    "value_a": 15.338354118117447,
+    "value_b": 1.0676708236235246,
+    "value_residual": 71.6211907807768,
+    "p_default_b": 0.0,
+    "bank_position": 87.6211907807768,
+    "bank_gain": -0.40602494174132175
+   },
+   {
+    "b_notional": 2.0,
+    "value_a": 15.338354118117447,
+    "value_b": 2.1353416472470492,
+    "value_residual": 70.55351995715334,
+    "p_default_b": 0.0,
+    "bank_position": 87.55351995715334,
+    "bank_gain": -0.47369576536478064
+   },
+   {
+    "b_notional": 3.0,
+    "value_a": 15.338354118117447,
+    "value_b": 3.2030124708704992,
+    "value_residual": 69.48584913353014,
+    "p_default_b": 0.0,
+    "bank_position": 87.48584913353014,
+    "bank_gain": -0.5413665889879837
+   },
+   {
+    "b_notional": 4.0,
+    "value_a": 15.338354118117447,
+    "value_b": 4.2706832944940984,
+    "value_residual": 68.41817830990651,
+    "p_default_b": 0.0,
+    "bank_position": 87.41817830990651,
+    "bank_gain": -0.6090374126116131
+   },
+   {
+    "b_notional": 5.0,
+    "value_a": 15.338354118117447,
+    "value_b": 5.3383541181174925,
+    "value_residual": 67.35050748628339,
+    "p_default_b": 0.0,
+    "bank_position": 87.35050748628339,
+    "bank_gain": -0.676708236234731
+   },
+   {
+    "b_notional": 6.0,
+    "value_a": 15.338354118117447,
+    "value_b": 6.4060249417409985,
+    "value_residual": 66.28283666265902,
+    "p_default_b": 0.0,
+    "bank_position": 87.28283666265902,
+    "bank_gain": -0.7443790598590994
+   },
+   {
+    "b_notional": 7.0,
+    "value_a": 15.338354118117447,
+    "value_b": 7.4736957653647345,
+    "value_residual": 65.21516583903632,
+    "p_default_b": 0.0,
+    "bank_position": 87.21516583903632,
+    "bank_gain": -0.8120498834818051
+   },
+   {
+    "b_notional": 8.0,
+    "value_a": 15.338354118117447,
+    "value_b": 8.541366588988197,
+    "value_residual": 64.14749501541276,
+    "p_default_b": 0.0,
+    "bank_position": 87.14749501541276,
+    "bank_gain": -0.8797207071053634
+   },
+   {
+    "b_notional": 9.0,
+    "value_a": 15.338354118117447,
+    "value_b": 9.609037412611686,
+    "value_residual": 63.079824191788376,
+    "p_default_b": 0.0,
+    "bank_position": 87.07982419178838,
+    "bank_gain": -0.947391530729746
+   },
+   {
+    "b_notional": 10.0,
+    "value_a": 15.338354118117447,
+    "value_b": 10.676708236234985,
+    "value_residual": 62.012153368165755,
+    "p_default_b": 0.0,
+    "bank_position": 87.01215336816576,
+    "bank_gain": -1.0150623543523665
+   },
+   {
+    "b_notional": 11.0,
+    "value_a": 15.338354118117447,
+    "value_b": 11.7443790598589,
+    "value_residual": 60.944482544541536,
+    "p_default_b": 0.0,
+    "bank_position": 86.94448254454153,
+    "bank_gain": -1.0827331779765927
+   },
+   {
+    "b_notional": 12.0,
+    "value_a": 15.338354118117447,
+    "value_b": 12.812049883481997,
+    "value_residual": 59.87681172091847,
+    "p_default_b": 0.0,
+    "bank_position": 86.87681172091847,
+    "bank_gain": -1.1504040015996537
+   },
+   {
+    "b_notional": 13.0,
+    "value_a": 15.338354118117447,
+    "value_b": 13.879720707105664,
+    "value_residual": 58.80914089729521,
+    "p_default_b": 0.0,
+    "bank_position": 86.80914089729521,
+    "bank_gain": -1.2180748252229137
+   },
+   {
+    "b_notional": 14.0,
+    "value_a": 15.338354118117447,
+    "value_b": 14.947391530729469,
+    "value_residual": 57.74147007367098,
+    "p_default_b": 0.0,
+    "bank_position": 86.74147007367098,
+    "bank_gain": -1.28574564884714
+   },
+   {
+    "b_notional": 15.0,
+    "value_a": 15.338354118117447,
+    "value_b": 16.015062354352384,
+    "value_residual": 56.67379925004835,
+    "p_default_b": 0.0,
+    "bank_position": 86.67379925004835,
+    "bank_gain": -1.3534164724697746
+   },
+   {
+    "b_notional": 16.0,
+    "value_a": 15.338354118117447,
+    "value_b": 17.082733177976394,
+    "value_residual": 55.6061284264238,
+    "p_default_b": 0.0,
+    "bank_position": 86.6061284264238,
+    "bank_gain": -1.4210872960943277
+   },
+   {
+    "b_notional": 17.0,
+    "value_a": 15.338354118117447,
+    "value_b": 18.15040400159946,
+    "value_residual": 54.53845760280093,
+    "p_default_b": 0.0,
+    "bank_position": 86.53845760280093,
+    "bank_gain": -1.4887581197171897
+   },
+   {
+    "b_notional": 18.0,
+    "value_a": 15.338354118117447,
+    "value_b": 19.218074825223372,
+    "value_residual": 53.47078677917766,
+    "p_default_b": 0.0,
+    "bank_position": 86.47078677917766,
+    "bank_gain": -1.5564289433404639
+   },
+   {
+    "b_notional": 19.0,
+    "value_a": 15.338354118117447,
+    "value_b": 20.285745648846667,
+    "value_residual": 52.40311595555344,
+    "p_default_b": 0.0,
+    "bank_position": 86.40311595555343,
+    "bank_gain": -1.6240997669646902
+   },
+   {
+    "b_notional": 20.0,
+    "value_a": 15.338354118117447,
+    "value_b": 21.35341647246997,
+    "value_residual": 51.335445131930825,
+    "p_default_b": 0.0,
+    "bank_position": 86.33544513193083,
+    "bank_gain": -1.6917705905872964
+   },
+   {
+    "b_notional": 21.0,
+    "value_a": 15.338354118117447,
+    "value_b": 22.421087296093894,
+    "value_residual": 50.267774308306336,
+    "p_default_b": 0.0,
+    "bank_position": 86.26777430830634,
+    "bank_gain": -1.7594414142117785
+   },
+   {
+    "b_notional": 22.0,
+    "value_a": 15.338354118117447,
+    "value_b": 23.4887581197178,
+    "value_residual": 49.20010348468341,
+    "p_default_b": 0.0,
+    "bank_position": 86.20010348468341,
+    "bank_gain": -1.8271122378347116
+   },
+   {
+    "b_notional": 23.0,
+    "value_a": 15.338354118117447,
+    "value_b": 24.55642894334117,
+    "value_residual": 48.132432661060044,
+    "p_default_b": 0.0,
+    "bank_position": 86.13243266106005,
+    "bank_gain": -1.894783061458071
+   },
+   {
+    "b_notional": 24.0,
+    "value_a": 15.338354118117447,
+    "value_b": 25.624099766963994,
+    "value_residual": 47.06476183743595,
+    "p_default_b": 0.0,
+    "bank_position": 86.06476183743595,
+    "bank_gain": -1.9624538850821693
+   },
+   {
+    "b_notional": 25.0,
+    "value_a": 15.338354118117447,
+    "value_b": 26.691770590587375,
+    "value_residual": 45.997091013813225,
+    "p_default_b": 0.0,
+    "bank_position": 85.99709101381322,
+    "bank_gain": -2.0301247087049035
+   },
+   {
+    "b_notional": 26.0,
+    "value_a": 15.338354118117447,
+    "value_b": 27.759441414211327,
+    "value_residual": 44.92942019018882,
+    "p_default_b": 0.0,
+    "bank_position": 85.92942019018882,
+    "bank_gain": -2.0977955323293003
+   },
+   {
+    "b_notional": 27.0,
+    "value_a": 15.338354118117447,
+    "value_b": 28.827112237835326,
+    "value_residual": 43.86174936656589,
+    "p_default_b": 0.0,
+    "bank_position": 85.86174936656589,
+    "bank_gain": -2.1654663559522334
+   },
+   {
+    "b_notional": 28.0,
+    "value_a": 15.338354118117447,
+    "value_b": 29.894783061458938,
+    "value_residual": 42.79407854294239,
+    "p_default_b": 0.0,
+    "bank_position": 85.79407854294239,
+    "bank_gain": -2.233137179575735
+   },
+   {
+    "b_notional": 29.0,
+    "value_a": 15.338354118117447,
+    "value_b": 30.96245388508124,
+    "value_residual": 41.726407719318445,
+    "p_default_b": 0.0,
+    "bank_position": 85.72640771931844,
+    "bank_gain": -2.300808003199677
+   },
+   {
+    "b_notional": 30.0,
+    "value_a": 15.338354118117447,
+    "value_b": 32.03012470870477,
+    "value_residual": 40.65873689569527,
+    "p_default_b": 0.0,
+    "bank_position": 85.65873689569527,
+    "bank_gain": -2.3684788268228516
+   },
+   {
+    "b_notional": 31.0,
+    "value_a": 15.338354118117447,
+    "value_b": 33.097795532328796,
+    "value_residual": 39.59106607207136,
+    "p_default_b": 0.0,
+    "bank_position": 85.59106607207136,
+    "bank_gain": -2.4361496504467652
+   },
+   {
+    "b_notional": 32.0,
+    "value_a": 15.338354118117447,
+    "value_b": 34.16122461655993,
+    "value_residual": 38.52763698784123,
+    "p_default_b": 0.001,
+    "bank_position": 85.52763698784122,
+    "bank_gain": -2.499578734676902
+   },
+   {
+    "b_notional": 33.0,
+    "value_a": 15.338354118117447,
+    "value_b": 35.224215099166216,
+    "value_residual": 37.46464650523481,
+    "p_default_b": 0.001,
+    "bank_position": 85.46464650523481,
+    "bank_gain": -2.562569217283311
+   },
+   {
+    "b_notional": 34.0,
+    "value_a": 15.338354118117447,
+    "value_b": 36.287205581771744,
+    "value_residual": 36.40165602262814,
+    "p_default_b": 0.001,
+    "bank_position": 85.40165602262815,
+    "bank_gain": -2.625559699889976
+   },
+   {
+    "b_notional": 35.0,
+    "value_a": 15.338354118117447,
+    "value_b": 37.35019606437823,
+    "value_residual": 35.338665540021964,
+    "p_default_b": 0.001,
+    "bank_position": 85.33866554002196,
+    "bank_gain": -2.688550182496158
+   },
+   {
+    "b_notional": 36.0,
+    "value_a": 15.338354118117447,
+    "value_b": 38.41318654698525,
+    "value_residual": 34.27567505741543,
+    "p_default_b": 0.001,
+    "bank_position": 85.27567505741543,
+    "bank_gain": -2.751540665102695
+   },
+   {
+    "b_notional": 37.0,
+    "value_a": 15.338354118117447,
+    "value_b": 39.47617702959168,
+    "value_residual": 33.212684574809444,
+    "p_default_b": 0.001,
+    "bank_position": 85.21268457480944,
+    "bank_gain": -2.814531147708678
+   },
+   {
+    "b_notional": 38.0,
+    "value_a": 15.338354118117447,
+    "value_b": 40.5207836223871,
+    "value_residual": 32.16807798201347,
+    "p_default_b": 0.006,
+    "bank_position": 85.16807798201347,
+    "bank_gain": -2.85913774050465
+   },
+   {
+    "b_notional": 39.0,
+    "value_a": 15.338354118117447,
+    "value_b": 41.563264710595945,
+    "value_residual": 31.125596893805614,
+    "p_default_b": 0.006,
+    "bank_position": 85.12559689380561,
+    "bank_gain": -2.9016188287125146
+   },
+   {
+    "b_notional": 40.0,
+    "value_a": 15.338354118117447,
+    "value_b": 42.6057457988019,
+    "value_residual": 30.083115805598034,
+    "p_default_b": 0.006,
+    "bank_position": 85.08311580559803,
+    "bank_gain": -2.944099916920095
+   },
+   {
+    "b_notional": 41.0,
+    "value_a": 15.338354118117447,
+    "value_b": 43.64822688701067,
+    "value_residual": 29.04063471739046,
+    "p_default_b": 0.006,
+    "bank_position": 85.04063471739046,
+    "bank_gain": -2.986581005127661
+   },
+   {
+    "b_notional": 42.0,
+    "value_a": 15.338354118117447,
+    "value_b": 44.69070797521793,
+    "value_residual": 27.99815362918301,
+    "p_default_b": 0.006,
+    "bank_position": 84.99815362918301,
+    "bank_gain": -3.0290620933351136
+   },
+   {
+    "b_notional": 43.0,
+    "value_a": 15.338354118117447,
+    "value_b": 45.73318906342473,
+    "value_residual": 26.95567254097508,
+    "p_default_b": 0.006,
+    "bank_position": 84.95567254097509,
+    "bank_gain": -3.071543181543035
+   },
+   {
+    "b_notional": 44.0,
+    "value_a": 15.338354118117447,
+    "value_b": 46.74089175747727,
+    "value_residual": 25.947969846924224,
+    "p_default_b": 0.017,
+    "bank_position": 84.94796984692422,
+    "bank_gain": -3.079245875593898
+   },
+   {
+    "b_notional": 45.0,
+    "value_a": 15.338354118117447,
+    "value_b": 47.74366158902843,
+    "value_residual": 24.945200015371277,
+    "p_default_b": 0.017,
+    "bank_position": 84.94520001537128,
+    "bank_gain": -3.0820157071468373
+   },
+   {
+    "b_notional": 46.0,
+    "value_a": 15.338354118117447,
+    "value_b": 48.74584824757662,
+    "value_residual": 23.943013356824785,
+    "p_default_b": 0.017,
+    "bank_position": 84.94301335682479,
+    "bank_gain": -3.0842023656933293
+   },
+   {
+    "b_notional": 47.0,
+    "value_a": 15.338354118117447,
+    "value_b": 49.748034906122655,
+    "value_residual": 22.94082669827808,
+    "p_default_b": 0.017,
+    "bank_position": 84.94082669827807,
+    "bank_gain": -3.0863890242400487
+   },
+   {
+    "b_notional": 48.0,
+    "value_a": 15.338354118117447,
+    "value_b": 50.75022156466858,
+    "value_residual": 21.93864003973132,
+    "p_default_b": 0.017,
+    "bank_position": 84.93864003973133,
+    "bank_gain": -3.0885756827867965
+   },
+   {
+    "b_notional": 49.0,
+    "value_a": 15.338354118117447,
+    "value_b": 51.75240822321683,
+    "value_residual": 20.936453381184563,
+    "p_default_b": 0.017,
+    "bank_position": 84.93645338118456,
+    "bank_gain": -3.0907623413335585
+   },
+   {
+    "b_notional": 50.0,
+    "value_a": 15.338354118117447,
+    "value_b": 52.712273151031155,
+    "value_residual": 19.97658845336838,
+    "p_default_b": 0.033,
+    "bank_position": 84.97658845336838,
+    "bank_gain": -3.050627269149743
+   },
+   {
+    "b_notional": 51.0,
+    "value_a": 15.338354118117447,
+    "value_b": 53.66658962321625,
+    "value_residual": 19.022271981184996,
+    "p_default_b": 0.033,
+    "bank_position": 85.022271981185,
+    "bank_gain": -3.004943741333122
+   },
+   {
+    "b_notional": 52.0,
+    "value_a": 15.338354118117447,
+    "value_b": 54.61737773719261,
+    "value_residual": 18.07148386720798,
+    "p_default_b": 0.033,
+    "bank_position": 85.07148386720797,
+    "bank_gain": -2.955731855310148
+   },
+   {
+    "b_notional": 53.0,
+    "value_a": 15.338354118117447,
+    "value_b": 55.56816585116884,
+    "value_residual": 17.120695753230763,
+    "p_default_b": 0.033,
+    "bank_position": 85.12069575323076,
+    "bank_gain": -2.906519969287359
+   },
+   {
+    "b_notional": 54.0,
+    "value_a": 15.338354118117447,
+    "value_b": 56.518953965147915,
+    "value_residual": 16.169907639253495,
+    "p_default_b": 0.033,
+    "bank_position": 85.1699076392535,
+    "bank_gain": -2.857308083264627
+   },
+   {
+    "b_notional": 55.0,
+    "value_a": 15.338354118117447,
+    "value_b": 57.46974207912314,
+    "value_residual": 15.219119525276362,
+    "p_default_b": 0.033,
+    "bank_position": 85.21911952527637,
+    "bank_gain": -2.8080961972417526
+   },
+   {
+    "b_notional": 56.0,
+    "value_a": 15.338354118117447,
+    "value_b": 58.315294907603906,
+    "value_residual": 14.373566696797608,
+    "p_default_b": 0.082,
+    "bank_position": 85.37356669679761,
+    "bank_gain": -2.6536490257205116
+   },
+   {
+    "b_notional": 57.0,
+    "value_a": 15.338354118117447,
+    "value_b": 59.14604671139786,
+    "value_residual": 13.542814893002534,
+    "p_default_b": 0.082,
+    "bank_position": 85.54281489300253,
+    "bank_gain": -2.484400829515593
+   },
+   {
+    "b_notional": 58.0,
+    "value_a": 15.338354118117447,
+    "value_b": 59.97420176970117,
+    "value_residual": 12.714659834698336,
+    "p_default_b": 0.082,
+    "bank_position": 85.71465983469834,
+    "bank_gain": -2.3125558878197836
+   },
+   {
+    "b_notional": 59.0,
+    "value_a": 15.338354118117447,
+    "value_b": 60.799240733417925,
+    "value_residual": 11.889620870983302,
+    "p_default_b": 0.082,
+    "bank_position": 85.88962087098331,
+    "bank_gain": -2.137594851534814
+   },
+   {
+    "b_notional": 60.0,
+    "value_a": 15.338354118117447,
+    "value_b": 61.624279697131,
+    "value_residual": 11.064581907268371,
+    "p_default_b": 0.082,
+    "bank_position": 86.06458190726838,
+    "bank_gain": -1.9626338152497453
+   },
+   {
+    "b_notional": 61.0,
+    "value_a": 15.338354118117447,
+    "value_b": 62.44931866084797,
+    "value_residual": 10.239542943553623,
+    "p_default_b": 0.082,
+    "bank_position": 86.23954294355363,
+    "bank_gain": -1.7876727789644917
+   },
+   {
+    "b_notional": 62.0,
+    "value_a": 15.338354118117447,
+    "value_b": 63.14410914476272,
+    "value_residual": 9.544752459637314,
+    "p_default_b": 0.159,
+    "bank_position": 86.54475245963731,
+    "bank_gain": -1.4824632628808132
+   },
+   {
+    "b_notional": 63.0,
+    "value_a": 15.338354118117447,
+    "value_b": 63.819316169304166,
+    "value_residual": 8.869545435095173,
+    "p_default_b": 0.159,
+    "bank_position": 86.86954543509518,
+    "bank_gain": -1.1576702874229454
+   },
+   {
+    "b_notional": 64.0,
+    "value_a": 15.338354118117447,
+    "value_b": 64.49452319384808,
+    "value_residual": 8.19433841055294,
+    "p_default_b": 0.159,
+    "bank_position": 87.19433841055294,
+    "bank_gain": -0.8328773119651771
+   },
+   {
+    "b_notional": 65.0,
+    "value_a": 15.338354118117447,
+    "value_b": 65.16106067212301,
+    "value_residual": 7.527800932277244,
+    "p_default_b": 0.159,
+    "bank_position": 87.52780093227724,
+    "bank_gain": -0.499414790240877
+   },
+   {
+    "b_notional": 66.0,
+    "value_a": 15.338354118117447,
+    "value_b": 65.82673119577265,
+    "value_residual": 6.862130408628509,
+    "p_default_b": 0.159,
+    "bank_position": 87.8621304086285,
+    "bank_gain": -0.16508531388961956
+   },
+   {
+    "b_notional": 67.0,
+    "value_a": 15.338354118117447,
+    "value_b": 66.49240171942074,
+    "value_residual": 6.196459884979462,
+    "p_default_b": 0.159,
+    "bank_position": 88.19645988497946,
+    "bank_gain": 0.16924416246133944
+   },
+   {
+    "b_notional": 68.0,
+    "value_a": 15.338354118117447,
+    "value_b": 66.99765665788564,
+    "value_residual": 5.691204946513942,
+    "p_default_b": 0.29,
+    "bank_position": 88.69120494651395,
+    "bank_gain": 0.6639892239958272
+   },
+   {
+    "b_notional": 69.0,
+    "value_a": 15.338354118117447,
+    "value_b": 67.47720838384826,
+    "value_residual": 5.211653220552523,
+    "p_default_b": 0.29,
+    "bank_position": 89.21165322055252,
+    "bank_gain": 1.1844374980343986
+   },
+   {
+    "b_notional": 70.0,
+    "value_a": 15.338354118117447,
+    "value_b": 67.9567601098086,
+    "value_residual": 4.732101494591188,
+    "p_default_b": 0.29,
+    "bank_position": 89.73210149459119,
+    "bank_gain": 1.7048857720730695
+   },
+   {
+    "b_notional": 71.0,
+    "value_a": 15.338354118117447,
+    "value_b": 68.42843964042821,
+    "value_residual": 4.26042196397323,
+    "p_default_b": 0.29,
+    "bank_position": 90.26042196397323,
+    "bank_gain": 2.2332062414551075
+   },
+   {
+    "b_notional": 72.0,
+    "value_a": 15.338354118117447,
+    "value_b": 68.88634282919448,
+    "value_residual": 3.8025187752061624,
+    "p_default_b": 0.29,
+    "bank_position": 90.80251877520617,
+    "bank_gain": 2.775303052688045
+   },
+   {
+    "b_notional": 73.0,
+    "value_a": 15.338354118117447,
+    "value_b": 69.34424601796002,
+    "value_residual": 3.3446155864392084,
+    "p_default_b": 0.29,
+    "bank_position": 91.3446155864392,
+    "bank_gain": 3.317399863921082
+   },
+   {
+    "b_notional": 74.0,
+    "value_a": 15.338354118117447,
+    "value_b": 69.6453917295453,
+    "value_residual": 3.043469874855485,
+    "p_default_b": 0.49,
+    "bank_position": 92.04346987485549,
+    "bank_gain": 4.016254152337368
+   },
+   {
+    "b_notional": 75.0,
+    "value_a": 15.338354118117447,
+    "value_b": 69.91984569176742,
+    "value_residual": 2.7690159126332956,
+    "p_default_b": 0.49,
+    "bank_position": 92.7690159126333,
+    "bank_gain": 4.741800190115171
+   },
+   {
+    "b_notional": 76.0,
+    "value_a": 15.338354118117447,
+    "value_b": 70.19429965398926,
+    "value_residual": 2.494561950411195,
+    "p_default_b": 0.49,
+    "bank_position": 93.4945619504112,
+    "bank_gain": 5.467346227893074
+   },
+   {
+    "b_notional": 77.0,
+    "value_a": 15.338354118117447,
+    "value_b": 70.46875361621129,
+    "value_residual": 2.2201079881891452,
+    "p_default_b": 0.49,
+    "bank_position": 94.22010798818914,
+    "bank_gain": 6.19289226567102
+   },
+   {
+    "b_notional": 78.0,
+    "value_a": 15.338354118117447,
+    "value_b": 70.71701991275488,
+    "value_residual": 1.9718416916467327,
+    "p_default_b": 0.49,
+    "bank_position": 94.97184169164673,
+    "bank_gain": 6.944625969128609
+   },
+   {
+    "b_notional": 79.0,
+    "value_a": 15.338354118117447,
+    "value_b": 70.95946672803377,
+    "value_residual": 1.7293948763665559,
+    "p_default_b": 0.49,
+    "bank_position": 95.72939487636656,
+    "bank_gain": 7.702179153848434
+   },
+   {
+    "b_notional": 80.0,
+    "value_a": 15.338354118117447,
+    "value_b": 71.11488371712734,
+    "value_residual": 1.5739778872729917,
+    "p_default_b": 0.743,
+    "bank_position": 96.57397788727299,
+    "bank_gain": 8.546762164754867
+   },
+   {
+    "b_notional": 81.0,
+    "value_a": 15.338354118117447,
+    "value_b": 71.25459226597862,
+    "value_residual": 1.4342693384226384,
+    "p_default_b": 0.743,
+    "bank_position": 97.43426933842264,
+    "bank_gain": 9.407053615904516
+   },
+   {
+    "b_notional": 82.0,
+    "value_a": 15.338354118117447,
+    "value_b": 71.39430081482851,
+    "value_residual": 1.2945607895723776,
+    "p_default_b": 0.743,
+    "bank_position": 98.29456078957237,
+    "bank_gain": 10.26734506705425
+   },
+   {
+    "b_notional": 83.0,
+    "value_a": 15.338354118117447,
+    "value_b": 71.5340093636791,
+    "value_residual": 1.154852240722051,
+    "p_default_b": 0.743,
+    "bank_position": 99.15485224072205,
+    "bank_gain": 11.127636518203929
+   },
+   {
+    "b_notional": 84.0,
+    "value_a": 15.338354118117447,
+    "value_b": 71.66027872566079,
+    "value_residual": 1.02858287874014,
+    "p_default_b": 0.743,
+    "bank_position": 100.02858287874014,
+    "bank_gain": 12.001367156222017
+   },
+   {
+    "b_notional": 85.0,
+    "value_a": 15.338354118117447,
+    "value_b": 71.75071025599347,
+    "value_residual": 0.9381513484072475,
+    "p_default_b": 0.743,
+    "bank_position": 100.93815134840725,
+    "bank_gain": 12.910935625889124
+   },
+   {
+    "b_notional": 86.0,
+    "value_a": 15.338354118117447,
+    "value_b": 71.86076448425916,
+    "value_residual": 0.8280971201410782,
+    "p_default_b": 1.0,
+    "bank_position": 101.82809712014108,
+    "bank_gain": 13.800881397622959
+   },
+   {
+    "b_notional": 87.0,
+    "value_a": 15.338354118117447,
+    "value_b": 71.9745646019985,
+    "value_residual": 0.7142970024015859,
+    "p_default_b": 1.0,
+    "bank_position": 102.71429700240158,
+    "bank_gain": 14.687081279883458
+   },
+   {
+    "b_notional": 88.0,
+    "value_a": 15.338354118117447,
+    "value_b": 72.0883647197383,
+    "value_residual": 0.6004968846621104,
+    "p_default_b": 1.0,
+    "bank_position": 103.6004968846621,
+    "bank_gain": 15.573281162143985
+   },
+   {
+    "b_notional": 89.0,
+    "value_a": 15.338354118117447,
+    "value_b": 72.20216483747738,
+    "value_residual": 0.4866967669226153,
+    "p_default_b": 1.0,
+    "bank_position": 104.48669676692262,
+    "bank_gain": 16.459481044404498
+   },
+   {
+    "b_notional": 90.0,
+    "value_a": 15.338354118117447,
+    "value_b": 72.31596495521732,
+    "value_residual": 0.37289664918313287,
+    "p_default_b": 1.0,
+    "bank_position": 105.37289664918313,
+    "bank_gain": 17.34568092666501
+   },
+   {
+    "b_notional": 91.0,
+    "value_a": 15.338354118117447,
+    "value_b": 72.38498582356824,
+    "value_residual": 0.30387578083200345,
+    "p_default_b": 1.0,
+    "bank_position": 106.303875780832,
+    "bank_gain": 18.27666005831388
+   },
+   {
+    "b_notional": 92.0,
+    "value_a": 15.338354118117447,
+    "value_b": 72.43721447339921,
+    "value_residual": 0.2516471310014991,
+    "p_default_b": 1.0,
+    "bank_position": 107.2516471310015,
+    "bank_gain": 19.224431408483383
+   },
+   {
+    "b_notional": 93.0,
+    "value_a": 15.338354118117447,
+    "value_b": 72.48944312322952,
+    "value_residual": 0.1994184811709968,
+    "p_default_b": 1.0,
+    "bank_position": 108.199418481171,
+    "bank_gain": 20.172202758652872
+   },
+   {
+    "b_notional": 94.0,
+    "value_a": 15.338354118117447,
+    "value_b": 72.54167177306007,
+    "value_residual": 0.14718983134050062,
+    "p_default_b": 1.0,
+    "bank_position": 109.1471898313405,
+    "bank_gain": 21.119974108822376
+   },
+   {
+    "b_notional": 95.0,
+    "value_a": 15.338354118117447,
+    "value_b": 72.59390042289041,
+    "value_residual": 0.09496118151000024,
+    "p_default_b": 1.0,
+    "bank_position": 110.09496118151,
+    "bank_gain": 22.06774545899188
+   },
+   {
+    "b_notional": 96.0,
+    "value_a": 15.338354118117447,
+    "value_b": 72.64612907272142,
+    "value_residual": 0.042732531679498975,
+    "p_default_b": 1.0,
+    "bank_position": 111.0427325316795,
+    "bank_gain": 23.015516809161383
+   },
+   {
+    "b_notional": 97.0,
+    "value_a": 15.338354118117447,
+    "value_b": 72.68886160440063,
+    "value_residual": 0.0,
+    "p_default_b": 1.0,
+    "bank_position": 112.0,
+    "bank_gain": 23.97278427748188
+   },
+   {
+    "b_notional": 98.0,
+    "value_a": 15.338354118117447,
+    "value_b": 72.68886160440063,
+    "value_residual": 0.0,
+    "p_default_b": 1.0,
+    "bank_position": 113.0,
+    "bank_gain": 24.97278427748188
+   },
+   {
+    "b_notional": 99.0,
+    "value_a": 15.338354118117447,
+    "value_b": 72.68886160440063,
+    "value_residual": 0.0,
+    "p_default_b": 1.0,
+    "bank_position": 114.0,
+    "bank_gain": 25.97278427748188
+   },
+   {
+    "b_notional": 100.0,
+    "value_a": 15.338354118117447,
+    "value_b": 72.68886160440063,
+    "value_residual": 0.0,
+    "p_default_b": 1.0,
+    "bank_position": 115.0,
+    "bank_gain": 26.97278427748188
+   }
+  ],
+  "fair_coupon_curve": [
+   {
+    "b_notional": 1.0,
+    "fair_coupon": 0.040000000000000105,
+    "value_residual": 71.68886160440066,
+    "p_default_b": 0.0,
+    "bank_gain": -0.33835411811746496
+   },
+   {
+    "b_notional": 2.0,
+    "fair_coupon": 0.040000000000000105,
+    "value_residual": 70.68886160440066,
+    "p_default_b": 0.0,
+    "bank_gain": -0.33835411811746496
+   },
+   {
+    "b_notional": 3.0,
+    "fair_coupon": 0.04000000000000118,
+    "value_residual": 69.68886160440063,
+    "p_default_b": 0.0,
+    "bank_gain": -0.3383541181174934
+   },
+   {
+    "b_notional": 4.0,
+    "fair_coupon": 0.040000000000002346,
+    "value_residual": 68.68886160440063,
+    "p_default_b": 0.0,
+    "bank_gain": -0.3383541181174934
+   },
+   {
+    "b_notional": 5.0,
+    "fair_coupon": 0.039999999999999966,
+    "value_residual": 67.68886160440071,
+    "p_default_b": 0.0,
+    "bank_gain": -0.3383541181174081
+   },
+   {
+    "b_notional": 6.0,
+    "fair_coupon": 0.04000000000000255,
+    "value_residual": 66.68886160440064,
+    "p_default_b": 0.0,
+    "bank_gain": -0.3383541181174792
+   },
+   {
+    "b_notional": 7.0,
+    "fair_coupon": 0.040000000000001416,
+    "value_residual": 65.68886160440067,
+    "p_default_b": 0.0,
+    "bank_gain": -0.33835411811745075
+   },
+   {
+    "b_notional": 8.0,
+    "fair_coupon": 0.04000000000000277,
+    "value_residual": 64.68886160440067,
+    "p_default_b": 0.0,
+    "bank_gain": -0.33835411811745075
+   },
+   {
+    "b_notional": 9.0,
+    "fair_coupon": 0.04000000000000224,
+    "value_residual": 63.688861604400714,
+    "p_default_b": 0.0,
+    "bank_gain": -0.3383541181174081
+   },
+   {
+    "b_notional": 10.0,
+    "fair_coupon": 0.039999999999999945,
+    "value_residual": 62.68886160440086,
+    "p_default_b": 0.0,
+    "bank_gain": -0.3383541181172518
+   },
+   {
+    "b_notional": 11.0,
+    "fair_coupon": 0.04000000000000255,
+    "value_residual": 61.688861604400806,
+    "p_default_b": 0.0,
+    "bank_gain": -0.33835411811730864
+   },
+   {
+    "b_notional": 12.0,
+    "fair_coupon": 0.04000000000000103,
+    "value_residual": 60.68886160440083,
+    "p_default_b": 0.0,
+    "bank_gain": -0.33835411811729443
+   },
+   {
+    "b_notional": 13.0,
+    "fair_coupon": 0.04000000000000047,
+    "value_residual": 59.688861604400884,
+    "p_default_b": 0.0,
+    "bank_gain": -0.3383541181172376
+   },
+   {
+    "b_notional": 14.0,
+    "fair_coupon": 0.039999999999997225,
+    "value_residual": 58.68886160440108,
+    "p_default_b": 0.0,
+    "bank_gain": -0.33835411811703864
+   },
+   {
+    "b_notional": 15.0,
+    "fair_coupon": 0.04000000000000407,
+    "value_residual": 57.6888616044007,
+    "p_default_b": 0.0,
+    "bank_gain": -0.33835411811742233
+   },
+   {
+    "b_notional": 16.0,
+    "fair_coupon": 0.03999999999999938,
+    "value_residual": 56.688861604401,
+    "p_default_b": 0.0,
+    "bank_gain": -0.3383541181171239
+   },
+   {
+    "b_notional": 17.0,
+    "fair_coupon": 0.03999999999999898,
+    "value_residual": 55.68886160440106,
+    "p_default_b": 0.0,
+    "bank_gain": -0.33835411811705285
+   },
+   {
+    "b_notional": 18.0,
+    "fair_coupon": 0.04000000000000095,
+    "value_residual": 54.68886160440098,
+    "p_default_b": 0.0,
+    "bank_gain": -0.3383541181171381
+   },
+   {
+    "b_notional": 19.0,
+    "fair_coupon": 0.03999999999999698,
+    "value_residual": 53.68886160440122,
+    "p_default_b": 0.0,
+    "bank_gain": -0.33835411811691074
+   },
+   {
+    "b_notional": 20.0,
+    "fair_coupon": 0.03999999999999594,
+    "value_residual": 52.688861604401275,
+    "p_default_b": 0.0,
+    "bank_gain": -0.3383541181168539
+   },
+   {
+    "b_notional": 21.0,
+    "fair_coupon": 0.03999999999999806,
+    "value_residual": 51.688861604401175,
+    "p_default_b": 0.0,
+    "bank_gain": -0.33835411811693916
+   },
+   {
+    "b_notional": 22.0,
+    "fair_coupon": 0.039999999999996906,
+    "value_residual": 50.68886160440123,
+    "p_default_b": 0.0,
+    "bank_gain": -0.3383541181168823
+   },
+   {
+    "b_notional": 23.0,
+    "fair_coupon": 0.04000000000000398,
+    "value_residual": 49.688861604400635,
+    "p_default_b": 0.0,
+    "bank_gain": -0.3383541181174792
+   },
+   {
+    "b_notional": 24.0,
+    "fair_coupon": 0.039999999999999696,
+    "value_residual": 48.688861604401026,
+    "p_default_b": 0.0,
+    "bank_gain": -0.3383541181170955
+   },
+   {
+    "b_notional": 25.0,
+    "fair_coupon": 0.04000000000000337,
+    "value_residual": 47.688861604400664,
+    "p_default_b": 0.0,
+    "bank_gain": -0.33835411811745075
+   },
+   {
+    "b_notional": 26.0,
+    "fair_coupon": 0.04000000000000091,
+    "value_residual": 46.68886160440093,
+    "p_default_b": 0.0,
+    "bank_gain": -0.33835411811719496
+   },
+   {
+    "b_notional": 27.0,
+    "fair_coupon": 0.03999999999999654,
+    "value_residual": 45.68886160440135,
+    "p_default_b": 0.0,
+    "bank_gain": -0.33835411811676863
+   },
+   {
+    "b_notional": 28.0,
+    "fair_coupon": 0.040000000000003026,
+    "value_residual": 44.68886160440064,
+    "p_default_b": 0.0,
+    "bank_gain": -0.3383541181174792
+   },
+   {
+    "b_notional": 29.0,
+    "fair_coupon": 0.039999999999999286,
+    "value_residual": 43.68886160440104,
+    "p_default_b": 0.0,
+    "bank_gain": -0.33835411811708127
+   },
+   {
+    "b_notional": 30.0,
+    "fair_coupon": 0.0399999999999973,
+    "value_residual": 42.68886160440127,
+    "p_default_b": 0.0,
+    "bank_gain": -0.3383541181168539
+   },
+   {
+    "b_notional": 31.0,
+    "fair_coupon": 0.0399999999999993,
+    "value_residual": 41.688861604401026,
+    "p_default_b": 0.0,
+    "bank_gain": -0.3383541181170955
+   },
+   {
+    "b_notional": 32.0,
+    "fair_coupon": 0.04002555103201488,
+    "value_residual": 40.68886160440072,
+    "p_default_b": 0.001,
+    "bank_gain": -0.3383541181173939
+   },
+   {
+    "b_notional": 33.0,
+    "fair_coupon": 0.04005610636820904,
+    "value_residual": 39.68886160440082,
+    "p_default_b": 0.001,
+    "bank_gain": -0.33835411811730864
+   },
+   {
+    "b_notional": 34.0,
+    "fair_coupon": 0.04008486433168307,
+    "value_residual": 38.688861604401,
+    "p_default_b": 0.001,
+    "bank_gain": -0.3383541181171239
+   },
+   {
+    "b_notional": 35.0,
+    "fair_coupon": 0.0401119789829636,
+    "value_residual": 37.68886160440075,
+    "p_default_b": 0.001,
+    "bank_gain": -0.3383541181173655
+   },
+   {
+    "b_notional": 36.0,
+    "fair_coupon": 0.0401375872647289,
+    "value_residual": 36.68886160440058,
+    "p_default_b": 0.001,
+    "bank_gain": -0.338354118117536
+   },
+   {
+    "b_notional": 37.0,
+    "fair_coupon": 0.04016181131504833,
+    "value_residual": 35.68886160439979,
+    "p_default_b": 0.001,
+    "bank_gain": -0.3383541181183318
+   },
+   {
+    "b_notional": 38.0,
+    "fair_coupon": 0.040275530100967995,
+    "value_residual": 34.68886160440088,
+    "p_default_b": 0.006,
+    "bank_gain": -0.3383541181172518
+   },
+   {
+    "b_notional": 39.0,
+    "fair_coupon": 0.04041093717319065,
+    "value_residual": 33.6888616043998,
+    "p_default_b": 0.006,
+    "bank_gain": -0.3383541181183318
+   },
+   {
+    "b_notional": 40.0,
+    "fair_coupon": 0.040539573891791233,
+    "value_residual": 32.6888616044009,
+    "p_default_b": 0.006,
+    "bank_gain": -0.3383541181172234
+   },
+   {
+    "b_notional": 41.0,
+    "fair_coupon": 0.04066193564851911,
+    "value_residual": 31.688861604399975,
+    "p_default_b": 0.006,
+    "bank_gain": -0.3383541181181471
+   },
+   {
+    "b_notional": 42.0,
+    "fair_coupon": 0.040778470654920754,
+    "value_residual": 30.68886160440058,
+    "p_default_b": 0.006,
+    "bank_gain": -0.338354118117536
+   },
+   {
+    "b_notional": 43.0,
+    "fair_coupon": 0.0408895854284717,
+    "value_residual": 29.688861604399587,
+    "p_default_b": 0.006,
+    "bank_gain": -0.3383541181185308
+   },
+   {
+    "b_notional": 44.0,
+    "fair_coupon": 0.0411415015298026,
+    "value_residual": 28.6888616044005,
+    "p_default_b": 0.017,
+    "bank_gain": -0.3383541181176213
+   },
+   {
+    "b_notional": 45.0,
+    "fair_coupon": 0.0414320003261217,
+    "value_residual": 27.688861604399925,
+    "p_default_b": 0.017,
+    "bank_gain": -0.3383541181181897
+   },
+   {
+    "b_notional": 46.0,
+    "fair_coupon": 0.04170986873998795,
+    "value_residual": 26.688861604400273,
+    "p_default_b": 0.017,
+    "bank_gain": -0.33835411811784866
+   },
+   {
+    "b_notional": 47.0,
+    "fair_coupon": 0.041975912966032036,
+    "value_residual": 25.688861604399964,
+    "p_default_b": 0.017,
+    "bank_gain": -0.3383541181181613
+   },
+   {
+    "b_notional": 48.0,
+    "fair_coupon": 0.04223087201599113,
+    "value_residual": 24.68886160440003,
+    "p_default_b": 0.017,
+    "bank_gain": -0.33835411811809024
+   },
+   {
+    "b_notional": 49.0,
+    "fair_coupon": 0.04247542457410874,
+    "value_residual": 23.688861604401467,
+    "p_default_b": 0.017,
+    "bank_gain": -0.33835411811665494
+   },
+   {
+    "b_notional": 50.0,
+    "fair_coupon": 0.042866918420892734,
+    "value_residual": 22.68886160440109,
+    "p_default_b": 0.033,
+    "bank_gain": -0.3383541181170244
+   },
+   {
+    "b_notional": 51.0,
+    "fair_coupon": 0.043299039371344404,
+    "value_residual": 21.688861604400962,
+    "p_default_b": 0.033,
+    "bank_gain": -0.33835411811716654
+   },
+   {
+    "b_notional": 52.0,
+    "fair_coupon": 0.04371454028523705,
+    "value_residual": 20.688861604401787,
+    "p_default_b": 0.033,
+    "bank_gain": -0.3383541181163423
+   },
+   {
+    "b_notional": 53.0,
+    "fair_coupon": 0.04411436191936608,
+    "value_residual": 19.68886160440098,
+    "p_default_b": 0.033,
+    "bank_gain": -0.3383541181171381
+   },
+   {
+    "b_notional": 54.0,
+    "fair_coupon": 0.04449937534481818,
+    "value_residual": 18.688861604401342,
+    "p_default_b": 0.033,
+    "bank_gain": -0.33835411811678284
+   },
+   {
+    "b_notional": 55.0,
+    "fair_coupon": 0.044872563598900427,
+    "value_residual": 17.688861604383412,
+    "p_default_b": 0.033,
+    "bank_gain": -0.33835411813470273
+   },
+   {
+    "b_notional": 56.0,
+    "fair_coupon": 0.04559533334117093,
+    "value_residual": 16.68886160440132,
+    "p_default_b": 0.082,
+    "bank_gain": -0.33835411811679705
+   },
+   {
+    "b_notional": 57.0,
+    "fair_coupon": 0.04641666636069918,
+    "value_residual": 15.68886160440097,
+    "p_default_b": 0.082,
+    "bank_gain": -0.3383541181171523
+   },
+   {
+    "b_notional": 58.0,
+    "fair_coupon": 0.047209677551971266,
+    "value_residual": 14.688861604399886,
+    "p_default_b": 0.082,
+    "bank_gain": -0.33835411811823235
+   },
+   {
+    "b_notional": 59.0,
+    "fair_coupon": 0.0479821763877513,
+    "value_residual": 13.688861604397157,
+    "p_default_b": 0.082,
+    "bank_gain": -0.33835411812096083
+   },
+   {
+    "b_notional": 60.0,
+    "fair_coupon": 0.048745295342260644,
+    "value_residual": 12.68886160440165,
+    "p_default_b": 0.082,
+    "bank_gain": -0.3383541181164702
+   },
+   {
+    "b_notional": 61.0,
+    "fair_coupon": 0.04948339400322527,
+    "value_residual": 11.688861604393656,
+    "p_default_b": 0.082,
+    "bank_gain": -0.3383541181244709
+   },
+   {
+    "b_notional": 62.0,
+    "fair_coupon": 0.05064201842476267,
+    "value_residual": 10.688861604400858,
+    "p_default_b": 0.159,
+    "bank_gain": -0.338354118117266
+   },
+   {
+    "b_notional": 63.0,
+    "fair_coupon": 0.05192167036822235,
+    "value_residual": 9.688861604399825,
+    "p_default_b": 0.159,
+    "bank_gain": -0.3383541181183034
+   },
+   {
+    "b_notional": 64.0,
+    "fair_coupon": 0.053171012076329086,
+    "value_residual": 8.688861604400037,
+    "p_default_b": 0.159,
+    "bank_gain": -0.33835411811809024
+   },
+   {
+    "b_notional": 65.0,
+    "fair_coupon": 0.05438838124304904,
+    "value_residual": 7.688861604394588,
+    "p_default_b": 0.159,
+    "bank_gain": -0.338354118123533
+   },
+   {
+    "b_notional": 66.0,
+    "fair_coupon": 0.05564800907504821,
+    "value_residual": 6.688861604400605,
+    "p_default_b": 0.159,
+    "bank_gain": -0.3383541181175218
+   },
+   {
+    "b_notional": 67.0,
+    "fair_coupon": 0.056870036076263925,
+    "value_residual": 5.688861604400673,
+    "p_default_b": 0.159,
+    "bank_gain": -0.33835411811745075
+   },
+   {
+    "b_notional": 68.0,
+    "fair_coupon": 0.05884878076542104,
+    "value_residual": 4.688861604400771,
+    "p_default_b": 0.29,
+    "bank_gain": -0.3383541181173513
+   },
+   {
+    "b_notional": 69.0,
+    "fair_coupon": 0.06096822543870964,
+    "value_residual": 3.688861604401656,
+    "p_default_b": 0.29,
+    "bank_gain": -0.3383541181164702
+   },
+   {
+    "b_notional": 70.0,
+    "fair_coupon": 0.06348506231629081,
+    "value_residual": 2.688861604400751,
+    "p_default_b": 0.29,
+    "bank_gain": -0.3383541181173655
+   },
+   {
+    "b_notional": 71.0,
+    "fair_coupon": 0.06652772942402775,
+    "value_residual": 1.6888616044003593,
+    "p_default_b": 0.473,
+    "bank_gain": -0.3383541181177634
+   },
+   {
+    "b_notional": 72.0,
+    "fair_coupon": 0.07204356111141508,
+    "value_residual": 0.6888616044004956,
+    "p_default_b": 0.729,
+    "bank_gain": -0.3383541181176213
+   }
+  ],
+  "default_limits": [
+   {
+    "max_p_default_b": 0.0,
+    "b_notional": 0.0,
+    "p_default_b": 0.0,
+    "bank_gain": -0.3383541181174934
+   },
+   {
+    "max_p_default_b": 0.01,
+    "b_notional": 0.0,
+    "p_default_b": 0.0,
+    "bank_gain": -0.3383541181174934
+   },
+   {
+    "max_p_default_b": 0.05,
+    "b_notional": 0.0,
+    "p_default_b": 0.0,
+    "bank_gain": -0.3383541181174934
+   },
+   {
+    "max_p_default_b": 0.1,
+    "b_notional": 0.0,
+    "p_default_b": 0.0,
+    "bank_gain": -0.3383541181174934
+   },
+   {
+    "max_p_default_b": 0.2,
+    "b_notional": 67.0,
+    "p_default_b": 0.159,
+    "bank_gain": 0.16924416246133944
+   }
+  ]
+ },
+ "sensitivities": {
+  "rho": [
+   {
+    "rho": 0.0,
+    "expected_pool_pv": 98.45292455408318,
+    "cost_of_risk": 10.42570883156506,
+    "cost_per_unit_risk": 0.19835214229318138,
+    "value_a": 15.338354118117447,
+    "value_b": 32.03012470870477,
+    "value_residual": 40.65873689569516,
+    "p_default_a": 0.0,
+    "p_default_b": 0.0
+   },
+   {
+    "rho": 0.2,
+    "expected_pool_pv": 98.50074499729747,
+    "cost_of_risk": 10.473529274779352,
+    "cost_per_unit_risk": 0.10533475038550345,
+    "value_a": 15.338354118117447,
+    "value_b": 32.03012470870477,
+    "value_residual": 40.65873689569526,
+    "p_default_a": 0.0,
+    "p_default_b": 0.0
+   },
+   {
+    "rho": 0.4,
+    "expected_pool_pv": 98.39771970849638,
+    "cost_of_risk": 10.37050398597826,
+    "cost_per_unit_risk": 0.06378778204108587,
+    "value_a": 15.338354118117447,
+    "value_b": 31.978521864082477,
+    "value_residual": 40.710339740317465,
+    "p_default_a": 0.0,
+    "p_default_b": 0.003
+   },
+   {
+    "rho": 0.6,
+    "expected_pool_pv": 98.53771238953883,
+    "cost_of_risk": 10.510496667020703,
+    "cost_per_unit_risk": 0.04715540390117366,
+    "value_a": 15.338354118117447,
+    "value_b": 31.847074401467633,
+    "value_residual": 40.841787202932366,
+    "p_default_a": 0.0,
+    "p_default_b": 0.013
+   },
+   {
+    "rho": 0.8,
+    "expected_pool_pv": 98.72320503396617,
+    "cost_of_risk": 10.695989311448045,
+    "cost_per_unit_risk": 0.034259327416248646,
+    "value_a": 15.338354118117447,
+    "value_b": 31.47855192765556,
+    "value_residual": 41.210309676744465,
+    "p_default_a": 0.0,
+    "p_default_b": 0.049
+   }
+  ],
+  "pd": [
+   {
+    "pd": 0.02,
+    "expected_pool_pv": 103.48243777463084,
+    "cost_of_risk": 15.455222052112717,
+    "cost_per_unit_risk": 0.3076072515604658,
+    "value_a": 15.338354118117447,
+    "value_b": 32.03012470870477,
+    "value_residual": 40.658736895695355,
+    "p_default_a": 0.0,
+    "p_default_b": 0.0
+   },
+   {
+    "pd": 0.04,
+    "expected_pool_pv": 98.50074499729747,
+    "cost_of_risk": 10.473529274779352,
+    "cost_per_unit_risk": 0.10533475038550345,
+    "value_a": 15.338354118117447,
+    "value_b": 32.03012470870477,
+    "value_residual": 40.65873689569526,
+    "p_default_a": 0.0,
+    "p_default_b": 0.0
+   },
+   {
+    "pd": 0.06,
+    "expected_pool_pv": 93.72437011779446,
+    "cost_of_risk": 5.697154395276343,
+    "cost_per_unit_risk": 0.04081501172962409,
+    "value_a": 15.338354118117447,
+    "value_b": 32.03012470870477,
+    "value_residual": 40.65873689569514,
+    "p_default_a": 0.0,
+    "p_default_b": 0.0
+   },
+   {
+    "pd": 0.08,
+    "expected_pool_pv": 89.17618630726473,
+    "cost_of_risk": 1.148970584746607,
+    "cost_per_unit_risk": 0.006857630402761092,
+    "value_a": 15.338354118117447,
+    "value_b": 32.019774037449594,
+    "value_residual": 40.66908756695031,
+    "p_default_a": 0.0,
+    "p_default_b": 0.002
+   },
+   {
+    "pd": 0.12,
+    "expected_pool_pv": 81.46212132168614,
+    "cost_of_risk": -6.565094400831981,
+    "cost_per_unit_risk": -0.03469574286153231,
+    "value_a": 15.338354118117447,
+    "value_b": 32.03810908669983,
+    "value_residual": 40.650752517700056,
+    "p_default_a": 0.0,
+    "p_default_b": 0.014
+   }
+  ],
+  "lgd": [
+   {
+    "lgd": 0.4,
+    "expected_pool_pv": 102.00808882591006,
+    "cost_of_risk": 13.980873103391943,
+    "cost_per_unit_risk": 0.3163700997755108,
+    "value_a": 15.338354118117447,
+    "value_b": 32.03012470870477,
+    "value_residual": 40.65873689569519,
+    "p_default_a": 0.0,
+    "p_default_b": 0.0
+   },
+   {
+    "lgd": 0.6,
+    "expected_pool_pv": 98.50074499729747,
+    "cost_of_risk": 10.473529274779352,
+    "cost_per_unit_risk": 0.10533475038550345,
+    "value_a": 15.338354118117447,
+    "value_b": 32.03012470870477,
+    "value_residual": 40.65873689569526,
+    "p_default_a": 0.0,
+    "p_default_b": 0.0
+   },
+   {
+    "lgd": 0.8,
+    "expected_pool_pv": 94.9934011686849,
+    "cost_of_risk": 6.966185446166776,
+    "cost_per_unit_risk": 0.0394090692398138,
+    "value_a": 15.338354118117447,
+    "value_b": 31.849446794619652,
+    "value_residual": 40.8394148097803,
+    "p_default_a": 0.0,
+    "p_default_b": 0.017
+   },
+   {
+    "lgd": 1.0,
+    "expected_pool_pv": 91.48605734007232,
+    "cost_of_risk": 3.4588416175541994,
+    "cost_per_unit_risk": 0.012523098488180413,
+    "value_a": 15.33043500750577,
+    "value_b": 31.452082326698598,
+    "value_residual": 41.244698388312955,
+    "p_default_a": 0.001,
+    "p_default_b": 0.033
+   }
+  ]
+ },
+ "precision": {
+  "n_sets": 500,
+  "seed": 6105,
+  "columns": [
+   "value_a",
+   "value_b",
+   "value_residual",
+   "cost_per_unit_risk",
+   "expected_pool_pv",
+   "expected_pv_residual"
+  ],
+  "sd_as_drawn": [
+   2.3115766247906638e-14,
+   0.010402198650403713,
+   0.0104021986504008,
+   0.008942005945039279,
+   0.33282388609778246,
+   0.3327390423914374
+  ],
+  "sd_matched": [
+   2.3115766247906638e-14,
+   0.00967624631629965,
+   0.009676246316298471,
+   0.00411440533625307,
+   0.12068806979596135,
+   0.1206389698396669
+  ],
+  "mean_as_drawn": [
+   15.338354118117424,
+   32.0259957478298,
+   40.66286585656993,
+   0.10450395854587392,
+   98.35867659653762,
+   50.99088360550479
+  ],
+  "mean_matched": [
+   15.338354118117424,
+   32.02613270512752,
+   40.6627288992722,
+   0.1042144010724899,
+   98.35913458177721,
+   50.991308931897244
+  ]
+ }
+}

@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Miniproject 3 Part 2 - CDO Valuation</title>
+<meta name="description" content="Lintner valuation of a CDO backed by 10 speculative grade bonds: PVs at the risk-free rate in 1000 cases, the cost of risk from the bonds' market price, and a search over Class B. FRE 6103, NYU Tandon.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231e3a5f'/%3E%3Crect x='7' y='20' width='18' height='5' fill='%23eb6834'/%3E%3Crect x='7' y='14' width='18' height='5' fill='%231baf7a'/%3E%3Crect x='7' y='7' width='18' height='6' fill='%232a78d6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Crimson+Pro:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --bg:#f8fafc; --card:#ffffff; --fg:#0f172a; --fg-2:#475569; --muted:#e9eef5; --border:#cbd5e1;
+  --primary:#1e3a5f; --accent:#b45309; --ring:#1e3a5f;
+  --chart-surface:#fcfcfb; --grid:#e1e0d9; --axis:#c3c2b7;
+  --s-equity:#2a78d6; --s-a:#eb6834; --s-b:#1baf7a; --s-pool:#52514e; --s-bench:#898781;
+  --serif:"Crimson Pro",Georgia,"Times New Roman",serif;
+  --sans:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --bg:#0d0d0d; --card:#1a1a19; --fg:#ffffff; --fg-2:#c3c2b7; --muted:#242423; --border:#383835;
+    --primary:#9ec5f4; --accent:#f0b26b; --ring:#9ec5f4;
+    --chart-surface:#1a1a19; --grid:#2c2c2a; --axis:#383835;
+    --s-equity:#3987e5; --s-a:#d95926; --s-b:#199e70; --s-pool:#c3c2b7; --s-bench:#898781;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *{transition:none!important} }
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:var(--primary);text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:var(--accent)}
+:focus-visible{outline:3px solid var(--ring);outline-offset:2px;border-radius:4px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--card);padding:8px 12px;border:1px solid var(--border);z-index:10}
+.skip:focus{left:16px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+header.site{border-bottom:1px solid var(--border);background:var(--card)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:14px;padding-bottom:14px;flex-wrap:wrap}
+.brand{font-family:var(--serif);font-weight:600;font-size:18px;color:var(--primary)}
+nav.main{display:flex;gap:4px 18px;flex-wrap:wrap;font-size:14.5px}
+nav.main a{text-decoration:none;color:var(--fg-2);padding:6px 0}
+nav.main a:hover{color:var(--accent)}
+.hero{padding:clamp(28px,5vw,56px) 0 12px}
+.eyebrow{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-2);font-weight:700}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(34px,5vw,54px);line-height:1.08;margin:10px 0 14px;color:var(--primary);letter-spacing:-.01em}
+.lede{font-size:19px;max-width:860px;color:var(--fg);margin:0 0 18px}
+.meta{display:flex;gap:10px 24px;flex-wrap:wrap;color:var(--fg-2);font-size:14.5px}
+.meta b{color:var(--fg);font-weight:700}
+section{padding:26px 0}
+h2{font-family:var(--serif);font-weight:600;font-size:30px;margin:0 0 6px;color:var(--primary)}
+h3{font-family:var(--serif);font-weight:600;font-size:22px;margin:22px 0 8px;color:var(--fg)}
+.sub{color:var(--fg-2);margin:0 0 18px;max-width:860px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px}
+.split-32{display:grid;grid-template-columns:minmax(0,1fr);gap:18px}
+.split-23{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:18px}
+@media (max-width:900px){.split-32,.split-23{grid-template-columns:minmax(0,1fr)}}
+.legend{display:flex;gap:8px 24px;flex-wrap:wrap;font-size:13.5px;color:var(--fg-2);margin:0 0 12px}
+.legend svg{color:var(--s-equity);vertical-align:middle;margin-right:8px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:8px 0 6px}
+.tile{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 18px}
+.tile .k{font-size:13px;color:var(--fg-2);font-weight:700;letter-spacing:.02em}
+.tile .v{font-size:clamp(24px,2.3vw,31px);font-weight:700;line-height:1.15;margin:6px 0 2px;color:var(--fg)}
+.tile .d{font-size:13.5px;color:var(--fg-2)}
+.inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px 22px;align-items:end}
+.field label{display:block;font-size:13.5px;font-weight:700;color:var(--fg-2);margin-bottom:2px}
+.field output{display:block;font-size:22px;font-weight:700;line-height:1.2}
+.field .base{font-size:12.5px;color:var(--fg-2)}
+input[type=range]{width:100%;min-height:44px;margin:0;accent-color:var(--primary);cursor:pointer}
+input[type=number]{font:inherit;width:120px;padding:9px 12px;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--fg);min-height:44px}
+.status{font-size:14px;color:var(--fg-2);margin:14px 0 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:9px 16px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--fg);text-decoration:none;font:inherit;font-weight:700;font-size:14.5px;cursor:pointer;transition:background .2s,border-color .2s}
+.btn:hover{border-color:var(--primary);background:var(--muted);color:var(--fg)}
+.btn[aria-disabled="true"]{opacity:.5;cursor:not-allowed}
+.toolbar{display:flex;gap:10px 14px;flex-wrap:wrap;align-items:center;margin:0 0 14px}
+.toolbar label{font-size:14px;font-weight:700;color:var(--fg-2)}
+.chart-wrap{position:relative;height:340px;background:var(--chart-surface);border-radius:8px}
+.chart-wrap.short{height:280px}
+.case-charts{display:grid;grid-template-columns:minmax(0,5fr) minmax(150px,1fr);gap:14px}
+@media (max-width:720px){.case-charts{grid-template-columns:minmax(0,1fr)}.chart-wrap{height:300px}}
+/* grid items may shrink below the width of a table or chart canvas inside them, so the page never scrolls sideways */
+.grid2>*,.grid3>*,.case-charts>*,.split-32>*,.split-23>*,.inputs>*,.tiles>*{min-width:0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.caption{font-size:13.5px;color:var(--fg-2);margin:10px 0 0}
+.chart-fallback{padding:24px;color:var(--fg-2);font-size:14px}
+table{width:100%;border-collapse:collapse;font-size:14.5px;font-variant-numeric:tabular-nums}
+caption{text-align:left;font-weight:700;color:var(--fg-2);padding:0 0 8px;font-size:14px}
+th,td{padding:7px 10px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+thead th{color:var(--fg-2);font-weight:700;font-size:13px;letter-spacing:.02em;background:var(--card);white-space:normal;vertical-align:bottom}
+table.compact th,table.compact td{padding:6px 7px;font-size:13.5px}
+tbody tr:hover{background:var(--muted)}
+tr.total td{font-weight:700;border-top:2px solid var(--border)}
+tr.is-base td{font-weight:700}
+.scroll-x{overflow-x:auto}
+.scroll{max-height:440px;overflow:auto;border:1px solid var(--border);border-radius:8px}
+.scroll thead th{position:sticky;top:0;z-index:1}
+.method p{margin:0 0 12px;max-width:880px}
+.method strong{color:var(--primary)}
+.downloads{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.dl{display:flex;flex-direction:column;gap:6px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 18px;text-decoration:none;color:var(--fg);transition:border-color .2s,transform .2s}
+.dl:hover{border-color:var(--primary);color:var(--fg);transform:translateY(-1px)}
+.dl .t{font-weight:700;display:flex;align-items:center;gap:8px}
+.dl .t svg{width:18px;height:18px;color:var(--accent);flex:none}
+.dl .d{font-size:13.5px;color:var(--fg-2)}
+footer{border-top:1px solid var(--border);padding:26px 0 40px;color:var(--fg-2);font-size:14px;margin-top:20px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site">
+  <div class="wrap top">
+    <div class="brand">CDO Valuation</div>
+    <nav class="main" aria-label="Sections">
+      <a href="#inputs">Structure</a><a href="#values">Values</a><a href="#bonus">Bonus</a>
+      <a href="#method">Methodology</a><a href="#downloads">Downloads</a><a href="./">Part 1 dashboard</a>
+      <a href="https://github.com/pawarraj8888/valuation-assignments/tree/main/miniproject-3-cdo-analysis">GitHub</a><a href="../">All mini-projects</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <noscript><p class="card" style="margin-top:20px">This page computes its tables and charts in the browser, so it needs JavaScript. The same results are in the <a href="files/Miniproject3_Part2_CDO_Valuation_Report.pdf">PDF report</a>.</p></noscript>
+  <div class="hero">
+    <div class="eyebrow">NYU Tandon · FRE 6103 Valuation for Financial Engineering · Miniproject 3, Part 2</div>
+    <h1>CDO Valuation with the Lintner Model</h1>
+    <p class="lede">The same 1000 cases of correlated defaults as Part 1, now valued. Every tranche's cash flows are discounted
+      at the risk-free rate in each case, the bonds' price at their 9% market yield gives the cost of risk, and each tranche
+      is charged for risk in proportion to the covariance of its PV with the PV of the whole pool (Lecture 6).</p>
+    <div class="meta">
+      <span><b id="m-authors"></b></span>
+      <span><b>1000</b> moment-matched cases, seed <b id="m-seed"></b></span>
+      <span>Amounts in <b>$ millions</b>, PVs as of today</span>
+    </div>
+  </div>
+
+  <section id="inputs" aria-labelledby="inputs-h">
+    <h2 id="inputs-h">Structure</h2>
+    <p class="sub">Class A is held at $15 MM, as in the bonus. Change Class B or the coupons and every value below is recomputed on
+      the 1000 cases. The defaults, and so the pool's cash flows, stay the same.</p>
+    <div class="card">
+      <div class="inputs">
+        <div class="field"><label for="in-b">Class B principal</label><output id="out-b" for="in-b"></output>
+          <input id="in-b" type="range" min="0" max="100" step="1"><span class="base">Assignment: $30 MM</span></div>
+        <div class="field"><label for="in-cb">Class B coupon</label><output id="out-cb" for="in-cb"></output>
+          <input id="in-cb" type="range" min="0" max="10" step="0.05"><span class="base">Target rate: 5.5%</span></div>
+        <div class="field"><label for="in-ca">Class A coupon</label><output id="out-ca" for="in-ca"></output>
+          <input id="in-ca" type="range" min="0" max="10" step="0.05"><span class="base">Target rate: 4.5%</span></div>
+        <div class="field"><label for="in-rf">Risk-free rate</label><output id="out-rf" for="in-rf"></output>
+          <input id="in-rf" type="range" min="0" max="8" step="0.25"><span class="base">Assignment: 4%</span></div>
+        <div class="field"><label for="in-ytm">Bonds' market yield</label><output id="out-ytm" for="in-ytm"></output>
+          <input id="in-ytm" type="range" min="4" max="15" step="0.25"><span class="base">Assignment: 9%</span></div>
+      </div>
+      <p class="status"><button id="reset" class="btn" type="button">Back to the assignment's structure</button>
+        <span id="status" role="status"></span></p>
+    </div>
+  </section>
+
+  <div class="tiles" role="group" aria-label="Key results for the structure above">
+    <div class="tile"><div class="k">Cost of risk (bonds)</div><div class="v" id="t-cost">…</div><div class="d" id="t-cost-d"></div></div>
+    <div class="tile"><div class="k">Cost per unit risk</div><div class="v" id="t-lambda">…</div><div class="d" id="t-lambda-d"></div></div>
+    <div class="tile"><div class="k">Residual's Lintner value</div><div class="v" id="t-res">…</div><div class="d" id="t-res-d"></div></div>
+    <div class="tile"><div class="k">Bank's gain</div><div class="v" id="t-gain">…</div><div class="d" id="t-gain-d"></div></div>
+  </div>
+
+  <section id="values" aria-labelledby="values-h">
+    <h2 id="values-h">Values</h2>
+    <p class="sub">Value = expected PV at the risk-free rate less the cost per unit risk times the tranche's covariance with the pool.
+      The three values always add up to the bonds' market value.</p>
+    <div class="card"><div class="scroll-x" tabindex="0" role="region" aria-label="Lintner values"><table id="value-table">
+      <caption>Lintner values for the structure above ($ MM)</caption>
+      <thead><tr><th scope="col">Tranche</th><th scope="col">Principal</th><th scope="col">Coupon</th><th scope="col">Expected PV</th>
+        <th scope="col">Covariance with pool</th><th scope="col">Risk charge</th><th scope="col">Lintner value</th>
+        <th scope="col">Value per $100</th><th scope="col">Cases short</th><th scope="col">Fair coupon</th></tr></thead>
+      <tbody></tbody></table></div>
+      <p class="caption" id="value-note"></p>
+    </div>
+  </section>
+
+  <section id="bonus" aria-labelledby="bonus-h">
+    <h2 id="bonus-h">Bonus: choosing Class B</h2>
+    <p class="sub">The bank's gain is the cash from selling both classes at par plus the residual's value, less the bonds it puts in.
+      With Class B at its fair coupon the gain is the same at every size, so the structure moves risk between the bank and the
+      Class B investors without creating value.</p>
+    <div class="split-23">
+      <div class="card"><div class="scroll-x" tabindex="0" role="region" aria-label="Fair coupon of Class B by size"><table id="fair-table" class="compact">
+        <caption>Class B at its fair coupon</caption>
+        <thead><tr><th scope="col">Class B principal</th><th scope="col">Fair coupon</th><th scope="col">Cases short</th><th scope="col">Residual value</th></tr></thead>
+        <tbody></tbody></table></div></div>
+      <div class="card">
+        <div class="chart-wrap"><canvas id="gain-chart" role="img" aria-label="Bank's gain against Class B principal"></canvas></div>
+        <p class="caption" id="gain-caption"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="method" class="method" aria-labelledby="method-h">
+    <h2 id="method-h">Methodology</h2>
+    <div id="method-body"></div>
+  </section>
+
+  <section id="downloads" aria-labelledby="dl-h">
+    <h2 id="dl-h">Downloads</h2>
+    <p class="sub">Part 2 deliverables. The Part 1 files are on the <a href="./#downloads">Part 1 dashboard</a>.</p>
+    <div class="downloads">
+      <a class="dl" href="files/Miniproject3_Part2_CDO_Valuation_Report.pdf"><span class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 2h9l5 5v15H6z"/><path d="M14 2v6h6M8 13h8M8 17h8"/></svg>Report (PDF)</span><span class="d">Assumptions, steps, Lintner values, what moves them, and the bonus.</span></a>
+      <a class="dl" href="files/Miniproject3_Part2_CDO_Valuation.xlsx"><span class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>Excel workbook (.xlsx)</span><span class="d">The Part 1 model with the Part 2 classes and a Valuation sheet in live formulas.</span></a>
+      <a class="dl" href="files/Miniproject3_Part2_CDO_Valuation.ipynb" download><span class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 4l-5 8 5 8M16 4l5 8-5 8"/></svg>Python notebook (.ipynb)</span><span class="d">Self-contained: the steps of the assignment, the bonus search and the checks.</span></a>
+      <a class="dl" href="files/case_values.csv" download><span class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16v16H4zM4 10h16M4 15h16M10 4v16"/></svg>PVs by case (CSV)</span><span class="d">PV at 4% of Class A, Class B, the residual and the pool, with the default indicators, for all 1000 cases.</span></a>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  <div><span id="f-authors"></span> · FRE 6103 Valuation for Financial Engineering, NYU Tandon · Miniproject 3 (Part 2), Fall 2026.
+  The valuation is the Lintner CAPM from Lecture 6. Code MIT licensed on
+  <a href="https://github.com/pawarraj8888/valuation-assignments/tree/main/miniproject-3-cdo-analysis">GitHub</a>.</div>
+</div></footer>
+
+<script src="data.js"></script>
+<script src="valuation-data.js"></script>
+<script src="model.js"></script>
+<script>
+(function(){
+  'use strict';
+  const D = window.CDO_DATA, P = window.CDO_PART2, M = window.CDOModel;
+  const $ = id => document.getElementById(id);
+  if(!D || !P || !M){ $('main').insertAdjacentHTML('afterbegin','<p class="card">Project data (data.js, valuation-data.js or model.js) not found.</p>'); return; }
+
+  const css = k => getComputedStyle(document.documentElement).getPropertyValue(k).trim();
+  const f = (x,n) => Number(x).toLocaleString('en-US',{minimumFractionDigits:n,maximumFractionDigits:n});
+  const pct = (x,n) => f(x*100,n) + '%';
+  const money = (x,n) => (x < 0 ? '-$' : '$') + f(Math.abs(x),n) + ' MM';
+  const BASE = Object.assign({}, P.deal);
+  const START = {b: BASE.b_notional, cb: BASE.b_coupon*100, ca: BASE.a_coupon*100, rf: P.risk_free*100, ytm: P.market_ytm*100};
+  const Z = M.momentMatch(D.z);
+  const pool = M.simulate(Z, BASE).pool;     // the pool's cash flows do not depend on the classes
+  let s = Object.assign({}, START), chartState = typeof Chart !== 'undefined' ? 'ready' : 'loading', chart = null, v = null;
+
+  const deal = () => Object.assign({}, BASE, {b_notional: s.b, b_coupon: s.cb/100, a_coupon: s.ca/100});
+  const FIELDS = [
+    {id:'b',   show:x=>money(x,0)}, {id:'cb', show:x=>f(x,2)+'%'}, {id:'ca', show:x=>f(x,2)+'%'},
+    {id:'rf',  show:x=>f(x,2)+'%'}, {id:'ytm', show:x=>f(x,2)+'%'},
+  ];
+
+  function renderStatic(){
+    $('m-authors').textContent = P.project.authors; $('f-authors').textContent = P.project.authors; $('m-seed').textContent = P.seed;
+    $('method-body').innerHTML = P.methodology.map(m => '<p><strong>' + m.heading + '.</strong> ' + m.html + '</p>').join('');
+  }
+
+  function renderInputs(){
+    FIELDS.forEach(c => { $('in-' + c.id).value = s[c.id]; $('out-' + c.id).textContent = c.show(s[c.id]); });
+    const atStart = Object.keys(START).every(k => Math.abs(s[k] - START[k]) < 1e-9);
+    $('reset').setAttribute('aria-disabled', atStart ? 'true' : 'false');
+  }
+
+  function compute(){
+    const d = deal(), rf = s.rf/100;
+    try { v = M.valueCdo(pool, d, rf, s.ytm/100); }
+    catch(e){ v = null; $('status').textContent = e.message; return; }
+    v.deal = d; v.rf = rf;
+    v.gain = d.a_notional + d.b_notional + v.value[2] - v.marketValue;
+    v.fair = [M.fairCoupon(pool, d, rf, v.costPerUnitRisk, 'a'), M.fairCoupon(pool, d, rf, v.costPerUnitRisk, 'b')];
+    $('status').textContent = v.costOfRisk < 0 ? 'The bonds\' expected PV is below their market value, so the cost of risk is negative and the method stops making sense.' : '';
+  }
+
+  function renderTiles(){
+    if(!v) return;
+    $('t-cost').textContent = money(v.costOfRisk,2);
+    $('t-cost-d').textContent = 'Expected PV ' + money(v.poolMean,2) + ' less market value ' + money(v.marketValue,2);
+    $('t-lambda').textContent = f(v.costPerUnitRisk,5);
+    $('t-lambda-d').textContent = 'Per unit of variance of the pool PV (' + f(v.poolVariance,2) + ')';
+    $('t-res').textContent = money(v.value[2],2);
+    $('t-res-d').textContent = 'Expected PV ' + money(v.expected[2],2) + ', risk charge ' + money(v.riskCharge[2],2);
+    $('t-gain').textContent = money(v.gain,2);
+    $('t-gain-d').textContent = 'Cash ' + money(v.deal.a_notional + v.deal.b_notional,2) + ' + residual - bonds';
+  }
+
+  function renderValues(){
+    const body = $('value-table').querySelector('tbody');
+    if(!v){ body.innerHTML = ''; return; }
+    const d = v.deal, rows = [
+      ['Class A', d.a_notional, d.a_coupon, 0], ['Class B', d.b_notional, d.b_coupon, 1], ['Residual', null, null, 2]];
+    body.innerHTML = rows.map(([name, principal, coupon, j]) => '<tr><th scope="row">' + name + '</th><td>' +
+      (principal === null ? '-' : f(principal,2)) + '</td><td>' + (coupon === null ? '-' : pct(coupon,2)) + '</td><td>' +
+      f(v.expected[j],2) + '</td><td>' + f(Math.abs(v.covWithPool[j]) < 5e-5 ? 0 : v.covWithPool[j],4) + '</td><td>' + f(v.riskCharge[j],2) + '</td><td>' +
+      f(v.value[j],2) + '</td><td>' + (principal ? f(100*v.value[j]/principal,2) : '-') + '</td><td>' +
+      (j < 2 ? v.shortCases[j] : '-') + '</td><td>' + (j < 2 ? (v.fair[j] === null ? 'none' : pct(v.fair[j],2)) : '-') +
+      '</td></tr>').join('') + '<tr class="total"><th scope="row">Pool (bonds)</th><td>100.00</td><td>6.00%</td><td>' +
+      f(v.poolMean,2) + '</td><td>' + f(v.poolVariance,4) + '</td><td>' + f(v.costOfRisk,2) + '</td><td>' +
+      f(v.value[0] + v.value[1] + v.value[2],2) + '</td><td>' + f(v.marketValue,2) + '</td><td></td><td></td></tr>';
+    $('value-note').textContent = 'Bonds\' market value at ' + f(s.ytm,2) + '%: ' + money(v.marketValue,2) +
+      '. Python, on the same cases, gives ' + P.python.value.map(x => f(x,4)).join(', ') + ' for the assignment\'s structure.';
+  }
+
+  function renderFair(){
+    const body = $('fair-table').querySelector('tbody');
+    if(!v){ body.innerHTML = ''; return; }
+    const sizes = [10, 20, 30, 40, 50, 60, 65, 70, 75];
+    body.innerHTML = sizes.map(size => {
+      const d = Object.assign({}, v.deal, {b_notional: size});
+      const c = M.fairCoupon(pool, d, v.rf, v.costPerUnitRisk, 'b');
+      if(c === null) return '<tr><td>' + money(size,0) + '</td><td>none</td><td>-</td><td>-</td></tr>';
+      const r = M.valueStructure(pool, Object.assign(d, {b_coupon: c}), v.rf, v.costPerUnitRisk);
+      return '<tr><td>' + money(size,0) + '</td><td>' + pct(c,2) + '</td><td>' + r.shortCases[1] + '</td><td>' + f(r.value[2],2) + '</td></tr>';
+    }).join('');
+  }
+
+  function gainCurve(){
+    const xs = [], gains = [];
+    for(let size = 0; size <= 80; size += 2){
+      const r = M.valueStructure(pool, Object.assign({}, v.deal, {b_notional: size}), v.rf, v.costPerUnitRisk);
+      xs.push(size); gains.push(v.deal.a_notional + size + r.value[2] - v.marketValue);
+    }
+    const noB = M.valueStructure(pool, Object.assign({}, v.deal, {b_notional: 0}), v.rf, v.costPerUnitRisk);
+    const flat = v.deal.a_notional - noB.value[0], largest = v.marketValue - noB.value[0];
+    return {xs, gains, flat: xs.map(x => x <= largest ? flat : null), largest};
+  }
+
+  function renderChart(){
+    if(!v) return;
+    const c = gainCurve();
+    $('gain-caption').textContent = 'Solid: Class B coupon fixed at ' + f(s.cb,2) + '%. Dashed: Class B coupon set to its fair rate, up to ' +
+      money(c.largest,1) + ', the largest Class B that can be worth par.';
+    if(chartState !== 'ready'){ if(chartState === 'failed') $('gain-chart').parentNode.innerHTML = '<p class="chart-fallback">The chart library did not load. The table on the left has the same information.</p>'; return; }
+    const data = {labels: c.xs, datasets: [
+      {label: 'Class B coupon ' + f(s.cb,2) + '%', data: c.gains, borderColor: css('--s-b'), backgroundColor: css('--s-b'), pointRadius: 0, borderWidth: 2},
+      {label: 'Class B at its fair coupon', data: c.flat, borderColor: css('--s-bench'), borderDash: [6,4], pointRadius: 0, borderWidth: 2, spanGaps: false}]};
+    const options = {responsive: true, maintainAspectRatio: false, animation: false, interaction: {mode: 'index', intersect: false},
+      plugins: {legend: {position: 'top', align: 'start'}, tooltip: {callbacks: {title: items => 'Class B ' + money(items[0].parsed.x, 0),
+        label: item => item.dataset.label + ': ' + money(item.parsed.y, 2)}}},
+      scales: {x: {type: 'linear', title: {display: true, text: 'Class B principal ($MM)'}, grid: {display: false}},
+               y: {title: {display: true, text: "Bank's gain ($MM)"}, grid: {color: css('--grid')}}}};
+    if(chart){ chart.data = data; chart.options = options; chart.update(); }
+    else { chart = new Chart($('gain-chart'), {type: 'line', data: data, options: options}); }
+  }
+
+  function render(){ compute(); renderInputs(); renderTiles(); renderValues(); renderFair(); renderChart(); }
+
+  FIELDS.forEach(c => $('in-' + c.id).addEventListener('input', e => { s[c.id] = Number(e.target.value); render(); }));
+  $('reset').addEventListener('click', e => { if(e.currentTarget.getAttribute('aria-disabled') === 'true') return; s = Object.assign({}, START); render(); });
+  renderStatic();
+  render();
+  if(chartState !== 'ready'){
+    const lib = document.createElement('script');
+    lib.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js';
+    lib.integrity = 'sha384-dug+JxfBvklEQdJ4AYuBBAIScUz0bVN73xpy273gcAwHjb3qI0fXmuYNaNfdyYJG';
+    lib.crossOrigin = 'anonymous';
+    lib.onload = () => { chartState = 'ready'; Chart.defaults.font.family = css('--sans'); Chart.defaults.font.size = 12.5; render(); };
+    lib.onerror = () => { chartState = 'failed'; render(); };
+    document.head.appendChild(lib);
+  }
+})();
+</script>
+</body>
+</html>

@@ -7,6 +7,7 @@ one folder per assignment.
 
 | Mini-project | Folder | Dashboard | Authors |
 |---|---|---|---|
+| 3 (Part 2). CDO Valuation with the Lintner Model | [`miniproject-3-cdo-analysis`](miniproject-3-cdo-analysis) | https://pawarraj8888.github.io/valuation-assignments/cdo-analysis/valuation.html | Raj Pawar and Michael Brick |
 | 3 (Part 1). Simplified CDO Analysis | [`miniproject-3-cdo-analysis`](miniproject-3-cdo-analysis) | https://pawarraj8888.github.io/valuation-assignments/cdo-analysis/ | Raj Pawar and Michael Brick |
 | 2. Creating a ZCB Term Structure | [`miniproject-2-zcb-term-structure`](miniproject-2-zcb-term-structure) | https://pawarraj8888.github.io/valuation-assignments/zcb-term-structure/ | Monalisa Maity and Raj Pawar |
 | 1. The Two-Loan Comparison | [`miniproject-1-two-loan-comparison`](miniproject-1-two-loan-comparison) | Excel workbook only | Raj Pawar |

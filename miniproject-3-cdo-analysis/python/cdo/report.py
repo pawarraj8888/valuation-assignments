@@ -193,6 +193,56 @@ def plot_case(case: int, a_cf: np.ndarray, b_cf: np.ndarray, eq_cf: np.ndarray, 
     return fig
 
 
+def plot_pv_distributions(pool_pv: np.ndarray, residual_pv: np.ndarray, market_value: float,
+                          residual_value: float, rate: float) -> Figure:
+    """PV at the risk-free rate across the cases: the collateral pool (left) and the residual (right)."""
+    fig, axes = plt.subplots(1, 2, figsize=(11, 4.0))
+    panels = [
+        (axes[0], pool_pv, COLORS["pool"], "Collateral pool", (market_value, "market value at 9%")),
+        (axes[1], residual_pv, COLORS["equity"], "Residual (bank)", (residual_value, "Lintner value")),
+    ]
+    for ax, x, color, title, (mark, mark_label) in panels:
+        ax.hist(x, bins=40, color=color, edgecolor=COLORS["surface"], linewidth=0.8)
+        reference_line(ax, x.mean(), f"expected PV {x.mean():.1f}", 0.99)
+        reference_line(ax, mark, f"{mark_label} {mark:.1f}", 0.87)
+        ax.set_title(title)
+        ax.set_xlabel(f"PV of the 5-year cash flows at {rate:.0%} ($MM)")
+    axes[0].set_ylabel("Number of cases")
+    fig.tight_layout()
+    return fig
+
+
+def plot_class_b_choice(at_target: list, fair_curve: list, target_coupon: float, break_even: float,
+                        proposed: float) -> Figure:
+    """Bonus: the bank's gain against Class B's size (left); Class B's fair coupon and default probability (right)."""
+    fig, (left, right) = plt.subplots(1, 2, figsize=(11, 4.0))
+    shown = [row for row in at_target if row["b_notional"] <= 80]
+    left.plot([row["b_notional"] for row in shown], [row["bank_gain"] for row in shown], color=COLORS["class_b"],
+              label=f"Class B coupon fixed at {target_coupon:.1%}")
+    left.plot([row["b_notional"] for row in fair_curve], [row["bank_gain"] for row in fair_curve],
+              color=COLORS["benchmark"], linestyle="--", label="Class B coupon set to its fair rate")
+    left.axhline(0, color=COLORS["axis"], linewidth=0.8)
+    reference_line(left, proposed, f"proposed {proposed:.0f}", 0.99)
+    reference_line(left, break_even, f"{target_coupon:.1%} is fair at {break_even:.1f}", 0.87)
+    left.set_title("Bank's gain: cash from the classes + residual value - bonds")
+    left.set_xlabel("Class B principal ($MM)")
+    left.set_ylabel("$MM")
+    left.legend(loc="upper left", bbox_to_anchor=(0.0, 0.8))
+
+    fair_size = [row["b_notional"] for row in fair_curve]
+    right.plot(fair_size, [row["fair_coupon"] for row in fair_curve], color=COLORS["class_b"], label="Fair coupon")
+    right.plot(fair_size, [row["p_default_b"] for row in fair_curve], color=COLORS["ink_secondary"], linestyle=":",
+               label="Share of cases Class B is short")
+    right.axhline(target_coupon, color=COLORS["axis"], linewidth=0.8)
+    right.yaxis.set_major_formatter(PercentFormatter(1.0))
+    right.set_ylim(0, 0.5)
+    right.set_title("Class B at its fair coupon")
+    right.set_xlabel("Class B principal ($MM)")
+    right.legend(loc="upper left")
+    fig.tight_layout()
+    return fig
+
+
 def save_figure(fig: Figure, path: Path) -> None:
     """Write a figure to disk and release it."""
     fig.savefig(path)
